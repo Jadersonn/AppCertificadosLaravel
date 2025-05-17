@@ -95,12 +95,21 @@
       <div class="right-panel">
         <h1>LOGIN</h1>
         <p>Entre com seus dados institucionais</p>
-        <form method="post" action="login">
+        <form method="POST" action="{{ route('login') }}">
+        @csrf
           <div class="form-group">
             <input type="text" placeholder="CPF">
           </div>
           <div class="form-group">
-            <input type="password" placeholder="Senha">
+            <div class="mt-4">
+
+            <x-text-input id="password" class="block mt-1 w-full"
+                            type="password"
+                            name="password"
+                            required autocomplete="current-password" placeholder="SENHA"/>
+
+            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        </div>
             <a href="{{url('resetSenha')}}"><div class="forgot-password">Esqueci minha senha</div></a>
           </div>
           <button class="login-button" type="submit">ENTRAR</button>
