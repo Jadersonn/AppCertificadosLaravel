@@ -1,7 +1,5 @@
 <?php
 
-namespace App;
-
 namespace App\Enums;
 
 enum FuncaoEnum: string

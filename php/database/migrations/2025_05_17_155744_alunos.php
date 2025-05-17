@@ -16,17 +16,11 @@ return new class extends Migration {
             $table->date('dataConclusao')->nullable();
             $table->string('statusDeConclusao');
             $table->double('pontosRecebidos')->default(0);
-
-            $table->foreignId('idUsuario')
-                ->constrained('usuarios', 'idUsuario')
-                ->onDelete('cascade');
-
-            $table->foreignId('idTurma')
-                ->constrained('turmas', 'idTurma')
-                ->onDelete('cascade');
-
+            $table->foreignId('idTurma')->constrained('turmas')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
+
 
     }
 
