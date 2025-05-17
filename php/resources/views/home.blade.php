@@ -112,7 +112,7 @@
         </div>
             <a href="{{url('resetSenha')}}"><div class="forgot-password">Esqueci minha senha</div></a>
           </div>
-          <button class="login-button" type="submit">ENTRAR</button>
+          <button class="login-button" type="submit">{{ __('ENTRAR') }}</button>
         </form>
         <div class="footer">
           Em caso de problemas para acesso ao sistema entre<br> em contato com a CEREL<br><br>
