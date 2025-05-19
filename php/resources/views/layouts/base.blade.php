@@ -1,23 +1,20 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Certificados IFMS</title>
+    <meta charset="UTF-8">
+  <title>{{ config('app.name', 'Certificados IFMS') }}</title>
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background-color: #00722d;
     }
-
     .container {
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
     }
-
     .login-box {
       background-color: white;
       border-radius: 8px;
@@ -26,7 +23,6 @@
       box-shadow: 0 0 100px rgba(0, 0, 0, 0.2);
       overflow: hidden;
     }
-
     .left-panel {
       background-color: #00420C;
       color: white;
@@ -34,39 +30,31 @@
       text-align: center;
       width: 250px;
     }
-
     .left-panel .logo {
       font-size: 40px;
       margin-bottom: 20px;
     }
-
     .left-panel .title {
       font-weight: bold;
     }
-
     .right-panel {
       flex: 1;
       padding: 50px;
     }
-
     h1 {
       text-align: center;
       color: #00420C;
     }
-
     p {
-      text-align: left;
+      text-align: center;
       color: #555;
     }
-
     div.title {
       margin-top: 50%;
     }
-
     .form-group {
       margin: 20px 0;
     }
-
     input[type="text"],
     input[type="password"] {
       width: 94%;
@@ -74,13 +62,11 @@
       border-radius: 5px;
       border: 1px solid #ccc;
     }
-
     .forgot-password {
       text-align: right;
       font-size: 12px;
-      margin-top: 5px;
+      margin-top: 8px;
     }
-
     .login-button {
       width: 100%;
       background-color: #00420C;
@@ -91,46 +77,24 @@
       font-weight: bold;
       cursor: pointer;
     }
-
     .footer {
       text-align: center;
       font-size: 11px;
       color: #666;
       margin-top: 30px;
     }
-
-    .forgot-password {
-      text-align: right;
-      font-size: 12px;
-      margin: 3px;
-    }
   </style>
+  @stack('head')
 </head>
-
 <body>
-  <div class="container">
+      <div class="container">
     <div class="login-box">
       <div class="left-panel">
         <div class="logo">🟩</div>
         <div class="title">HORAS<br>COMPLEMENTARES</div>
       </div>
       <div class="right-panel">
-        <h1>LOGIN</h1>
-        <p>Informe seu email:</p>
-        <form method="POST" action="{{ route('password.email') }}">
-
-          <x-auth-session-status class="mb-4" :status="session('status')" />
-          <div class="form-group">
-            <input type="text" placeholder="EMAIL">
-          </div>
-          <div class="forgot-password">
-            <a href="{{ route('login') }}">Ja tem conta?</a>
-          </div>
-          <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
-        </form>
-
+        {{ $slot }}
         <div class="footer">
           Em caso de problemas para acesso ao sistema entre<br> em contato com a CEREL<br><br>
           2025 © Jaderson Pillar e Lara Riomayor
@@ -139,5 +103,4 @@
     </div>
   </div>
 </body>
-
 </html>
