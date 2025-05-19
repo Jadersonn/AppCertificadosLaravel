@@ -98,7 +98,8 @@
         <form method="POST" action="{{ route('login') }}">
         @csrf
           <div class="form-group">
-            <input type="text" placeholder="CPF">
+            <input type="text" placeholder="CPF" id="cpf" name="cpf" required autofocus autocomplete="username" class="block mt-1 w-full"/>
+            <x-input-error :messages="$errors->get('cpf')" class="mt-2" />
           </div>
           <div class="form-group">
             <div class="mt-4">
@@ -113,6 +114,9 @@
             <a href="{{url('resetSenha')}}"><div class="forgot-password">Esqueci minha senha</div></a>
           </div>
           <button class="login-button" type="submit">{{ __('ENTRAR') }}</button>
+          <x-primary-button class="ms-3">
+                {{ __('Log in') }}
+            </x-primary-button>
         </form>
         <div class="footer">
           Em caso de problemas para acesso ao sistema entre<br> em contato com a CEREL<br><br>
