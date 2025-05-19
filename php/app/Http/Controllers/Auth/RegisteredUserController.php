@@ -29,11 +29,11 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
+        $request->validate(rules: [
         'name' => 'required|string|max:255',
         'email' => 'required|string|email|max:255|unique:users',
         'password' => 'required|string|confirmed|min:8',
-        'numIdentidade' => 'required|string|max:20',
+        'numIdentidade' => 'required|string|unique:users|max:20',
         'funcao' => 'required|in:administrador,professor,aluno',
     ]);
 
