@@ -44,10 +44,5 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::dropIfExists('certificados');
-        Schema::table('certificados', function (Blueprint $table) {
-            $table->dropForeign(['idAluno']);
-            $table->dropForeign(['idAtividadeComplementar']);
-            $table->dropForeign(['idProfessor']);
-        });
     }
 };
