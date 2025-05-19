@@ -29,9 +29,9 @@ return new class extends Migration {
             $table->string('semestre');
 
             $table->foreignId('idProfessor')
+                ->nullable()
                 ->constrained('professores', 'idProfessor')
-                ->onDelete('set null')
-                ->nullable();
+                ->onDelete('set null');
 
             $table->timestamps();
         });

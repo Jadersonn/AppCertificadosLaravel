@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+  
 
-use App\Models\AtividadeComplementar;
 class TipoAtividade extends Model
 {
     protected $primaryKey = 'idTipoAtividade';

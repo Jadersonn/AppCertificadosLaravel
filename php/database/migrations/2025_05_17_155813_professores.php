@@ -11,10 +11,10 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('professores', function (Blueprint $table) {
-            $table->id('id');
+            $table->id('idProfessor');
 
             $table->foreignId('idUsuario')
-                ->constrained('usuarios', 'idUsuario')
+                ->constrained('users', 'id')
                 ->onDelete('cascade');
 
             $table->timestamps();

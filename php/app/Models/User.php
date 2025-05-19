@@ -25,7 +25,7 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'funcao' => \App\Enums\FuncaoEnum::class, // Se estiver usando enum do PHP 8.1+
+        'funcao' => \App\Enums\FuncaoEnum::class,
     ];
 
     public function aluno()
