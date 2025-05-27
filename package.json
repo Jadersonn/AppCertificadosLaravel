@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@alpinejs/mask": "^3.14.9"
+  }
+}

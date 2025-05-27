@@ -4,6 +4,7 @@ services:
   app:
     build:
       context: .
+      dockerfile: Dockerfile
     container_name: laravel_app
     volumes:
       - .:/var/www/html
@@ -11,13 +12,12 @@ services:
       - 8000:8000
     depends_on:
       - db
-    command: php artisan serve --host=127.0.0.1 --port=8000
 
   db:
-    image: mysql
+    image: mysql:8.0
     container_name: mysql_db
     restart: always
-    expose:
+    ports:
       - 3306:3306
     environment:
       MYSQL_DATABASE: tcc
