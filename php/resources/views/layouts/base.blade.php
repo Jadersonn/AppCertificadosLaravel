@@ -13,7 +13,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      height: 10vh;
     }
     .login-box {
       background-color: white;
@@ -26,16 +26,22 @@
     .left-panel {
       background-color: #00420C;
       color: white;
-      padding: 40px 20px;
+      padding: 30px 20px;
       text-align: center;
       width: 250px;
+      align-items: center;
     }
     .left-panel .logo {
+      width: 80px;
+      height: auto;
+      display: block;
       font-size: 40px;
-      margin-bottom: 20px;
+      margin: 0 auto;
     }
     .left-panel .title {
       font-weight: bold;
+      margin-top: 35%;
+      font-size: 20px;
     }
     .right-panel {
       flex: 1;
@@ -56,11 +62,13 @@
       margin: 20px 0;
     }
     input[type="text"],
-    input[type="password"] {
-      width: 94%;
+    input[type="password"] 
+    {
+      width: 100%;
       padding: 12px;
       border-radius: 5px;
       border: 1px solid #ccc;
+      box-sizing: border-box;
     }
     .forgot-password {
       text-align: right;
@@ -68,7 +76,7 @@
       margin-top: 8px;
     }
     .login-button {
-      width: 100%;
+      width: 200%;
       background-color: #00420C;
       color: white;
       border: none;
@@ -76,12 +84,15 @@
       border-radius: 5px;
       font-weight: bold;
       cursor: pointer;
+
+      display: block;
+      margin: 20px auto 0 auto;
     }
     .footer {
       text-align: center;
       font-size: 11px;
       color: #666;
-      margin-top: 30px;
+      margin-top: 40px;
     }
   </style>
   @stack('head')
@@ -90,7 +101,9 @@
       <div class="container">
     <div class="login-box">
       <div class="left-panel">
-        <div class="logo">🟩</div>
+        <div class="logo">
+          <img src="{{ asset('imagens/logoIF.png') }}" alt="logo" class="logo">
+        </div>
         <div class="title">HORAS<br>COMPLEMENTARES</div>
       </div>
       <div class="right-panel">
