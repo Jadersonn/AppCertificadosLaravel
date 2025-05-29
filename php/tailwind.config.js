@@ -8,7 +8,7 @@ export default {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
     ],
-
+    darkMode: true,
     theme: {
         extend: {
             fontFamily: {
@@ -16,6 +16,9 @@ export default {
             },
         },
     },
+    colors: {
+            'green-custom': '#0E6F1F',
+        },
 
     plugins: [forms],
 };
