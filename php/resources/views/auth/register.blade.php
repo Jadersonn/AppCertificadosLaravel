@@ -2,8 +2,16 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
+         <!-- Session Status -->
+        <x-auth-session-status class="mb-4" :status="session('status')" />
+        <h1 class="text-3xl font-bold text-green-custom text-center mb-2">CADASTRO</h1>
+        <p class="text-center text-gray-700 mb-6">Entre com seus dados abaixo</p>
+
+        <form method="POST" action="{{ route('register') }}"></form>
+        @csrf
+
         <!-- Name -->
-        <div>
+        <div class="mt-4">
             <x-input-label for="name" :value="__('Name')" />
             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required
                 autofocus autocomplete="name" />
@@ -38,13 +46,13 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
         <!-- Campo numIdentidade -->
-        <div>
+       <div class="mt-4">
             <label for="numIdentidade">Número de Identidade</label>
             <input id="numIdentidade" type="text" name="numIdentidade" required>
         </div>
 
         <!-- Campo funcao -->
-        <div>
+        <div class="mt-4">
             <label for="funcao">Função</label>
             <select id="funcao" name="funcao" required>
                 <option value="aluno">Aluno</option>
