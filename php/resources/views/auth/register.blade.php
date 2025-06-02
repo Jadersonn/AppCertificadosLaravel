@@ -7,9 +7,6 @@
         <h1 class="text-3xl font-bold text-green-custom text-center mb-2">CADASTRO</h1>
         <p class="text-center text-gray-700 mb-6">Entre com seus dados abaixo</p>
 
-        <form method="POST" action="{{ route('register') }}"></form>
-        @csrf
-
         <!-- Name -->
         <div class="mt-4">
             <x-input-label for="name" :value="__('Name')" />
