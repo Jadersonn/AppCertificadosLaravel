@@ -22,17 +22,40 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/dashboard/aluno', function () {
-        return view('dashboard.aluno');
-    })->name('dashboard.aluno');
+    // aponta o usuario para a rota correta com base na sua funcao
+    Route::get('/redirect', function () {
+        $user = auth()->user();
+        if ($user->funcao === 'aluno') {
+            return redirect()->route('aluno');
+        } elseif ($user->funcao === 'professor') {
+            return redirect()->route('professor');
+        } elseif ($user->funcao === 'administrador') {
+            return redirect()->route('admin');
+        }
+        abort(403, 'Função de usuário não reconhecida.');
+    })->name('redirect');
 
-    Route::get('/dashboard/coordenador', function () {
-        return view('dashboard.coordenador');
-    })->name('dashboard.coordenador');
+    Route::get('/aluno', function () {
+        return view('aluno');
+    })->name('aluno');
 
-    Route::get('/dashboard/professor', function () {
-        return view('dashboard.professor');
-    })->name('dashboard.professor');
+    Route::get('/professor', function () {
+        return view('professor');
+    })->name('professor');
+
+    Route::get('/admin', function () {
+        return view('admin');
+    })->name('admin');
+
+    Route::get('/logout', function () {
+        auth()->logout();
+        return redirect('/');
+    })->name('logout');
+
+    //se nao esta logado, redireciona para a pagina de login
+    if (!auth()->check()) {
+        return redirect('/')->with('error', 'Você precisa estar logado para acessar esta página.');
+    }
 });
 
 require __DIR__ . '/auth.php';
