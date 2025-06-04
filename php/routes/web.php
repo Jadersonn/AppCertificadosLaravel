@@ -23,18 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // aponta o usuario para a rota correta com base na sua funcao
-    Route::get('/redirect', function () {
-        $user = auth()->user();
-        if ($user->funcao === 'aluno') {
-            return redirect()->route('aluno');
-        } elseif ($user->funcao === 'professor') {
-            return redirect()->route('professor');
-        } elseif ($user->funcao === 'administrador') {
-            return redirect()->route('admin');
-        }
-        abort(403, 'Função de usuário não reconhecida.');
-    })->name('redirect');
-
+    
     Route::get('/aluno', function () {
         return view('aluno');
     })->name('aluno');
@@ -48,14 +37,14 @@ Route::middleware('auth')->group(function () {
     })->name('admin');
 
     Route::get('/logout', function () {
-        auth()->logout();
+        //auth()->logout();
         return redirect('/');
     })->name('logout');
 
     //se nao esta logado, redireciona para a pagina de login
-    if (!auth()->check()) {
-        return redirect('/')->with('error', 'Você precisa estar logado para acessar esta página.');
-    }
+    //if (!auth()->check()) {
+      //  return redirect('/')->with('error', 'Você precisa estar logado para acessar esta página.');
+   // }
 });
 
 require __DIR__ . '/auth.php';
