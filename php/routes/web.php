@@ -36,10 +36,6 @@ Route::middleware('auth')->group(function () {
         return view('admin');
     })->name('admin');
 
-    Route::get('/logout', function () {
-        //auth()->logout();
-        return redirect('/');
-    })->name('logout');
 
     //se nao esta logado, redireciona para a pagina de login
     //if (!auth()->check()) {
@@ -48,3 +44,4 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+?>
