@@ -50,6 +50,7 @@ return [
     'doesnt_end_with'      => 'O campo :attribute não pode terminar com um dos seguintes: :values.',
     'doesnt_start_with'    => 'O :attribute não pode começar com um dos seguintes: :values.',
     'email'                => 'O campo :attribute deve ser um endereço de e-mail válido.',
+    'numIdentidade'                => 'O campo :attribute deve ser uma identidade válida.',
     'ends_with'            => 'O campo :attribute deve terminar com um dos seguintes: :values',
     'enum'                 => 'O :attribute selecionado é inválido.',
     'exists'               => 'O campo :attribute selecionado é inválido.',
