@@ -51,7 +51,7 @@ class RegisteredUserController extends Controller
         Auth::login($user);
         
         // Se for aluno, cria o registro na tabela alunos
-        if ($user->funcao === 'aluno') {
+        if ($user->funcao === \App\Enums\FuncaoEnum::ALUNO) {
             Aluno::create([
                 'user_id' => $user->id, 
                 'idTurma' => null,
@@ -60,7 +60,7 @@ class RegisteredUserController extends Controller
                 'statusDeConclusao' => 'em andamento',
                 'pontosRecebidos' => 0,
             ]);
-            return redirect()->route('aluno.edit', ['id' => $user->id]);
+            return redirect()->route('aluno', ['numIdentidade' => $user->numIdentidade]);
 
         }
 

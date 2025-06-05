@@ -16,10 +16,19 @@
             <img src="{{ asset('imagens/logoIF.png') }}" alt="logo" class="logo">
           </a>
         </div>
-        <div class="title">HORAS<br>COMPLEMENTARES</div>
+         <nav class="menu mt-4">
+      <ul>
+        <li><a href="#" class="menu-btn">Sistema acadêmico</a></li>
+        <li><a href="#" class="menu-btn">EAD - Moodle</a></li>
+        <li><a href="#" class="menu-btn">Site IFMS</a></li>
+      </ul>
+    </nav>
+     <div class="logout">
+        <button type="button" class="logout-btn">Sair</button>
+    </div>
       </div>
       <div class="right-panel">
-        {{ $slot }}
+       @yield('content')
         <div class="footer">
           Em caso de problemas para acesso ao sistema entre<br> em contato com a CEREL<br><br>
           2025 © Jaderson Pillar e Lara Riomayor
