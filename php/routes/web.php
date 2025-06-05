@@ -13,15 +13,15 @@ Route::get('/resetSenha', function () {
     return view('resetSenha');
 });
 
-/*Route::get('/dashboard', function () {
+Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');*/
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 //rotas para aluno autenticado
 Route::get('/aluno', function () {
     $user = Auth::user();
-    return redirect()->route('aluno.show', ['id' => $user->numIdentidade]);
-})->middleware('auth', 'verified')->name('aluno');
+    return redirect()->route('aluno.show', ['numIdentidade' => $user->numIdentidade]);
+})->middleware('auth')->name('aluno');
 
 Route::middleware('auth')->group(function () {
 
@@ -30,7 +30,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/aluno/create', [AlunoController::class, 'create'])->name('aluno.create');
     Route::get('/aluno/{idnumIdentidade}/edit', [AlunoController::class, 'update'])->name('aluno.edit');
 });
-
 
 //rotas para usuario autenticado
 Route::middleware('auth')->group(function () {

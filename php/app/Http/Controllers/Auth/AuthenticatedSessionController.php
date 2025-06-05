@@ -31,11 +31,11 @@ class AuthenticatedSessionController extends Controller
         $user = Auth::user();
 
         // verificando o tipo de usuario e apontando para a pagina correspondente
-        if ($user->funcao === 'administrador') {
-            return redirect()->route('admin.dashboard');
-        } elseif ($user->funcao === 'professor') {
-            return redirect()->route('professor.dashboard');
-        } elseif ($user->funcao === 'aluno') {
+        if ($user->funcao === \App\Enums\FuncaoEnum::ADMINISTRADOR) {
+            return redirect()->route('administrador');
+        } elseif ($user->funcao === \App\Enums\FuncaoEnum::PROFESSOR) {
+            return redirect()->route('professor');
+        } elseif ($user->funcao === \App\Enums\FuncaoEnum::ALUNO) {
             return redirect()->route('aluno');
         }
         // caso nao tenha um papel definido, redirecione para a página principal
