@@ -49,11 +49,12 @@
             </div>
 
             <!-- Coluna direita -->
+           
             <div class="w-1/4 space-y-4">
                 <div class="bg-gray-200 text-center text-green-700 p-6 rounded-full">
                     <p class="text-xl font-bold">RESTAM:</p>
                     <p class="text-4xl font-bold">
-                        {{ 170 - $aluno->pontosRecebidos }}
+                       {{ 170 - ($aluno->pontosRecebidos ?? 0) }}
                         <br><span class="text-lg">Pontos</span>
                     </p>
                 </div>
