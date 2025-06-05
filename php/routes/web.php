@@ -26,9 +26,9 @@ Route::get('/aluno', function () {
 Route::middleware('auth')->group(function () {
 
     Route::get('/aluno/{numIdentidade}', [AlunoController::class, 'show'])->name('aluno.show');
-    Route::get('/aluno/{numIdentidade}/delete', [AlunoController::class, 'destroy'])->name('aluno.delete');
     Route::get('/aluno/create', [AlunoController::class, 'create'])->name('aluno.create');
     Route::get('/aluno/{idnumIdentidade}/edit', [AlunoController::class, 'update'])->name('aluno.edit');
+    //Route::get('/aluno/{numIdentidade}/delete', [AlunoController::class, 'destroy'])->name('aluno.delete');
 });
 
 //rotas para usuario autenticado

@@ -25,16 +25,21 @@ class AlunoController extends Controller
 
     public function show($numIdentidade)
     {
-        $user = Aluno::with('user')->where('numIdentidade', $numIdentidade)->first();
+        // Valida o numero de identidade
+        $aluno = Aluno::with('user')->whereHas('user', function ($query) use ($numIdentidade) {
+            $query->where('numIdentidade', $numIdentidade);
+        })->first();
 
-        if ($user->numIdentidade !== $numIdentidade) {
-            abort(403, 'Acesso negado'); // Bloqueia se não for o próprio aluno
+        // Verifica se o aluno foi encontrado
+        if (!$aluno) {
+            abort(404, 'Aluno não encontrado');
         }
 
-        return view('aluno.show', compact('user'));
+        return view('aluno.show', compact('aluno'));
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
         $aluno = Aluno::findOrFail($id);
         $aluno->update($request->all());
         return $aluno;

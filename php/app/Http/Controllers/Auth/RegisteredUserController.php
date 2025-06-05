@@ -60,7 +60,7 @@ class RegisteredUserController extends Controller
                 'statusDeConclusao' => 'em andamento',
                 'pontosRecebidos' => 0,
             ]);
-            return redirect()->route('aluno.edit', ['numIdentidade' => $user->numIdentidade]);
+            return redirect()->route('aluno', ['numIdentidade' => $user->numIdentidade]);
 
         }
 
