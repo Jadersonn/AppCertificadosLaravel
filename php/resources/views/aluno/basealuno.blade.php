@@ -29,10 +29,6 @@
       </div>
       <div class="right-panel">
        @yield('content')
-        <div class="footer">
-          Em caso de problemas para acesso ao sistema entre<br> em contato com a CEREL<br><br>
-          2025 © Jaderson Pillar e Lara Riomayor
-        </div>
       </div>
     </div>
   </div>
