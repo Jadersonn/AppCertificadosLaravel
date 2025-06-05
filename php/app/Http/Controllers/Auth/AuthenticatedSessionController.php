@@ -27,8 +27,19 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+        // pegando o usuario autenticado
+        $user = Auth::user();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // verificando o tipo de usuario e apontando para a pagina correspondente
+        if ($user->funcao === \App\Enums\FuncaoEnum::ADMINISTRADOR) {
+            return redirect()->route('administrador');
+        } elseif ($user->funcao === \App\Enums\FuncaoEnum::PROFESSOR) {
+            return redirect()->route('professor');
+        } elseif ($user->funcao === \App\Enums\FuncaoEnum::ALUNO) {
+            return redirect()->route('aluno');
+        }
+        // caso nao tenha um papel definido, redirecione para a página principal
+        return redirect()->route('logout');
     }
 
     /**

@@ -23,11 +23,19 @@ class AlunoController extends Controller
         return Aluno::create($request->all());
     }
 
-    public function show($id)
+    public function show($numIdentidade)
     {
-        // Busca o aluno pelo user_id (relacionamento com User)
-        $aluno = Aluno::where('user_id', $id)->firstOrFail();
-        return view('aluno.aluno', compact('aluno'));
+        // Valida o numero de identidade
+        $aluno = Aluno::with('user')->whereHas('user', function ($query) use ($numIdentidade) {
+            $query->where('numIdentidade', $numIdentidade);
+        })->first();
+
+        // Verifica se o aluno foi encontrado
+        if (!$aluno) {
+            abort(404, 'Aluno não encontrado');
+        }
+
+        return view('aluno.show', compact('aluno'));
     }
 
     public function update(Request $request, $id)
