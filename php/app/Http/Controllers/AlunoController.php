@@ -23,11 +23,15 @@ class AlunoController extends Controller
         return Aluno::create($request->all());
     }
 
-    public function show($id)
+    public function show($numIdentidade)
     {
-        // Busca o aluno pelo user_id (relacionamento com User)
-        $aluno = Aluno::where('user_id', $id)->firstOrFail();
-        return view('aluno.aluno', compact('aluno'));
+        $user = Aluno::with('user')->get();
+
+        if ($user->name !== $numIdentidade) {
+            abort(403, 'Acesso negado'); // Bloqueia se não for o próprio aluno
+        }
+
+        return view('aluno.show', compact('user'));
     }
 
     public function update(Request $request, $id)
