@@ -41,7 +41,7 @@
                             <button class="bg-blue-500 text-white text-sm px-3 py-1 rounded">enviar</button>
                         </div>
                         <div class="w-full h-5 bg-gray-300 rounded">
-                            <div class="h-full bg-green-600 rounded" style="width: {{ $cat['progresso'] }}%"></div>
+                            <!--<div class="h-full bg-green-600 rounded" style="width: {{ $cat[''] }}%"></div>-->
                         </div>
                         <p class="text-right text-sm mt-1">{{ $cat['progresso'] }}%</p>
                     </div>

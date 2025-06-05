@@ -7,11 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 class Aluno extends Model
 {
     protected $primaryKey = 'idAluno';
-    protected $fillable = ['dataIngresso', 'dataConclusao', 'statusDeConclusao', 'pontosRecebidos', 'idUsuario', 'idTurma'];
+    protected $fillable = [
+        'dataIngresso',
+        'dataConclusao',
+        'statusDeConclusao',
+        'pontosRecebidos',
+        'user_id',
+        'idTurma',
+    ];
 
     public function usuario()
     {
-        return $this->belongsTo(User::class, 'idUsuario');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function turma()
@@ -25,7 +32,7 @@ class Aluno extends Model
     }
     public function user()
     {
-        return $this->belongsTo(User::class, 'idUsuario');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
 }

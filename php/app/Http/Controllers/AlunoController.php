@@ -16,7 +16,7 @@ class AlunoController extends Controller
     {
         $request->validate([
             'dataIngresso' => 'required|date',
-            'idUsuario' => 'required|exists:users,id',
+            'user_id' => 'required|exists:users,id',
             'idTurma' => 'required|exists:turmas,id',
         ]);
 
@@ -25,7 +25,9 @@ class AlunoController extends Controller
 
     public function show($id)
     {
-        return Aluno::with('user')->findOrFail($id);
+        // Busca o aluno pelo user_id (relacionamento com User)
+        $aluno = Aluno::where('user_id', $id)->firstOrFail();
+        return view('aluno.aluno', compact('aluno'));
     }
 
     public function update(Request $request, $id)

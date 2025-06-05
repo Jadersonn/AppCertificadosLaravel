@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use App\Http\Controllers\Controller\AlunoController;
+use App\Models\Aluno;
 
 class RegisteredUserController extends Controller
 {
@@ -30,24 +32,39 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate(rules: [
-        'name' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255|unique:users',
-        'password' => 'required|string|confirmed|min:8',
-        'numIdentidade' => 'required|string|unique:users|max:20',
-        'funcao' => 'required|in:administrador,professor,aluno',
-    ]);
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|confirmed|min:8',
+            'numIdentidade' => 'required|string|unique:users|max:20',
+            'funcao' => 'required|in:administrador,professor,aluno',
+        ]);
 
-    $user = User::create([
-        'name' => $request->name,
-        'email' => $request->email,
-        'password' => Hash::make($request->password),
-        'numIdentidade' => $request->numIdentidade,
-        'funcao' => $request->funcao,
-    ]);
-
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'numIdentidade' => $request->numIdentidade,
+            'funcao' => $request->funcao,
+        ]);
         event(new Registered($user));
 
         Auth::login($user);
+        
+        // Se for aluno, cria o registro na tabela alunos
+        if ($user->funcao === 'aluno') {
+            Aluno::create([
+                'user_id' => $user->id, 
+                'idTurma' => null,
+                'dataIngresso' => now(),
+                'dataConclusao' => null,
+                'statusDeConclusao' => 'em andamento',
+                'pontosRecebidos' => 0,
+            ]);
+            return redirect()->route('aluno.edit', ['id' => $user->id]);
+
+        }
+
+
 
         return redirect(route('dashboard', absolute: false));
     }
