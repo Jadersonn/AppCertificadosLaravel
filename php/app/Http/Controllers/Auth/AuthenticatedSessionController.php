@@ -39,7 +39,7 @@ class AuthenticatedSessionController extends Controller
             return redirect()->route('aluno');
         }
         // caso nao tenha um papel definido, redirecione para a página principal
-        return redirect()->route('/');
+        return redirect()->route('logout');
     }
 
     /**
