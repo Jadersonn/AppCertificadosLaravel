@@ -13,6 +13,7 @@ use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller\AlunoController;
 use App\Models\Aluno;
+use App\Models\Professor;
 
 class RegisteredUserController extends Controller
 {
@@ -64,6 +65,18 @@ class RegisteredUserController extends Controller
 
         }
 
+        //se for professor or admin, redireciona para a rota correspondente 
+        if ($user->funcao === \App\Enums\FuncaoEnum::PROFESSOR) {
+            Professor::create([
+                'idUsuario' => $user->id,
+            ]);
+            return redirect()->route('professor');
+        } elseif ($user->funcao === \App\Enums\FuncaoEnum::ADMINISTRADOR) {
+            Professor::create([
+                'idUsuario' => $user->id,
+            ]);
+            return redirect()->route('admin');
+        }
 
 
         return redirect(route('dashboard', absolute: false));

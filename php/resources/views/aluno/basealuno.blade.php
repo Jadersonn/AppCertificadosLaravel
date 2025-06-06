@@ -18,9 +18,9 @@
         </div>
          <nav class="menu mt-4">
       <ul>
-        <li><a href="#" class="menu-btn">Sistema acadêmico</a></li>
-        <li><a href="#" class="menu-btn">EAD - Moodle</a></li>
-        <li><a href="#" class="menu-btn">Site IFMS</a></li>
+        <li><a href="https://academico.ifms.edu.br" class="menu-btn" target="_blank">Sistema acadêmico</a></li>
+        <li><a href="https://ead.ifms.edu.br" class="menu-btn" target="_blank">EAD - Moodle</a></li>
+        <li><a href="https://ifms.edu.br" class="menu-btn" target="_blank">Site IFMS</a></li>
       </ul>
     </nav>
      <div class="logout">

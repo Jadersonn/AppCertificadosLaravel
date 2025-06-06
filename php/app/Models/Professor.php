@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Professor extends Model
 {
     protected $primaryKey = 'idProfessor';
-    protected $fillable = ['idUsuario'];
+    protected $fillable = ['user_id'];
 
     public function usuario()
     {
-        return $this->belongsTo(User::class, 'idUsuario');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function certificados()
@@ -20,7 +20,7 @@ class Professor extends Model
     }
     public function user()
     {
-        return $this->belongsTo(User::class, 'idUsuario');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
 }
