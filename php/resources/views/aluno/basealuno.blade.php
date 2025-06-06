@@ -12,7 +12,7 @@
     <div class="login-box">
       <div class="left-panel">
         <div class="logo">
-          <a href="{{ route('login') }}">
+          <a href="route('logout')">
             <img src="{{ asset('imagens/logoIF.png') }}" alt="logo" class="logo">
           </a>
         </div>
@@ -24,8 +24,11 @@
       </ul>
     </nav>
      <div class="logout">
-        <button type="button" class="logout-btn">Sair</button>
-    </div>
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit" class="logout-btn">Sair</button>
+    </form>
+</div>
       </div>
       <div class="right-panel">
        @yield('content')
