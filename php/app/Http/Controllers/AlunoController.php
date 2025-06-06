@@ -35,7 +35,7 @@ class AlunoController extends Controller
             abort(404, 'Aluno não encontrado');
         }
 
-        return view('aluno.show', compact('aluno'));
+        return view('aluno.aluno', compact('aluno'));
     }
 
     public function update(Request $request, $id)
