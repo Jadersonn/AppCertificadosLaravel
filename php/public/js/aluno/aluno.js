@@ -3,18 +3,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const progressBar = document.querySelector(".progress-ring-bar");
 
   if (progressCircle && progressBar) {
-      const percentage = parseFloat(progressCircle.getAttribute("data-percentage"));
-      const maxDashArray = parseFloat(progressBar.getAttribute("stroke-dasharray")); // Circunferência do círculo
+    const percentage = parseFloat(progressCircle.getAttribute("data-percentage"));; // obter a porcentagem do atributo data-percentage
+    const safePercentage = Math.max(0, Math.min(percentage, 100)); //variavel para manter a porcentagem entre 0 e 100
+    const radius = parseFloat(progressCircle.getAttribute("data-radius"));
+    const circumference = 2 * Math.PI * radius;
 
-
-      // Calcula o deslocamento corretamente
-      const offset =   percentages * maxDashArray/ 100;
-
-      // Aplica o deslocamento ajustado
-     progressBar.style.strokeDashoffset = offset;
-
-      console.log(`Porcentagem: ${percentages}, Offset: ${offset}`);
+    const offset = circumference - (circumference * safePercentage) / 100;
+    document.querySelector('.progress-ring-bar').style.strokeDashoffset = offset; //mostrando a porcentagem na barra de progresso
+    console.log(`Porcentagem: ${percentage}, Offset: ${offset}`);
   } else {
-      console.error("Elementos da barra de progresso não encontrados.");
+    console.error("Elementos da barra de progresso não encontrados.");
   }
 });

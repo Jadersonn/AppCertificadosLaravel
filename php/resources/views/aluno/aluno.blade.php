@@ -14,7 +14,7 @@
 
   </div>
   <div class="card-container">
-    <div class="progress-circle" data-percentage="100">
+    <div class="progress-circle" data-percentage="{{ $aluno->pontosRecebidos }}" data-radius="55">
         <svg class="progress-ring" width="130" height="130">
             <circle class="progress-ring-bg" cx="60" cy="60" r="55" />
             <circle class="progress-ring-bar" cx="60" cy="60" r="55" stroke-dasharray="220" />

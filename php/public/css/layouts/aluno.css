@@ -310,8 +310,8 @@
     stroke: #0b611b;
     stroke-width: 8;
     stroke-linecap: round;
-    stroke-dasharray: 220; /* Circunferência do círculo */
-    stroke-dashoffset: 220; /* Inicialmente, a barra está vazia */
+    stroke-dasharray: 346; /* Circunferência do círculo */
+    stroke-dashoffset: 346; /* Inicialmente, a barra está vazia */
     transition: stroke-dashoffset 0.5s ease-in-out;
   }
 
