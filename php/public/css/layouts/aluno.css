@@ -56,6 +56,8 @@
       display: flex;
       flex-direction: column;
       align-items: flex-end;
+      justify-content: flex-start;
+      padding-top: 0;
     }
 
     h1 {
@@ -206,30 +208,33 @@
     }
 
     .card-container {
-    width: 100px;
+    width: 100%;
     background: none #fff;
     border-radius: 10px;
     box-shadow: none rgba(0,0,0,0.10);
     margin-bottom: 32px;
+    margin-top: 0;
+    padding-top: 0;
     margin-left: 0;
     padding: 10px 10px;
     border: none #e0e0e0;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: flex-end;
     gap: 10px;
     padding: 0;
     flex-direction: column;
     }
     .card {
-    width: 150px; 
-    height: 150px; 
+    width: 120px; 
+    height: 120px; 
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 24px rgba(0,0,0,0.10);
     padding: 20px 24px;
     border: 1px solid #e0e0e0;
     text-align: center; 
+  
     }
 
     .card-body {
@@ -238,7 +243,7 @@
     }
     
     .card-title {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     font-weight: bold;
     color: #00420C;
     margin-bottom: 8px;
@@ -264,4 +269,53 @@
     .card-link:hover {
     color: #00420C;
     }
+
+    .card-row{
+    display: flex;
+    align-items: center;
+    gap: 56px;
+    }
+
+    .progress-circle {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .progress-ring {
+    transform: rotate(-90deg);
+  }
+
+  .progress-ring-bg {
+    fill: none;
+    stroke: #eee;
+    stroke-width: 8;
+  }
+
+  .progress-ring-bar {
+    fill: none;
+    stroke: #0b611b;
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 220;
+    stroke-dashoffset: 66; 
+    transition: stroke-dashoffset 0.5s;
+  }
+
+  .progress-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 140px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #0b611b;
+  }
         

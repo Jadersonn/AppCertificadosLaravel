@@ -6,25 +6,31 @@
 @endpush
 
 @section('content')
-
 <div class="card-container">
+<div class="progress-circle" data-percentage="70">
+  <svg class="progress-ring" width="130" height="130">
+    <circle class="progress-ring-bg" cx="60" cy="60" r="55" />
+    <circle class="progress-ring-bar" cx="60" cy="60" r="55" />
+  </svg>
+  <div class="progress-text">70%</div>
+</div>
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title">Status</h5>
+      <h1 class="card-title">Status</h1>
       <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
       <p class="card-text">mensagem de status</p>
     </div>
   </div>
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title">Regulamento de cargas horárias</h5>
+      <h1 class="card-title">Regulamento de cargas horárias</h1>
       <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
       <p class="card-text">mensagem aqui</p>
     </div>
   </div>
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title">Dicas</h5>
+      <h1 class="card-title">Dicas</h1>
       <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
       <p class="card-text">mensagem aqui</p>
     </div>
@@ -32,6 +38,7 @@
 </div>
 
 <div class="conteudo-centralizado">
+
 
 </div>
     
