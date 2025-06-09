@@ -6,6 +6,10 @@
 @endpush
 
 @section('content')
+<div class="usuario-oi-esquerda">
+    Oi, {{ Auth::user()->name }}
+</div>
+
 <div class="card-container">
 <div class="progress-circle" data-percentage="70">
   <svg class="progress-ring" width="130" height="130">
