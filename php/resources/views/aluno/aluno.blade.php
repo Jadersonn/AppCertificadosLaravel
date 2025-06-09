@@ -1,4 +1,7 @@
 @extends('aluno.basealuno')
+@push('scripts')
+  <script src="{{ asset('js/aluno/aluno.js') }}"></script>
+@endpush
 
 @push('head')
   <link rel="stylesheet" href="{{ asset('css/layouts/aluno.css') }}">
@@ -7,14 +10,16 @@
 @section('right-panel')
   <div class="usuario-oi-esquerda">
     Oi, {{ Auth::user()->name }}
+
+
   </div>
   <div class="card-container">
-    <div class="progress-circle" data-percentage="70">
-    <svg class="progress-ring" width="130" height="130">
-      <circle class="progress-ring-bg" cx="60" cy="60" r="55" />
-      <circle class="progress-ring-bar" cx="60" cy="60" r="55" />
-    </svg>
-    <div class="progress-text">{{ $aluno->pontosRecebidos }} pontos </div>
+    <div class="progress-circle" data-percentage="100">
+        <svg class="progress-ring" width="130" height="130">
+            <circle class="progress-ring-bg" cx="60" cy="60" r="55" />
+            <circle class="progress-ring-bar" cx="60" cy="60" r="55" stroke-dasharray="220" />
+        </svg>
+        <div class="progress-text">{{ $aluno->pontosRecebidos }} pontos</div>
     </div>
     <div class="card">
     <div class="card-body">
@@ -43,5 +48,6 @@
 
 
   </div>
+@stack('scripts')
 
 @endsection
