@@ -52,12 +52,12 @@
 
     .right-panel {
       flex: 1;
-      padding: 50px;
+      padding: 0 50px 50px 50px;
       display: flex;
       flex-direction: column;
       align-items: flex-end;
       justify-content: flex-start;
-      padding-top: 0;
+
     }
 
     h1 {
@@ -199,6 +199,16 @@
     background-color: #007c00;
     color: #00420C;
     }
+    .usuario-oi-esquerda {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #00420C;
+    margin-top: 20px;
+    margin-bottom: 9px;
+    text-align: left;
+    padding-left: 24px;
+    width: 100%;
+  }
     .conteudo-centralizado {
     width: 100%;
     display: flex;
