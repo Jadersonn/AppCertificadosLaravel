@@ -15,15 +15,27 @@ class ProfessorController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'idUsuario' => 'required|exists:users,id',
+            'user_id' => 'required|exists:users,id',
         ]);
 
-        return Professor::create($request->all());
+        return Professor::create([
+            'user_id' => $request->user_id,
+        ]);
     }
 
-    public function show($id)
+    public function show($numIdentidade)
     {
-        return Professor::with('user')->findOrFail($id);
+        // Valida o numero de identidade
+        $professor = Professor::with('user')->whereHas('user', function ($query) use ($numIdentidade) {
+            $query->where('numIdentidade', $numIdentidade);
+        })->first();
+
+        // Verifica se o aluno foi encontrado
+        if (!$professor) {
+            abort(404, 'Professor não encontrado');
+        }
+
+        return view('professor.professor', compact('professor'));
     }
 
     public function update(Request $request, $id)
@@ -33,9 +45,9 @@ class ProfessorController extends Controller
         return $professor;
     }
 
-    public function destroy($id)
+    public function destroy($user_id)
     {
-        return Professor::destroy($id);
+        return Professor::destroy($user_id);
     }
 }
 

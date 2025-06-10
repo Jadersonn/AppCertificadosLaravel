@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
     //Route::get('/aluno/{numIdentidade}/delete', [AlunoController::class, 'destroy'])->name('aluno.delete');
 });
 
-/*
+
 //rotas para professor autenticado
 Route::get('/professor', function () {
     $user = Auth::user();
@@ -46,7 +46,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/professor/{idnumIdentidade}/edit', [ProfessorController::class, 'update'])->name('professor.edit');
     //Route::get('/professor/{numIdentidade}/delete', [ProfessorController::class, 'destroy'])->name('professor.delete');
 });
-*/
 
 
 //rotas para usuario geral autenticado
