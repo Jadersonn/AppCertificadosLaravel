@@ -13,7 +13,7 @@
     <div class="login-box">
       <div class="left-panel">
         <div class="logo">
-          <a href="{{route('administradors')}}">
+          <a href="{{route('administrador')}}">
             <img src="{{ asset('imagens/logoIF.png') }}" alt="logo" class="logo">
           </a>
         </div>
