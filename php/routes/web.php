@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
     //Route::get('/aluno/{numIdentidade}/delete', [AlunoController::class, 'destroy'])->name('aluno.delete');
 });
 
-/*
+
 //rotas para professor autenticado
 Route::get('/professor', function () {
     $user = Auth::user();
@@ -46,7 +46,19 @@ Route::middleware('auth')->group(function () {
     Route::get('/professor/{idnumIdentidade}/edit', [ProfessorController::class, 'update'])->name('professor.edit');
     //Route::get('/professor/{numIdentidade}/delete', [ProfessorController::class, 'destroy'])->name('professor.delete');
 });
-*/
+
+Route::get('/administrador', function () {
+    $user = Auth::user();
+    return redirect()->route('professor.showAdmin', ['numIdentidade' => $user->numIdentidade]);
+})->middleware('auth')->name('administrador');
+
+Route::middleware('auth')->group(function () {
+
+    Route::get('/administrador/{numIdentidade}', [ProfessorController::class, 'showAdmin'])->name('professor.showAdmin');
+    Route::get('/administrador/create', [ProfessorController::class, 'create'])->name('administrador.create');
+    Route::get('/administrador/{idnumIdentidade}/edit', [ProfessorController::class, 'update'])->name('administrador.edit');
+    //Route::get('/administrador/{numIdentidade}/delete', [ProfessorController::class, 'destroy'])->name('administrador.delete');
+});
 
 
 //rotas para usuario geral autenticado

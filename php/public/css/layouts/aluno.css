@@ -311,9 +311,9 @@
     stroke: #0b611b;
     stroke-width: 8;
     stroke-linecap: round;
-    stroke-dasharray: 220;
-    stroke-dashoffset: 66; 
-    transition: stroke-dashoffset 0.5s;
+    stroke-dasharray: 346; /* Circunferência do círculo */
+    stroke-dashoffset: 346; /* Inicialmente, a barra está vazia */
+    transition: stroke-dashoffset 0.5s ease-in-out;
   }
 
   .progress-text {
@@ -329,4 +329,5 @@
     font-size: 1.2em;
     color: #0b611b;
   }
-        
+
+  

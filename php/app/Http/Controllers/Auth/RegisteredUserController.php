@@ -68,14 +68,14 @@ class RegisteredUserController extends Controller
         //se for professor or admin, redireciona para a rota correspondente 
         if ($user->funcao === \App\Enums\FuncaoEnum::PROFESSOR) {
             Professor::create([
-                'idUsuario' => $user->id,
+                'user_id' => $user->id,
             ]);
             return redirect()->route('professor');
         } elseif ($user->funcao === \App\Enums\FuncaoEnum::ADMINISTRADOR) {
             Professor::create([
-                'idUsuario' => $user->id,
+                'user_id' => $user->id,
             ]);
-            return redirect()->route('admin');
+            return redirect()->route('administrador');
         }
 
 
