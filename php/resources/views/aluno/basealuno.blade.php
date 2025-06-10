@@ -35,10 +35,15 @@
         <div>
         </div>
       </div>
+      <div class="saudacao" >
+        Oi, {{ Auth::user()->name }}
+      </div>
       <div class="right-panel">
         @yield('right-panel')
       </div>
-
+      <div class="central-aluno">
+          @yield('central-aluno')
+      </div>
     </div>
   </div>
 </body>
