@@ -75,7 +75,7 @@ class RegisteredUserController extends Controller
             Professor::create([
                 'user_id' => $user->id,
             ]);
-            return redirect()->route('admin');
+            return redirect()->route('administrador');
         }
 
 

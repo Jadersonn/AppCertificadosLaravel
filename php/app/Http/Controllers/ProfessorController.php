@@ -38,6 +38,21 @@ class ProfessorController extends Controller
         return view('professor.professor', compact('professor'));
     }
 
+    public function showAdmin($numIdentidade)
+    {
+        // Valida o numero de identidade
+        $administrador = Professor::with('user')->whereHas('user', function ($query) use ($numIdentidade) {
+            $query->where('numIdentidade', $numIdentidade);
+        })->first();
+
+        // Verifica se o aluno foi encontrado
+        if (!$administrador) {
+            abort(404, 'Administrador não encontrado');
+        }
+
+        return view('administrador.administrador', compact('administrador'));
+    }
+
     public function update(Request $request, $id)
     {
         $professor = Professor::findOrFail($id);
