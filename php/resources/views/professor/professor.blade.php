@@ -5,6 +5,29 @@
 @endpush
 
 @section('main')
+<div class="certificados-recebidos-box">
+    <h1>CERTIFICADOS RECEBIDOS</h1>
+    <div class="certificados-tabela-container">
+        <table class="certificados-tabela">
+            <thead>
+                <tr>
+                    <th>ALUNO</th>
+                    <th>TURMA</th>
+                    <th>CATEGORIA</th>
+                    <th>INICIO</th>
+                    <th>CONCLUSÃO</th>
+                    <th>SEMESTRE</th>
+                    <th>HORAS</th>
+                    <th>ARQUIVO</th>
+                    <th>APROVAÇÃO</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{-- Linhas de exemplo, pode preencher dinamicamente --}}
+            </tbody>
+        </table>
+    </div>
+</div>
     <div class="professor-cards-row">
         <!-- GERAR RELATÓRIO -->
         <div class="professor-card">

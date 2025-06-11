@@ -31,11 +31,13 @@
             @csrf
             <button type="submit" class="logout-btn">Sair</button>
           </form>
+
         </div>
         <div>
         </div>
         
       </div>
+      
       <div class="main-panel">
         @yield('main')
       </div>
