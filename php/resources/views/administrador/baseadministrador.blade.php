@@ -13,15 +13,17 @@
     <div class="login-box">
       <div class="left-panel">
         <div class="logo">
-          <a href="{{route('professor')}}">
+          <a href="{{route('administrador')}}">
             <img src="{{ asset('imagens/logoIF.png') }}" alt="logo" class="logo">
           </a>
         </div>
         <nav class="menu mt-4">
           <ul>
-            <li><a href="https://academico.ifms.edu.br" class="menu-btn" target="_blank">Sistema IFMS</a></li>
+            <li><a href="https://academico.ifms.edu.br" class="menu-btn" target="_blank">Sistemas IFMS</a></li>
             <li><a href="https://ead.ifms.edu.br" class="menu-btn" target="_blank">EAD - Moodle</a></li>
-            <li><a href="#" class="menu-btn" target="_blank">Regulamento de Carga Horária</a></li>
+            <li><a href="#" class="menu-btn" target="_blank">Regulamento</a></li>
+            <li><a href="#" class="menu-btn" target="_blank">Definir Turma</a></li>
+            <li><a href="#" class="menu-btn" target="_blank">Definir Responsável</a></li>
 
           </ul>
         </nav>
@@ -31,13 +33,13 @@
             @csrf
             <button type="submit" class="logout-btn">Sair</button>
           </form>
+
         </div>
         <div>
         </div>
-        
       </div>
-      <div class="main-panel">
-        @yield('main')
+      <div class="right-panel">
+        @yield('right-panel')
       </div>
 
     </div>
