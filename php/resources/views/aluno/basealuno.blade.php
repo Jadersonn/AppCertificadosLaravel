@@ -40,27 +40,13 @@
                 Oi, {{ Auth::user()->name }}
                 <div class="categorias-container">
                     <div class="categoria-box" style="top: 83px;">Categoria 1</div>
-                    <div class="categoria-box" style="top: 196px;">Categoria 2</div>
-                    <div class="categoria-box" style="top: 309px;">Categoria 3</div>
-                    <div class="categoria-box" style="top: 422px;">Categoria 4</div>
-
-                    <div class="barra barra1" style="top: 137px;"></div>
-                    <div class="barra barra2" style="top: 249px;"></div>
-                    <div class="barra barra3" style="top: 365px;"></div>
-                    <div class="barra barra4" style="top: 475px;"></div>
-
-                    <div class="status status1" style="top: 137px;">50%</div>
-                    <div class="status status2" style="top: 249px;">90%</div>
-                    <div class="status status3" style="top: 365px;">0%</div>
-                    <div class="status status4" style="top: 475px; color: #003C0B;">Concluído</div>
-
-                    <button class="enviar-btn" style="top: 98px;">Enviar</button>
-                    <button class="enviar-btn" style="top: 208px;">Enviar</button>
-                    <button class="enviar-btn" style="top: 324px;">Enviar</button>
-                    <button class="enviar-btn" style="top: 438px;">Enviar</button>
+                      <div class="progress-bar" style="top: 140px;">
+                          <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                      </div>
+                      <button class="enviar-btn" style="top: 100px;">Enviar</button>
 
                     <div class="titulo-categorias">CATEGORIAS</div>
-                    <div class="titulo-geral">GERAL</div>
+                    <button class="titulo-geral-btn">GERAL</button>
                 </div>
             </div>
 

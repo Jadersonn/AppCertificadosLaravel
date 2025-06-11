@@ -1,4 +1,4 @@
-  body {
+body {
       margin: 0;
       font-family: Arial, sans-serif;
       background-color: #00722d;
@@ -333,8 +333,7 @@
     position: relative;
     width: 790px;
     height: 520px;
-    margin: 0 auto;
-
+    margin: 40px auto 0 auto;
 }
 
 .categoria-box {
@@ -345,7 +344,7 @@
     background: #5F9E2F;
     border-radius: 12px;
     color: white;
-    font-size: 20px;
+    font-size: 16px;
     font-family: Roboto, Arial, sans-serif;
     font-weight: 700;
     display: flex;
@@ -404,14 +403,14 @@
 .titulo-categorias {
     position: absolute;
     left: 0;
-    top: 0;
+    top: 10px;
     width: 173px;
-    height: 51px;
+    height: 55px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: black;
-    font-size: 24px;
+    font-size: 20px;
     font-family: Roboto, Arial, sans-serif;
     font-weight: 700;
 }
@@ -426,10 +425,59 @@
     align-items: center;
     justify-content: center;
     color: black;
-    font-size: 24px;
+    font-size: 20px;
     font-family: Roboto, Arial, sans-serif;
     font-weight: 700;
     text-decoration: underline;
 }
 
-  
+.titulo-geral-btn {
+    position: absolute;
+    left: 700px;
+    top: 10px;
+    width: 100px;           /* largura menor */
+    height: 55px;          /* altura menor */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;        
+    background: transparent;
+    font-size: 20px;      
+    font-family: Roboto, Arial, sans-serif;
+    font-weight: 700;
+    text-decoration: underline;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: none;
+    transition: background 0.2s, color 0.2s;
+    padding: 0;
+}
+.titulo-geral-btn:hover {
+    background: #e6f0fa;
+    color:#00420C;
+    border-color: #00420C;
+}
+
+.progress-bar {
+    position: absolute;
+    left: 2px;      /* ajuste conforme o layout */
+    width: 815px;     /* largura da barra */
+    height: 16px;     /* altura da barra */
+    background: #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    line-height: 16px; 
+}
+
+.progress {
+    height: 100%;
+    background: #2172ED;
+    border-radius: 8px 0 0 8px;
+    transition: width 0.4s;
+}
+
+
