@@ -43,7 +43,7 @@
       </div>
       <div class="central-aluno">
           @yield('central-aluno')
-      </div>
+      </div>  
     </div>
   </div>
 </body>

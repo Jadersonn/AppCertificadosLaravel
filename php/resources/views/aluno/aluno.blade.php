@@ -38,11 +38,6 @@
     </div>
     </div>
 </div>
-
-  <div class="conteudo-centralizado">
-
-
-  </div>
 @stack('scripts')
 
 @endsection
