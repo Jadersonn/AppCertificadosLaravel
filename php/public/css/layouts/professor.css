@@ -1,4 +1,4 @@
-  body {
+body {
       margin: 0;
       font-family: Arial, sans-serif;
       background-color: #00722d;
@@ -50,13 +50,9 @@
       font-size: 20px;
     }
 
-    .right-panel {
+    .main-panel {
       flex: 1;
       padding: 0 50px 50px 50px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-start;
 
     }
 
@@ -218,97 +214,12 @@
     margin-top: 30px;
     }
 
-    .card-container {
-    width: 100%;
-    background: none #fff;
-    border-radius: 10px;
-    box-shadow: none rgba(0,0,0,0.10);
-    margin-bottom: 32px;
-    margin-top: 0;
-    padding-top: 0;
-    margin-left: 0;
-    padding: 10px 10px;
-    border: none #e0e0e0;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-end;
-    gap: 10px;
-    padding: 0;
-    flex-direction: column;
-    }
-    .card {
-    width: 120px; 
-    height: 120px; 
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
-    padding: 20px 24px;
-    border: 1px solid #e0e0e0;
-    text-align: center; 
-  
-    }
-
-    .card-body {
-    padding: 0;
-    text-align: center;
-    }
-    
-    .card-title {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #00420C;
-    margin-bottom: 8px;
-    padding: 0;
-    text-align: center;
-    }
-    .card-subtitle {
-    font-size: 1rem;
-    color: #00722d;
-    margin-bottom: 12px;
-    }
-    .card-text {
-    color: #555;
-    margin-bottom: 12px;
-    text-align: center;
-    }
-    .card-link {
-    color: #0b611b;
-    text-decoration: underline;
-    margin-right: 12px;
-    font-size: 0.98rem;
-    }
-    .card-link:hover {
-    color: #00420C;
-    }
-
-    .card-row{
-    display: flex;
-    align-items: center;
-    gap: 56px;
-    }
-
-
-
-  .progress-text {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 140px;
-    height: 140px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 1.2em;
-    color: #0b611b;
-  }
-
   /* Cards Row */
 .professor-cards-row {
     display: flex;
-    gap: 32px;
+    gap: 2vw;
     justify-content: center;
-    margin-top: 32px;
+    margin-top: 2em;
     flex-wrap: wrap;
 }
 
@@ -316,20 +227,21 @@
 .professor-card {
     background: #D9D9D9;
     border-radius: 12px;
-    padding: 18px 18px 16px 18px;
-    min-width: 260px;
-    max-width: 290px;
+    padding: 1.2em 1.2em 1em 1.2em;
+    flex: 1 1 280px;      /* Cresce igualmente, mínimo de 280px */
+    max-width: 350px;     /* Limita o máximo para não esticar demais */
+    min-width: 220px;     /* Limita o mínimo para não ficar muito pequeno */
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 16px;
+    margin-bottom: 1.2em;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 /* Título */
 .professor-card-title {
-    font-size: 1.1em;
+    font-size: 1em;
     font-weight: 700;
     text-align: center;
     margin-bottom: 8px;
@@ -358,10 +270,12 @@
 .professor-card-row.ordem {
     margin-bottom: 12px;
     font-size: 0.97em;
+    white-space: nowrap;
+
 }
 
 .professor-card-row label {
-    font-size: 0.97em;
+    font-size: 0.9em;
     font-weight: 600;
     margin-right: 4px;
 }
@@ -438,6 +352,46 @@
     color: #00420C;
 }
 
+/* Certificados Recebidos */
+.certificados-recebidos-box {
+    margin-bottom: 2em;
+}
+
+.certificados-recebidos-box h1 {
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 0;
+    color: #00420C;
+}
+
+.certificados-tabela-container {
+    background: #ddd;
+    border-radius: 12px;
+    padding: 0 0 1.5em 0;
+    margin-top: 0.5em;
+}
+
+.certificados-tabela {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.certificados-tabela thead tr {
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.certificados-tabela th {
+    padding: 12px 0;
+    text-align: center;
+}
+
+.certificados-tabela td {
+    text-align: center;
+    padding: 8px 0;
+}
+
 /* Responsivo */
 @media (max-width: 1000px) {
     .professor-cards-row {
@@ -448,5 +402,18 @@
     .professor-card {
         width: 98vw;
         max-width: 350px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .professor-cards-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.2em;
+    }
+    .professor-card {
+        width: 90vw;
+        max-width: 98vw;
+        min-width: 0;
     }
 }
