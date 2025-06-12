@@ -1,54 +1,419 @@
-.categories-section {
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #00722d;
+    }
 
-.categories-section h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-.category {
+    .container {
     display: flex;
+    justify-content: center;
     align-items: center;
-    margin-bottom: 15px;
-}
+    height: 100vh; 
+    width: 100vw;
+    }
 
-.category-name {
-    flex: 1;
-    font-size: 18px;
-    color: #fff;
-    background-color: #4CAF50;
-    padding: 10px;
-    border-radius: 4px;
-    margin-right: 10px;
-}
-
-.progress-bar {
-    flex: 2;
-    height: 20px;
-    background-color: #ccc;
-    border-radius: 10px;
+    .login-box {
+    background-color: white;
+    border-radius: 10px; 
+    display: flex;
+    width: 900vw;    
+    height: 600vh;   
+    max-width: 95vw;
+    max-height: 90vh;
     overflow: hidden;
-    margin-right: 10px;
-}
+    }
 
-.progress {
-    height: 100%;
-    background-color: #4CAF50;
-}
+    .left-panel {
+      background-color: #00420C;
+      color: white;
+      padding: 30px 0 0 0;
+      text-align: center;
+      width: 350px;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      align-items: stretch;
+    }
 
-.send-button {
-    padding: 10px 20px;
-    background-color: #007BFF;
+    .left-panel .logo {
+      width: 80px;
+      height: auto;
+      display: block;
+      font-size: 40px;
+      margin: 0 auto;
+    }
+
+    .left-panel .title {
+      font-weight: bold;
+      margin-top: 35%;
+      font-size: 20px;
+    }
+
+    .main-panel {
+      flex: 1;
+      padding: 0 50px 50px 50px;
+
+    }
+
+    h1 {
+      text-align: center;
+      color: #00420C;
+    }
+
+    p {
+      text-align: center;
+      color: #555;
+    }
+
+    div.title {
+      margin-top: 50%;
+    }
+
+    .form-group {
+      margin: 20px 0;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    .forgot-password {
+      text-align: right;
+      font-size: 12px;
+      margin-top: 8px;
+    }
+
+    .login-button {
+      width: 200%;
+      background-color: #00420C;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+
+      display: block;
+      margin: 20px auto 0 auto;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      color: #666;
+      margin-top: 40px;
+    }
+    .mt-4 {
+    margin-top: 50px; 
+    }
+    .menu {
+        flex: 1 0 auto;
+    }
+    .menu ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 30px;
+    }
+
+    .menu li {
+    margin: 15px 0;
+    }
+
+    .menu a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.2s;
+    }
+
+    .menu a:hover {
+    color:#0b611b;
+    }
+    .menu-btn {
+    display: block;
+    width: 100%;
+    background-color:00350A;
     color: #fff;
     border: none;
-    border-radius: 4px;
+    font-weight: bold;
+    font-size: 5px;
+    padding: 4px 0;
+    margin-bottom: 2px;
+    text-align: center;
+    text-decoration: none;
     cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    box-sizing: border-box;
+    }
+
+    .menu-btn:hover {
+    background-color: #007c00;
+    color: #00420C;
+    }
+    .logout {
+    margin-top: auto;
+    padding-bottom: 30px;
+    }
+
+    .logout a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.2s;
+    display: block;
+    padding: 10px 0;
+    }
+
+    .logout a:hover {
+    color: #007c00;
+    }
+    .logout-btn {
+    width: 100%;
+    background-color: #002507;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 16px 0;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    box-sizing: border-box;
+    margin: 0;
+    display: block;
+    }
+
+    .logout-btn:hover {
+    background-color: #007c00;
+    color: #00420C;
+    }
+    
+    .saudacao {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #00420C;
+    margin-top: 32px;
+    margin-bottom: px;
+    text-align: left;
+    padding-left: 24px;
+    width: 100%;
+  }
+    .conteudo-centralizado {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    margin-top: 30px;
+    }
+
+  /* Cards Row */
+.professor-cards-row {
+    display: flex;
+    gap: 2vw;
+    justify-content: center;
+    margin-top: 2em;
+    flex-wrap: wrap;
 }
 
-.send-button:hover {
-    background-color: #0056b3;
+/* Card */
+.professor-card {
+    background: #D9D9D9;
+    border-radius: 12px;
+    padding: 1.2em 1.2em 1em 1.2em;
+    flex: 1 1 280px;      /* Cresce igualmente, mínimo de 280px */
+    max-width: 350px;     /* Limita o máximo para não esticar demais */
+    min-width: 220px;     /* Limita o mínimo para não ficar muito pequeno */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.2em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+/* Título */
+.professor-card-title {
+    font-size: 1em;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 8px;
+    color: #222;
+    letter-spacing: 0.5px;
+}
+
+/* Subtítulo */
+.professor-card-subtitle {
+    font-size: 1em;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 8px;
+    color: #222;
+}
+
+/* Linhas internas */
+.professor-card-row {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.professor-card-row.ordem {
+    margin-bottom: 12px;
+    font-size: 0.97em;
+    white-space: nowrap;
+
+}
+
+.professor-card-row label {
+    font-size: 0.9em;
+    font-weight: 600;
+    margin-right: 4px;
+}
+
+.professor-card input[type="text"],
+.professor-card input[type="date"] {
+    width: 110px;
+    padding: 4px 6px;
+    border-radius: 8px;
+    border: 1px solid #bbb;
+    font-size: 1em;
+    margin-top: 2px;
+    margin-bottom: 4px;
+    background: #fff;
+}
+
+.professor-card input[type="checkbox"] {
+    margin-right: 3px;
+}
+
+/* Botão */
+.professor-card-btn {
+    width: 90%;
+    background: #00420C;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    padding: 7px 0;
+    font-weight: 700;
+    font-size: 1em;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-align: center;
+}
+
+.professor-card-btn:hover {
+    background: #007c00;
+}
+
+/* Tabelas internas */
+.professor-card-table {
+    width: 100%;
+    margin-top: 10px;
+    font-size: 0.97em;
+    border-collapse: collapse;
+}
+
+.professor-card-table th,
+.professor-card-table td {
+    padding: 4px 2px;
+    text-align: center;
+    border-bottom: 1px solid #bbb;
+}
+
+.professor-card-table th {
+    background: #D9D9D9;
+    font-weight: 700;
+    font-size: 0.97em;
+}
+
+.professor-card-table td {
+    background: #fff;
+    color: #222;
+}
+
+.professor-card-table a {
+    color: #0b611b;
+    text-decoration: underline;
+    font-size: 0.98em;
+}
+
+.professor-card-table a:hover {
+    color: #00420C;
+}
+
+/* Certificados Recebidos */
+.certificados-recebidos-box {
+    margin-bottom: 2em;
+}
+
+.certificados-recebidos-box h1 {
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 0;
+    color: #00420C;
+}
+
+.certificados-tabela-container {
+    background: #ddd;
+    border-radius: 12px;
+    padding: 0 0 1.5em 0;
+    margin-top: 0.5em;
+}
+
+.certificados-tabela {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.certificados-tabela thead tr {
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.certificados-tabela th {
+    padding: 12px 0;
+    text-align: center;
+}
+
+.certificados-tabela td {
+    text-align: center;
+    padding: 8px 0;
+}
+
+/* Responsivo */
+@media (max-width: 1000px) {
+    .professor-cards-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    .professor-card {
+        width: 98vw;
+        max-width: 350px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .professor-cards-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.2em;
+    }
+    .professor-card {
+        width: 90vw;
+        max-width: 98vw;
+        min-width: 0;
+    }
 }

@@ -35,9 +35,11 @@
         </div>
         <div>
         </div>
+        
       </div>
-      <div class="right-panel">
-        @yield('right-panel')
+      
+      <div class="main-panel">
+        @yield('main')
       </div>
 
     </div>

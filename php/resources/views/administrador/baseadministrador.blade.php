@@ -21,7 +21,7 @@
           <ul>
             <li><a href="https://academico.ifms.edu.br" class="menu-btn" target="_blank">Sistemas IFMS</a></li>
             <li><a href="https://ead.ifms.edu.br" class="menu-btn" target="_blank">EAD - Moodle</a></li>
-            <li><a href="#" class="menu-btn" target="_blank">Regulamento de Carga Horária</a></li>
+            <li><a href="#" class="menu-btn" target="_blank">Regulamento</a></li>
             <li><a href="#" class="menu-btn" target="_blank">Definir Turma</a></li>
             <li><a href="#" class="menu-btn" target="_blank">Definir Responsável</a></li>
 
