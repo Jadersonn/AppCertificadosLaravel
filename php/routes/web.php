@@ -7,7 +7,7 @@ use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\ProfessorController;
 
 Route::get('/', function () {
-    return view('auth.login');
+    return redirect()->route('login');
 });
 
 Route::get('/resetSenha', function () {

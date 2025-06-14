@@ -26,4 +26,22 @@ document.addEventListener("DOMContentLoaded", function () {
             statusArquivo.innerHTML = `<span class="arquivo-mais">+</span><br><span class="arquivo-texto">Selecione um PDF</span>`;
         }
     });
+
+    // Ajusta a largura do select conforme o texto selecionado
+    function ajustarLarguraSelect(select) {
+        const temp = document.createElement('span');
+        temp.style.visibility = 'hidden';
+        temp.style.position = 'fixed';
+        temp.style.font = window.getComputedStyle(select).font;
+        temp.innerText = select.options[select.selectedIndex].text;
+        document.body.appendChild(temp);
+        select.style.width = (temp.offsetWidth + 48) + 'px'; // 48px para padding e seta
+        document.body.removeChild(temp);
+    }
+
+    const select = document.getElementById('auto-width-select');
+    ajustarLarguraSelect(select);
+    select.addEventListener('change', function() {
+        ajustarLarguraSelect(this);
+    });
 });

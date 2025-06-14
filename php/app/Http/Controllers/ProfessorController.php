@@ -34,6 +34,10 @@ class ProfessorController extends Controller
         if (!$professor) {
             abort(404, 'Professor não encontrado');
         }
+        // Verifica se o usuário autenticado é professor. Se for outro tipo, impede o acesso.
+        if ($professor->user->funcao !== \App\Enums\FuncaoEnum::PROFESSOR ) {
+            abort(403, 'Acesso não autorizado.');
+        }
 
         return view('professor.professor', compact('professor'));
     }
@@ -48,6 +52,10 @@ class ProfessorController extends Controller
         // Verifica se o aluno foi encontrado
         if (!$administrador) {
             abort(404, 'Administrador não encontrado');
+        }
+        // Verifica se o usuário autenticado é administrador. Se for outro tipo, impede o acesso.
+        if ($administrador->user->funcao !== \App\Enums\FuncaoEnum::ADMINISTRADOR ) {
+            abort(403, 'Acesso não autorizado.');
         }
 
         return view('administrador.administrador', compact('administrador'));

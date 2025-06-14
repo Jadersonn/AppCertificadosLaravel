@@ -15,3 +15,19 @@ document.addEventListener("DOMContentLoaded", () => {
     console.error("Elementos da barra de progresso não encontrados.");
   }
 });
+
+/*function animarBarraProgresso(valorFinal) {
+    const barra = document.getElementById('progressBar');
+    let valorAtual = 0;
+    const intervalo = setInterval(() => {
+        if (valorAtual >= valorFinal) {
+            clearInterval(intervalo);
+        } else {
+            valorAtual++;
+            barra.style.width = valorAtual + '%';
+            barra.setAttribute('aria-valuenow', valorAtual);
+            barra.textContent = valorAtual + '%';
+        }
+    }, 10); // velocidade da animação
+}*/
+
