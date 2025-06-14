@@ -73,6 +73,7 @@
         </div>
     </div>
     @include('aluno.modal-solicitacao')
+    @include('aluno.modal-relatorio')
 </body>
 
 </html>
