@@ -28,6 +28,7 @@ class CertificadoController extends Controller
             'cargaHoraria' => 'required|numeric',
             'idProfessor' => 'nullable|exists:professors,id',
             'semestre' => 'required|string',
+            'pontosGerados' => 'required|numeric',
         ]);
 
         return Certificado::create($request->all());

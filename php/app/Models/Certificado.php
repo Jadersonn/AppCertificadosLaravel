@@ -10,7 +10,7 @@ class Certificado extends Model
     protected $fillable = [
         'idAluno', 'idAtividadeComplementar', 'dataEnvio',
         'statusCertificado', 'justificativa', 'caminhoArquivo',
-        'cargaHoraria', 'semestre', 'idProfessor'
+        'cargaHoraria', 'semestre', 'idProfessor', 'pontosGerados'
     ];
 
     public function aluno()

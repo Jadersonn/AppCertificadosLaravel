@@ -32,6 +32,7 @@ return new class extends Migration {
                 ->nullable()
                 ->constrained('professores', 'idProfessor')
                 ->onDelete('set null');
+            $table->integer('pontosGerados');
 
             $table->timestamps();
         });

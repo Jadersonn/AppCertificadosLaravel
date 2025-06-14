@@ -2,10 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\Turma;
 use App\Models\Aluno;
+use App\Models\Professor;
+use App\Models\Turma;
+use App\Models\User;
+use App\Models\TipoAtividade;
+use App\Models\AtividadeComplementar;
+use App\Models\Certificado;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,49 +20,92 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Cria turmas de exemplo
-        $turma1 = Turma::create([
+        // Cria Turma(s)
+        $turmaA = Turma::create([
             'nome' => 'Turma A',
-            // adicione outros campos obrigatórios da sua tabela turmas
-        ]);
-        $turma2 = Turma::create([
-            'nome' => 'Turma B',
-            // adicione outros campos obrigatórios da sua tabela turmas
         ]);
 
-        // Cria usuários
-        $admin = User::create([
-            'name' => 'Admin',
-            'email' => 'admin@email.com',
-            'password' => bcrypt('senha123'),
-            'numIdentidade' => '00000000000',
-            'funcao' => 'administrador',
+        // Cria usuários com diversas funções
+        $adminUser = User::create([
+            'name'          => 'Administrador',
+            'email'         => 'admin@example.com',
+            'password'      => Hash::make('senha123'),
+            'numIdentidade' => '0000000000',
+            'funcao'        => 'administrador',
         ]);
 
-        $professor = User::create([
-            'name' => 'Professor',
-            'email' => 'professor@email.com',
-            'password' => bcrypt('senha123'),
-            'numIdentidade' => '11111111111',
-            'funcao' => 'professor',
+        $professorUser = User::create([
+            'name'          => 'Professor',
+            'email'         => 'professor@example.com',
+            'password'      => Hash::make('senha123'),
+            'numIdentidade' => '1111111111',
+            'funcao'        => 'professor',
         ]);
 
-        $aluno = User::create([
-            'name' => 'Aluno',
-            'email' => 'aluno@email.com',
-            'password' => bcrypt('senha123'),
-            'numIdentidade' => '22222222222',
-            'funcao' => 'aluno',
+        $alunoUser = User::create([
+            'name'          => 'Aluno',
+            'email'         => 'aluno@example.com',
+            'password'      => Hash::make('senha123'),
+            'numIdentidade' => '2222222222',
+            'funcao'        => 'aluno',
         ]);
 
-        // Cria aluno relacionado ao user e turma
-        Aluno::create([
-            'user_id' => $aluno->id,
-            'idTurma' => $turma1->id,
-            'dataIngresso' => now(),
-            'dataConclusao' => null,
+        // Relaciona os usuários com suas respectivas entidades
+        $professor = Professor::create([
+            'user_id' => $professorUser->getKey(),
+        ]);
+
+        $administrador = Professor::create([
+            'user_id' => $adminUser->getKey(),
+        ]);
+
+        $aluno = Aluno::create([
+            'user_id'           => $alunoUser->getKey(),
+            'idTurma'           => $turmaA->id,
+            'dataIngresso'      => Carbon::now(),
+            'dataConclusao'     => null,
             'statusDeConclusao' => 'em andamento',
-            'pontosRecebidos' => 0,
+            'pontosRecebidos'   => 0,
+        ]);
+
+        // Cria Tipos de Atividades utilizando os valores dinamicamente
+        $tipoEnsino = TipoAtividade::create([
+            'nome'            => 'Ensino',
+            'descricao'       => 'Atividades relacionadas ao ensino',
+            'maximoSemestral' => 40,
+        ]);
+
+        $tipoPesquisa = TipoAtividade::create([
+            'nome'            => 'Pesquisa',
+            'descricao'       => 'Atividades relacionadas à pesquisa',
+            'maximoSemestral' => 30,
+        ]);
+
+        $tipoExtensao = TipoAtividade::create([
+            'nome'            => 'Extensão',
+            'descricao'       => 'Atividades de extensão',
+            'maximoSemestral' => 20,
+        ]);
+
+        // Cria Atividade Complementar utilizando o ID retornado dinamicamente do $tipoEnsino
+        $atividadeComplementar = AtividadeComplementar::create([
+            'nomeAtividadeComplementar'             => 'Palestra',
+            'descricaoAtividadeComplementar'          => 'Participação em palestra',
+            'maximoSemestralAtividadeComplementar'    => 5,
+            'idTipoAtividade'                         => $tipoEnsino->getKey(),
+        ]);
+
+        Certificado::create([
+            'idAluno'                 => $aluno->getKey(),
+            'idAtividadeComplementar' => $atividadeComplementar->getKey(),
+            'dataEnvio'               => Carbon::now()->toDateString(),
+            'statusCertificado'       => 'pendente',
+            'justificativa'           => null,
+            'caminhoArquivo'          => 'certificados/palestra.pdf',
+            'cargaHoraria'            => 5,
+            'semestre'                => '2025-1',
+            'idProfessor'             => $professor->getKey(),
+            'pontosGerados'           => 10,
         ]);
     }
 }
