@@ -422,7 +422,7 @@ body {
     left: 645px;
     top: 0;
     width: 173px;
-    height: 51px;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -437,12 +437,11 @@ body {
     position: absolute;
     left: 700px;
     top: 10px;
-    width: 100px;           /* largura menor */
+    width: 150px;           /* largura menor */
     height: 55px;          /* altura menor */
     display: flex;
     align-items: center;
     justify-content: center;
-    color: black;        
     background: transparent;
     font-size: 20px;      
     font-family: Roboto, Arial, sans-serif;
@@ -451,14 +450,17 @@ body {
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    box-shadow: none;
-    transition: background 0.2s, color 0.2s;
-    padding: 0;
+    outline: none;
+    padding: 15px; /* espaçamento interno */
     appearance: none;
 }
 .titulo-geral-select option {
-    color: #222;
-    background: #fff;
+    color: white;
+    background: #518b27;
+    text-align: center;
+    font-size: 0.8em;      /* Letras menores */
+    font-family: Roboto, Arial, sans-serif;
+    border-bottom: 1px solid #fff; /* Linha branca separando as opções */
 }
 .titulo-geral-select:hover {
     background: #e6f0fa;
@@ -496,10 +498,10 @@ body {
     background: #6BA539;
     border-radius: 8px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.25);
-    padding: 2em 1.5em 1.5em 1.5em;
-    width: 95vw;
-    max-width: 540px;
-    min-width: 260px;
+    padding: 32px 40px;
+    width: 700px; 
+    max-width: 90vw;
+    min-width: 600px;
     position: relative;
 }
 
@@ -600,7 +602,7 @@ input[type="file"] {
 
 .input-arquivo-wrapper label {
     width: 100%;
-    height: 90px;
+    height: 160px;
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 4px rgba(0,0,0,0.15);
