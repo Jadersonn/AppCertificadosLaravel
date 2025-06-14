@@ -74,6 +74,7 @@
 
         </div>
     </div>
+@include('aluno.modal-solicitacao')
 </body>
 
 </html>
