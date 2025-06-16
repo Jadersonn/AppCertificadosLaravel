@@ -1,6 +1,7 @@
 @extends('aluno.basealuno')
 @push('scripts')
   <script src="{{ asset('js/aluno/aluno.js') }}"></script>
+  <script src="{{ asset('js/aluno/modal.js') }}"></script>
 @endpush
 
 @push('head')
@@ -38,6 +39,8 @@
     </div>
     </div>
 </div>
+
+
 @stack('scripts')
 
 @endsection

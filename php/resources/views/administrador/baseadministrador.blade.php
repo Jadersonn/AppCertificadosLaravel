@@ -38,9 +38,57 @@
         <div>
         </div>
       </div>
+      <div class="main-panel">
+        @yield('main')
+      </div>
+      <div class="container-admin">
+      <div class="tabela-recebidos">
+    <h1>PAINEL DO ADMINISTRADOR</h1>
+    <div class="tabela-container">
+        <table class="admin-tabela">
+            <thead>
+                <tr>
+                    <th>CURSO</th>
+                    <th>RESPONSÁVEL</th>
+                    <th>IDENTIFICAÇÃO</th>
+                    <th>PERÍODO</th>
+                    <th>HISTÓRICO</th>
+                    <th>EDITAR</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{-- Linhas de exemplo, pode preencher dinamicamente --}}
+            </tbody>
+        </table>
+        </div>
+    </div>
+    <div class="tabela-recebidos">
+    <h1>HISTÓRICO DE CERTIFICADOS</h1>
+    <div class="tabela-container">
+        <table class="admin-tabela">
+            <thead>
+                <tr>
+                    <th>ALUNO</th>
+                    <th>PROFESSOR</th>
+                    <th>TURMA</th>
+                    <th>PONTO</th>
+                    <th>CATEGORIA</th>
+                    <th>CERTIFICADO</th>
+                    <th>DATA ENVIO</th>
+                    <th>CARGA HORÁRIA</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{-- Linhas de exemplo, pode preencher dinamicamente --}}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
       <div class="right-panel">
         @yield('right-panel')
       </div>
+      
 
     </div>
   </div>

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AtividadeComplementar extends Model
 {
+    protected $table = 'atividades_complementares'; 
     protected $primaryKey = 'idAtividadeComplementar';
     protected $fillable = ['descricaoAtividadeComplementar', 'nomeAtividadeComplementar', 'maximoSemestralAtividadeComplementar', 'idTipoAtividade'];
 

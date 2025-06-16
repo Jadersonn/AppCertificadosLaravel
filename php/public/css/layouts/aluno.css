@@ -422,7 +422,7 @@ body {
     left: 645px;
     top: 0;
     width: 173px;
-    height: 51px;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -433,16 +433,15 @@ body {
     text-decoration: underline;
 }
 
-.titulo-geral-btn {
+.titulo-geral-select {
     position: absolute;
     left: 700px;
     top: 10px;
-    width: 100px;           /* largura menor */
+    width: 150px;           /* largura menor */
     height: 55px;          /* altura menor */
     display: flex;
     align-items: center;
     justify-content: center;
-    color: black;        
     background: transparent;
     font-size: 20px;      
     font-family: Roboto, Arial, sans-serif;
@@ -451,11 +450,19 @@ body {
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    box-shadow: none;
-    transition: background 0.2s, color 0.2s;
-    padding: 0;
+    outline: none;
+    padding: 15px; /* espaçamento interno */
+    appearance: none;
 }
-.titulo-geral-btn:hover {
+.titulo-geral-select option {
+    color: white;
+    background: #518b27;
+    text-align: center;
+    font-size: 0.8em;      /* Letras menores */
+    font-family: Roboto, Arial, sans-serif;
+    border-bottom: 1px solid #fff; /* Linha branca separando as opções */
+}
+.titulo-geral-select:hover {
     background: #e6f0fa;
     color:#00420C;
     border-color: #00420C;
@@ -475,11 +482,196 @@ body {
     line-height: 16px; 
 }
 
-.progress {
-    height: 100%;
+/* Modal overlay */
+.modal-solicitacao {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Modal box */
+.modal-conteudo {
+    background: #6BA539;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    padding: 32px 40px;
+    width: 700px; 
+    max-width: 90vw;
+    min-width: 600px;
+    position: relative;
+}
+
+/* Botão fechar */
+.modal-fechar {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 2em;
+    cursor: pointer;
+}
+
+/* Título */
+.modal-conteudo h2 {
+    margin-top: 0;
+    margin-bottom: 1.2em;
+    font-size: 1.4em;
+    font-weight: 700;
+    text-align: left;
+    color: #222;
+    text-shadow: 0 4px 4px rgba(0,0,0,0.10);
+}
+
+/* Linhas de inputs */
+.modal-row {
+    display: flex;
+    gap: 1.2em;
+    margin-bottom: 1em;
+}
+.modal-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.modal-col label {
+    font-weight: 700;
+    margin-bottom: 0.3em;
+    color: #222;
+    font-size: 1em;
+}
+
+/* Select e input */
+.modal-col select,
+.modal-col input[type="text"] {
+    background: #fff;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 4px 4px rgba(0,0,0,0.15);
+    padding: 0.7em;
+    font-size: 1em;
+    margin-bottom: 0.5em;
+    outline: none;
+    appearance: none;
+}
+
+/* Select seta customizada */
+.modal-col select {
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='10' viewBox='0 0 16 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L8 8L15 1' stroke='%23333' stroke-width='2'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.7em center;
+    background-size: 1.2em;
+}
+
+/* Input file */
+input[type="file"] {
+    margin-top: 0.5em;
+    background: #fff;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 4px 4px rgba(0,0,0,0.10);
+    padding-top: 1em;
+    padding-bottom: 7em;
+    font-size: 1em;
+    width: 100%;
+}
+
+.input-arquivo-wrapper {
+    position: relative;
+    width: 100%;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+    display: flex;
+    justify-content: center;
+}
+
+.input-arquivo-wrapper input[type="file"] {
+    opacity: 0;
+    width: 100%;
+    height: 90px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.input-arquivo-wrapper label {
+    width: 100%;
+    height: 160px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 4px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.1em;
+    color: #888;
+    z-index: 1;
+    transition: border 0.2s;
+    border: 2px dashed #b5b5b5;
+    text-align: center;
+}
+
+.arquivo-mais {
+    font-size: 2.8em;
+    color: #2172ED;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.arquivo-texto {
+    font-size: 1em;
+    color: #888;
+}
+
+/* Textarea */
+textarea {
+    background: #fff;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 4px 4px rgba(0,0,0,0.15);
+    padding: 0.7em;
+    font-size: 1em;
+    margin-top: 0.3em;
+    resize: vertical;
+    min-height: 80px;
+    outline: none;
+}
+
+/* Botão enviar */
+.modal-enviar {
     background: #2172ED;
-    border-radius: 8px 0 0 8px;
-    transition: width 0.4s;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.6em 2em;
+    font-size: 1em;
+    font-weight: 500;
+    box-shadow: 0 4px 4px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.modal-enviar:hover {
+    background: #155bb2;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+    .modal-conteudo {
+        padding: 1em 0.5em;
+        max-width: 98vw;
+    }
+    .modal-row {
+        flex-direction: column;
+        gap: 0.5em;
+    }
 }
 
 
