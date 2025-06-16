@@ -7,25 +7,26 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    document.getElementById('fechar-modal').onclick = function() {
+    document.getElementById('fechar-modal').onclick = function () {
         document.getElementById('modal-solicitacao').style.display = 'none';
     };
 
     // Fecha ao clicar fora do modal
-    document.getElementById('modal-solicitacao').onclick = function(e) {
+    document.getElementById('modal-solicitacao').onclick = function (e) {
         if (e.target === this) this.style.display = 'none';
     };
 
     // Atualiza o status do arquivo
     const inputArquivo = document.getElementById('arquivo');
     const statusArquivo = document.getElementById('arquivo-status');
-    inputArquivo.addEventListener('change', function() {
+    inputArquivo.addEventListener('change', function () {
         if (this.files && this.files.length > 0) {
             statusArquivo.innerHTML = `<span class="arquivo-texto">${this.files[0].name}</span>`;
         } else {
             statusArquivo.innerHTML = `<span class="arquivo-mais">+</span><br><span class="arquivo-texto">Selecione um PDF</span>`;
         }
     });
+
 
     // Ajusta a largura do select conforme o texto selecionado
     function ajustarLarguraSelect(select) {
@@ -39,9 +40,13 @@ document.addEventListener("DOMContentLoaded", function () {
         document.body.removeChild(temp);
     }
 
+    //verificando a existencia do elemento
     const select = document.getElementById('auto-width-select');
-    ajustarLarguraSelect(select);
-    select.addEventListener('change', function() {
-        ajustarLarguraSelect(this);
-    });
+    if (select) {
+        ajustarLarguraSelect(select);
+        select.addEventListener('change', function () {
+            ajustarLarguraSelect(this);
+        });
+    }
+
 });
