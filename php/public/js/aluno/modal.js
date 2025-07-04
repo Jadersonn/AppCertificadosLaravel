@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.body.removeChild(temp);
     }
 
+    //verificando a existencia do elemento
     const select = document.getElementById('auto-width-select');
     if (select) {
         ajustarLarguraSelect(select);
