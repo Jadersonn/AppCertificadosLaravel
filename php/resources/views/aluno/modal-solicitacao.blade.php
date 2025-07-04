@@ -2,7 +2,8 @@
     <div class="modal-conteudo">
         <button class="modal-fechar" id="fechar-modal">&times;</button>
         <h2 style="margin-bottom: 1.2em;">Nova Solicitação de Horas</h2>
-        <form enctype="multipart/form-data">
+        <form enctype="multipart/form-data" method="POST" action="{{ route('aluno.certificados') }}">
+            @csrf
             <div class="modal-row">
                 <div class="modal-col">
                     <label for="categoria">Categoria</label>
@@ -41,14 +42,14 @@
             <div style="margin-bottom: 1em;">
                 <label for="arquivo">Arquivo:</label>
                 <div class="input-arquivo-wrapper">
-                    <input type="file" id="arquivo" name="arquivo" accept="application/pdf" required>
+                    <input type="file" id="arquivo"  name="arquivo" accept="application/pdf" required>
                     <label for="arquivo" id="arquivo-label">
-                        <span id="arquivo-status"><span class="arquivo-mais">+</span><br><span class="arquivo-texto">Selecione um PDF</span></span>
+                        <span id="arquivo-status"><span class="arquivo-mais">+</span><br><span class="arquivo-texto">Selecione um PDF</span></span><span class="arquivo-texto">Até 30MB</span>
                     </label>
                 </div>
             </div>
             <div style="text-align: right;">
-                <button type="submit" class="modal-enviar">ENVIAR</button>
+                <button type="submit" class="modal-enviar">Enviar</button>
             </div>
         </form>
     </div>

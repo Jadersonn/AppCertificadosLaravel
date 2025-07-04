@@ -8,9 +8,16 @@ class Certificado extends Model
 {
     protected $primaryKey = 'idCertificado';
     protected $fillable = [
-        'idAluno', 'idAtividadeComplementar', 'dataEnvio',
-        'statusCertificado', 'justificativa', 'caminhoArquivo',
-        'cargaHoraria', 'semestre', 'idProfessor', 'pontosGerados'
+        'idAluno',
+        'idAtividadeComplementar',
+        'dataEnvio',
+        'statusCertificado',
+        'justificativa',
+        'caminhoArquivo',
+        'cargaHoraria',
+        'idProfessor',
+        'semestre',
+        'pontosGerados',
     ];
 
     public function aluno()
@@ -28,4 +35,3 @@ class Certificado extends Model
         return $this->belongsTo(Professor::class, 'idProfessor');
     }
 }
-

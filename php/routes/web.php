@@ -4,7 +4,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AlunoController;
+use App\Http\Controllers\CertificadoController;
 use App\Http\Controllers\ProfessorController;
+use App\Models\Certificado;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -30,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/aluno/create', [AlunoController::class, 'create'])->name('aluno.create');
     Route::get('/aluno/{idnumIdentidade}/edit', [AlunoController::class, 'update'])->name('aluno.edit');
     //Route::get('/aluno/{numIdentidade}/delete', [AlunoController::class, 'destroy'])->name('aluno.delete');
+    Route::post('/aluno/certificados', [CertificadoController::class, 'store'])->name('aluno.certificados');
 });
 
 
