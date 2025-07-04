@@ -1,0 +1,5 @@
+Para instalacao do software eh necessario definir ajustar alguns pontos no arquivo .env
+1. Preencher com seu servidor de email
+2. Definir o endereco que deseja salvar os certificados na variavel "APP_CERTIFICADOS"
+3. Definir a url que o site ira rodar
+4. Definir a porta do firewall para o site

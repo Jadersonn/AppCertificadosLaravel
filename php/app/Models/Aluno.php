@@ -15,7 +15,13 @@ class Aluno extends Model
         'user_id',
         'idTurma',
     ];
-
+    
+    // busca o id do aluno pelo user_id
+    public static function getIdByUserId($userId)
+    {
+        $aluno = self::where('user_id', $userId)->first();
+        return $aluno ? $aluno->idAluno : null;
+    }
     public function usuario()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -34,6 +40,4 @@ class Aluno extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
 }
-
