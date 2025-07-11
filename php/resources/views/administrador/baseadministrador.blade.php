@@ -57,7 +57,7 @@
                 </tr>
             </thead>
             <tbody>
-                {{-- Linhas de exemplo, pode preencher dinamicamente --}}
+                
             </tbody>
         </table>
         </div>
@@ -79,7 +79,7 @@
                 </tr>
             </thead>
             <tbody>
-                {{-- Linhas de exemplo, pode preencher dinamicamente --}}
+               
             </tbody>
         </table>
         </div>

@@ -2,8 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>{{ config('app.name', 'Certificados IFMS') }}</title>
+    <meta charset="UTF-8">    
     <link rel="stylesheet" href="{{ asset('css/layouts/base.css') }}">
     @stack('head')
 </head>

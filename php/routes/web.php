@@ -71,5 +71,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+//rotas para vizualizar certificados
+Route::get('/certificados/visualizar/{id}', [CertificadoController::class, 'visualizar'])->middleware('auth');
+
 require __DIR__ . '/auth.php';
 ?>

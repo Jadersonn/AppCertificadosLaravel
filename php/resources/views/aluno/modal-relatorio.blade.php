@@ -22,7 +22,7 @@
       </tr>
     </thead>
     <tbody>
-      <!-- Exemplo de linha, repita conforme necessário -->
+      
       <tr>
         <td>Exemplo 1</td>
         <td>10</td>
@@ -34,7 +34,7 @@
         <td>---</td>
         <td><button>Baixar</button></td>
       </tr>
-      <!-- Outras linhas -->
+      
     </tbody>
   </table>
 </div>

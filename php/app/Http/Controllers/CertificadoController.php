@@ -10,6 +10,7 @@ use App\Models\Certificado;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Aluno;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CertificadoController extends Controller
 {
@@ -25,40 +26,67 @@ class CertificadoController extends Controller
             'subcategoria' => 'required|string',
             'semestre' => 'required|string',
             'horas' => 'required|numeric',
-            'arquivo' => 'required|file|mimes:pdf|max:30720' // até 30MB
+            'arquivo' => 'required|file|mimes:pdf|max:30720'
         ]);
 
-        // Salvar o arquivo, alterar aqui para usar o sistema de arquivos do IFMS
-        $path = $request->file('arquivo')->store('certificados', 'public');
-        // Verifica se o upload foi bem-sucedido
-        if (!$path) {
-            return redirect()->back()->withErrors(['arquivo' => 'Erro ao enviar o arquivo. Tente novamente.']);
-        }
-
-        // Caminho público completo usando variável do .env
-        $caminhoCompleto = env('APP_URL') . '/storage/' . $path;
-
-        // busca o id de aluno 
+        // Busca o id do aluno
         $alunoId = Aluno::getIdByUserId(Auth::user()->id);
         if (!$alunoId) {
             return redirect()->back()->withErrors(['aluno' => 'Aluno não encontrado para este usuário.']);
         }
 
-        // Criar o certificado
-        $certificado = Certificado::create([
-            'idAluno' => $alunoId, // ou outro ID
-            'idAtividadeComplementar' => $request->categoria, // ID da atividade complementar
+        // Cria o certificado sem o caminho do arquivo
+        $certificado = \App\Models\Certificado::create([
+            'idAluno' => $alunoId,
+            'idAtividadeComplementar' => $request->categoria,
             'dataEnvio' => now(),
             'statusCertificado' => 'pendente',
             'justificativa' => null,
-            'caminhoArquivo' => $caminhoCompleto,
+            'caminhoArquivo' => '', // será atualizado depois
             'cargaHoraria' => $request->horas,
             'idProfessor' => null,
             'semestre' => $request->semestre,
-            'pontosGerados' => 0, // Inicialmente 0, será atualizado posteriormente
+            'pontosGerados' => 0,
         ]);
 
+        // Monta o nome do arquivo "idAluno-idCertificado-nomeOriginal.extensão"
+        $nomeOriginal = $request->file('arquivo')->getClientOriginalName();
+        $nomeArquivo = "{$alunoId}-{$certificado->idCertificado}-{$nomeOriginal}";
+
+        // Salva o arquivo com o nome personalizado
+        $path = $request->file('arquivo')->storeAs('', $nomeArquivo, 'certificados');
+        if (!$path) {
+            // Se falhar, apaga o certificado criado
+            $certificado->delete();
+            return redirect()->back()->withErrors(['arquivo' => 'Erro ao enviar o arquivo. Tente novamente.']);
+        }
+
+        // Atualiza o caminho do arquivo no certificado
+        $caminhoCompleto = $path; // Salve só o caminho relativo no banco
+        $certificado->update(['caminhoArquivo' => $caminhoCompleto]);
+
         return redirect()->back()->with('success', 'Certificado enviado com sucesso!');
+    }
+
+    public function visualizar($id)
+    {
+        $certificado = Certificado::findOrFail($id);
+
+        $user = Auth::user();
+        
+        if (
+            ($user->aluno && $certificado->idAluno == $user->aluno->idAluno) ||
+            ($user->professor)
+        ) {
+            $file = Storage::disk('certificados')->get($certificado->caminhoArquivo);
+            $nomeArquivo = basename($certificado->caminhoArquivo);
+
+            return response($file, 200)
+                ->header('Content-Type', 'application/pdf')
+                ->header('Content-Disposition', 'inline; filename="' . $nomeArquivo . '"');
+        }
+
+        abort(403, 'Acesso não autorizado');
     }
 
 

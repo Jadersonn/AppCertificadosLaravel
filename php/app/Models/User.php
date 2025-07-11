@@ -6,7 +6,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable 
+class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
 
@@ -36,5 +36,37 @@ class User extends Authenticatable
     public function professor()
     {
         return $this->hasOne(Professor::class, 'idUsuario');
+    }
+
+    public static function getTipoEIdPorUserId($userId)
+    {
+        $user = self::find($userId);
+        if (!$user) {
+            return null;
+        }
+
+        // Verifica se é aluno
+        $aluno = \App\Models\Aluno::where('user_id', $userId)->first();
+        if ($aluno) {
+            return [
+                'tipo' => 'aluno',
+                'id' => $aluno->idAluno,
+            ];
+        }
+
+        // Verifica se é professor
+        $professor = \App\Models\Professor::where('user_id', $userId)->first();
+        if ($professor) {
+            return [
+                'tipo' => 'professor',
+                'id' => $professor->idProfessor,
+            ];
+        }
+
+        // Se não for aluno nem professor, assume administrador
+        return [
+            'tipo' => 'administrador',
+            'id' => $userId,
+        ];
     }
 }

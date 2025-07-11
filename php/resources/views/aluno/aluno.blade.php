@@ -6,6 +6,7 @@
 
 @push('head')
   <link rel="stylesheet" href="{{ asset('css/layouts/aluno.css') }}">
+  <title>{{ config('app.name', 'Certificados de Aluno') }}</title>
 @endpush
 
 @section('right-panel')
