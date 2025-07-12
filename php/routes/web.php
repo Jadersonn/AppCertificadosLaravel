@@ -16,10 +16,6 @@ Route::get('/resetSenha', function () {
     return view('resetSenha');
 });
 
-/*Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');*/
-
 //rotas para aluno autenticado
 Route::get('/aluno', function () {
     $user = Auth::user();

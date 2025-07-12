@@ -1,12 +1,3 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-  <meta charset="UTF-8">
-  <title>{{ config('app.name', 'Certificados IFMS') }}</title>
-  <link rel="stylesheet" href="{{ asset('css/layouts/base.css') }}">
-  <link rel="icon" href="{{ asset('imagens/favicon.ico') }}" type="image/x-icon">
-  @stack('head')
-</head>
 <body>
   <div class="container">
     <div class="login-box">

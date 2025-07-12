@@ -49,10 +49,10 @@ class CertificadoController extends Controller
             'pontosGerados' => 0,
         ]);
 
-        // Monta o nome do arquivo "idAluno-idCertificado-nomeOriginal.extensão"
-        $nomeOriginal = $request->file('arquivo')->getClientOriginalName();
+        // Monta o nome do arquivo "idAluno-idCertificado-nomeOriginal.extensão" e retirando espacos
+        $nomeOriginal = preg_replace('/[^A-Za-z0-9\.\-_]/', '_', $request->file('arquivo')->getClientOriginalName());
         $nomeArquivo = "{$alunoId}-{$certificado->idCertificado}-{$nomeOriginal}";
-
+        
         // Salva o arquivo com o nome personalizado
         $path = $request->file('arquivo')->storeAs('', $nomeArquivo, 'certificados');
         if (!$path) {
@@ -73,7 +73,7 @@ class CertificadoController extends Controller
         $certificado = Certificado::findOrFail($id);
 
         $user = Auth::user();
-        
+
         if (
             ($user->aluno && $certificado->idAluno == $user->aluno->idAluno) ||
             ($user->professor)

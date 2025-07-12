@@ -10,13 +10,16 @@
         content="certificados, ifms, emissão de certificados, sistema de certificados, educação, tecnologia, Laravel">
     <meta name="author" content="Jaderson e Lara">
     <meta name="theme-color" content="#4CAF50">
-    <title>{{ config('app.name', 'Certificados IFMS') }}</title>
+    <title>@yield('title', config('app.name', 'Certificados IFMS'))</title>
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('imagens/favicon.ico') }}" type="image/x-icon">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
+    <title>{{ config('app.name', 'Certificados IFMS') }}</title>
+    <link rel="stylesheet" href="{{ asset('css/layouts/base.css') }}">
+    <link rel="icon" href="{{ asset('imagens/favicon.ico') }}" type="image/x-icon">
+    @stack('head')
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>

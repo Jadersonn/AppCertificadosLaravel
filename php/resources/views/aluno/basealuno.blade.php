@@ -2,7 +2,9 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">    
+    
+    <meta charset="UTF-8">
+    <title>Certificados de Aluno</title>
     <link rel="stylesheet" href="{{ asset('css/layouts/base.css') }}">
     @stack('head')
 </head>
