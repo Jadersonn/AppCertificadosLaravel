@@ -1,65 +1,118 @@
-# Sistema de Certificados IFMS
+---
 
-Este é um sistema web para gerenciamento e emissão de certificados acadêmicos, desenvolvido em Laravel. O objetivo é facilitar o controle de horas complementares de alunos, com área para professores e administradores.
+# 🎓 Sistema de Certificados IFMS
+
+Sistema web desenvolvido em **Laravel** para o gerenciamento e emissão de certificados acadêmicos, com foco no controle de **atividades complementares dos alunos** e áreas exclusivas para **professores** e **administradores**.
 
 ---
 
 ## 🚀 Instalação Rápida
 
-1. **Clone o projeto**
-   git clone https://github.com/Jadersonn/AppCertificadosLaravel
-   cd AppCertificadosLaravel/php
+### 1. Clone o projeto:
 
-2. **Instale as dependências** 
-    composer install
-    npm install
-    npm run build
+```bash
+git clone https://github.com/Jadersonn/AppCertificadosLaravel
+cd AppCertificadosLaravel/php
+```
 
-3. **Configure seu ambiente** 
-    Copie o arquivo .env.example para .env
-    Edite o .env e ajuste:
-        Dados do banco de dados (DB_DATABASE, DB_USERNAME, DB_PASSWORD)
-    Caminho para salvar certificados:
-    ENDERECO_CERTIFICADOS=/caminho/para/salvar/certificados
-    (No Windows, use o caminho completo, ex: C:\Users\SeuUsuario\certificados)
+### 2. Instale as dependências:
 
-4. **Gere a chave da aplicação** 
-    php artisan key:generate
+```bash
+composer install
+npm install
+npm run build
+```
 
-5. **Rode as migrations e seeders**
-    php artisan migrate --seed
+### 3. Configure o ambiente:
 
-6. **Inicie o servidor**
-    php artisan serve
+* Copie o arquivo `.env.example` e renomeie:
 
-Acesse em http://localhost:8000
+```bash
+cp .env.example .env
+```
 
-👤 Usuários de Teste
-Administrador:
-Email: admin@example.com
-Senha: senha123
+* Edite o arquivo `.env` com seus dados de banco:
 
-Professor:
-Email: professor@example.com
-Senha: senha123
+```
+DB_DATABASE=nome_do_banco
+DB_USERNAME=seu_usuario
+DB_PASSWORD=sua_senha
+```
 
-Aluno:
-Email: aluno@example.com
-Senha: senha123
+* Configure o caminho para salvar os certificados:
 
-💡 Sobre o Projeto
-Tecnologias: Laravel, MySQL, TailwindCSS, JavaScript
-Funcionalidades:
-Cadastro e login de usuários (aluno, professor, admin)
-Envio e validação de certificados em PDF
-Aprovação/reprovação de certificados por professores
-Relatórios e painel administrativo
+```
+ENDERECO_CERTIFICADOS=/caminho/para/salvar/certificados
+```
 
-📄 Observações
-O sistema foi desenvolvido como projeto para o Instituto Federal de Mato Grosso do Sul - Campus Corumbá.
-O código está documentado e organizado para fácil entendimento.
-Qualquer dúvida, entre em contato!
+> ⚠️ No Windows, use o caminho completo, como:
+> `C:\Users\SeuUsuario\certificados`
 
-Desenvolvido por Jaderson Pillar e Lara Riomayor
+### 4. Gere a chave da aplicação:
 
-pillar.jaderson@gmail.com
+```bash
+php artisan key:generate
+```
+
+### 5. Rode as migrations e seeders:
+
+```bash
+php artisan migrate --seed
+```
+
+### 6. Inicie o servidor:
+
+```bash
+php artisan serve
+```
+
+📍 Acesse: [http://localhost:8000](http://localhost:8000)
+
+---
+
+## 👤 Usuários de Teste
+
+| Função        | E-mail                                                | Senha    |
+| ------------- | ----------------------------------------------------- | -------- |
+| Administrador | [admin@example.com](mailto:admin@example.com)         | senha123 |
+| Professor     | [professor@example.com](mailto:professor@example.com) | senha123 |
+| Aluno         | [aluno@example.com](mailto:aluno@example.com)         | senha123 |
+
+---
+
+## 💡 Sobre o Projeto
+
+**Tecnologias utilizadas**:
+
+* PHP / Laravel
+* MySQL
+* Tailwind CSS
+* Alpine.js
+* Vite
+* JavaScript
+
+**Funcionalidades**:
+
+* Cadastro e login com autenticação
+* Upload de certificados em PDF
+* Validação e reprovação de certificados pelos professores
+* Acompanhamento de carga horária pelos alunos
+* Geração de relatórios completos para gestão acadêmica
+
+---
+
+## 🏫 Instituição
+
+Este projeto foi desenvolvido como parte de uma iniciativa acadêmica no
+**Instituto Federal de Mato Grosso do Sul – Campus Corumbá**.
+
+---
+
+## 👨‍💻 Desenvolvedores
+
+* Jaderson Pillar
+* Lara Riomayor
+
+📩 Contato: [pillar.jaderson@gmail.com](mailto:pillar.jaderson@gmail.com)
+
+---
