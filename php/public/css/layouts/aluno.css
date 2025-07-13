@@ -590,6 +590,18 @@ input[type="password"] {
   font-size: 1em;
 }
 
+.modal-col input {
+  font-weight: 700;
+  margin-bottom: 0.3em;
+  border-radius: 8px;
+  padding: 0.7em;
+  border: none;
+  color: #222;
+  font-size: 1em;
+  outline: none;
+  appearance: none;
+}
+
 /* Select e input */
 .modal-col select,
 .modal-col input[type="text"] {
@@ -611,6 +623,7 @@ input[type="password"] {
   background-position: right 0.7em center;
   background-size: 1.2em;
 }
+
 
 /* Botão enviar */
 .modal-enviar {

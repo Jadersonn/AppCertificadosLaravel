@@ -34,7 +34,7 @@
                 </div>
                 <div class="modal-col">
                     <label for="horas">Horas</label>
-                    <input type="number" id="horas" name="horas" placeholder="Horas" required>
+                    <input type="number" id="horas" name="horas" placeholder="Horas" required min="1">
                 </div>
             </div>
             <div style="margin-bottom: 1em;">
