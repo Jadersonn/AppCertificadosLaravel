@@ -9,9 +9,9 @@
                     <label for="categoria">Categoria</label>
                     <select id="categoria" name="categoria" required>
                         <option value="">Categoria</option>
-                        <option value="1">Extensão</option>
-                        <option value="2">Pesquisa</option>
-                        <option value="3">Ensino</option>
+                        @foreach ($tiposAtividades as $index => $tipo)
+                        <option value="{{ $tipo->id }}">{{ $tipo->nome }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="modal-col">

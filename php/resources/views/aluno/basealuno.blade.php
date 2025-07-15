@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    
+
     <meta charset="UTF-8">
     <title>Certificados de Aluno</title>
     <link rel="stylesheet" href="{{ asset('css/layouts/base.css') }}">
@@ -41,9 +41,12 @@
                 Oi, {{ Auth::user()->name }}
                 <div class="categorias-container">
                     @foreach ($tiposAtividades as $index => $tipo)
-                        <div class="categoria-box" style="top: {{ 83 + $index * 110 }}px;">
+                        <div class="categoria-box" style="top: {{ 83 + $index * 110 }}px;" data-bs-toggle="modal"
+                            data-bs-target="#categoriaModal" data-id="{{ $tipo->id }}"
+                            ondblclick="abrirModalCategoria(this)">
                             {{ $tipo->nome }}
                         </div>
+
                         <div class="progress-bar" style="top: {{ 140 + $index * 110 }}px;">
                             <div class="progress-inner" id="progressBar-{{ $index }}" role="progressbar"
                                 style="width: {{ $tipo->percentual }}%;" aria-valuenow="{{ $tipo->percentual }}"
@@ -78,3 +81,5 @@
 </body>
 
 </html>
+
+

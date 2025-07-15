@@ -1,4 +1,6 @@
 import './bootstrap';
+import 'bootstrap';
+
 
 import Alpine from 'alpinejs';
 
@@ -9,3 +11,5 @@ Alpine.start();
 import mask from '@alpinejs/mask'
  
 Alpine.plugin(mask)
+
+import './modalTurmas.js';

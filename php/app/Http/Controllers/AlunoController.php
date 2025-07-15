@@ -42,7 +42,8 @@ class AlunoController extends Controller
         }
         // Recupera todos os tipos de atividades complementares
         $tiposAtividades = TipoAtividade::all();
-
+        $subCategorias = AtividadeComplementar::all();
+        
         // Recupera todos os certificados do aluno, carregando também o relacionamento com atividadeComplementar
         $certificados = Certificado::where('idAluno', $aluno->getKey())
             ->with('atividadeComplementar')
