@@ -44,6 +44,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/professor/create', [ProfessorController::class, 'create'])->name('professor.create');
     Route::get('/professor/{idnumIdentidade}/edit', [ProfessorController::class, 'update'])->name('professor.edit');
     //Route::get('/professor/{numIdentidade}/delete', [ProfessorController::class, 'destroy'])->name('professor.delete');
+    // Aprovar certificado
+    Route::post('/certificados/{id}/aprovar', [CertificadoController::class, 'aprovar'])->name('certificados.aprovar');
+
+    // Rejeitar certificado
+    Route::post('/certificados/{id}/rejeitar', [CertificadoController::class, 'rejeitar'])->name('certificados.rejeitar');
+
+    // Editar (apenas redireciona para a tela de edição)
+    Route::get('/certificados/{id}/editar', [CertificadoController::class, 'edit'])->name('certificados.editar');
 });
 
 Route::get('/administrador', function () {
@@ -72,4 +80,3 @@ Route::get('/certificados/visualizar/{id}', [CertificadoController::class, 'visu
 
 
 require __DIR__ . '/auth.php';
-?>

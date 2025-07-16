@@ -33,10 +33,36 @@
                             <td>{{ $certificado->semestre }}</td>
                             <td>{{ $certificado->cargaHoraria }}</td>
                             <td>
-                                <a href="{{ asset('storage/' . $certificado->caminhoArquivo) }}" target="_blank">Ver
-                                    arquivo</a>
+                                <a href="{{ asset('storage/' . $certificado->caminhoArquivo) }}" target="_blank"><img
+                                        src="{{ asset('imagens/professor/download.ico') }}" alt="icone de download"
+                                        class="download-icon" width="25"></a>
                             </td>
-                            <td></td>
+                            <td>
+                                <!-- Rejeitar -->
+                                <form action="{{ route('certificados.rejeitar', $certificado->idCertificado) }}"
+                                    method="POST" style="display:inline;">
+                                    @csrf
+                                    <button type="submit" style="border: none; background: none; cursor: pointer;">
+                                        <img src="{{ asset('imagens/professor/reject.ico') }}" alt="Rejeitar"
+                                            width="20">
+                                    </button>
+                                </form>
+
+                                <!-- Editar -->
+                                <a href="{{ route('certificados.editar', $certificado->idCertificado) }}">
+                                    <img src="{{ asset('imagens/professor/edit.ico') }}" alt="Editar" width="20">
+                                </a>
+
+                                <!-- Aprovar -->
+                                <form action="{{ route('certificados.aprovar', $certificado->idCertificado) }}"
+                                    method="POST" style="display:inline;">
+                                    @csrf
+                                    <button type="submit" style="border: none; background: none; cursor: pointer;">
+                                        <img src="{{ asset('imagens/professor/like.ico') }}" alt="Aprovar" width="20">
+                                    </button>
+                                </form>
+
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

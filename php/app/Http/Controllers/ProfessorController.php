@@ -43,7 +43,7 @@ class ProfessorController extends Controller
         }
 
         $certificados = DB::select("
-    SELECT users.name, turmas.nome AS turma, certificados.idAtividadeComplementar, certificados.dataEnvio, certificados.statusCertificado, certificados.caminhoArquivo, certificados.cargaHoraria, certificados.semestre
+    SELECT users.name, turmas.nome AS turma, certificados.idAtividadeComplementar, certificados.dataEnvio, certificados.statusCertificado, certificados.caminhoArquivo, certificados.cargaHoraria, certificados.semestre, certificados.idCertificado
     FROM users 
     JOIN alunos ON users.id = alunos.user_id 
     JOIN turmas ON alunos.idTurma = turmas.id 
@@ -86,4 +86,5 @@ class ProfessorController extends Controller
     {
         return Professor::destroy($user_id);
     }
+
 }

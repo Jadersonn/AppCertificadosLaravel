@@ -106,4 +106,27 @@ class CertificadoController extends Controller
     {
         return Certificado::destroy($id);
     }
+
+    
+    public function aprovar($id)
+    {
+        $cert = Certificado::findOrFail($id);
+        $cert->statusCertificado = 'aprovado';
+        $cert->save();
+        return back()->with('success', 'Certificado aprovado!');
+    }
+
+    public function rejeitar($id)
+    {
+        $cert = Certificado::findOrFail($id);
+        $cert->statusCertificado = 'rejeitado';
+        $cert->save();
+        return back()->with('success', 'Certificado rejeitado!');
+    }
+
+    public function edit($id)
+    {
+        $cert = Certificado::findOrFail($id);
+        return view('certificados.edit', compact('cert'));
+    }
 }
