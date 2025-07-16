@@ -21,7 +21,7 @@ class CertificadoController extends Controller
     }
 
     public function store(Request $request)
-{
+    {
         $request->validate([
             'categoria' => 'required|string',
             'subcategoria' => 'required|string',
@@ -118,12 +118,57 @@ class CertificadoController extends Controller
 
     public function aprovar($id)
     {
-        $cert = Certificado::findOrFail($id);
-        $cert->statusCertificado = 'aprovado';
-        $cert->idProfessor = Auth::user()->id; // Define o professor que aprovou
-        $cert->save();
-        return back()->with('success', 'Certificado aprovado!');
+        $cert = Certificado::with('atividadeComplementar.tipoAtividade', 'aluno')
+            ->findOrFail($id);
+
+        // Pega o aluno e todos os certificados já aprovados
+        $certificados = Certificado::with('atividadeComplementar.tipoAtividade')
+            ->where('idAluno', $cert->idAluno)
+            ->where('statusCertificado', 'aprovado')
+            ->get();
+
+        // Inicializa somas
+        $porAtividade = [];
+        $porTipo = [];
+        $totalCurso = 0;
+
+        foreach ($certificados as $c) {
+            $atividade = $c->idAtividadeComplementar;
+            $tipo = $c->atividadeComplementar->idTipoAtividade;
+
+            $porAtividade[$atividade] = ($porAtividade[$atividade] ?? 0) + $c->pontosGerados;
+            $porTipo[$tipo] = ($porTipo[$tipo] ?? 0) + $c->pontosGerados;
+            $totalCurso += $c->pontosGerados;
+        }
+
+        // Informações do certificado atual
+        $atividade = $cert->idAtividadeComplementar;
+        $tipo = $cert->atividadeComplementar->idTipoAtividade;
+        $pontos = $cert->pontosGerados;
+
+        $limiteAtividade = $cert->atividadeComplementar->maximoSemestralAtividadeComplementar;
+        $limiteTipo = $cert->atividadeComplementar->tipoAtividade->maximoSemestral;
+        $limiteCurso = $cert->atividadeComplementar->tipoAtividade->maximoCurso;
+
+        // Verifica se aprovar esse certificado ultrapassa algum limite
+        if (
+            ($porAtividade[$atividade] ?? 0) + $pontos <= $limiteAtividade &&
+            ($porTipo[$tipo] ?? 0) + $pontos <= $limiteTipo &&
+            $totalCurso + $pontos <= $limiteCurso
+        ) {
+            // Aprovado
+            $cert->statusCertificado = 'aprovado';
+            $cert->idProfessor = Auth::user()->id;
+            $cert->pontosGerados += $cert->horasComplementares; // Adiciona as horas complementares ao total de pontos
+            $cert->save();
+
+            return back()->with('success', 'Certificado aprovado!');
+        } else {
+            // Rejeitado
+            return back()->with('error', 'A aprovação deste certificado ultrapassa os limites permitidos.');
+        }
     }
+
 
     public function rejeitar($id)
     {
@@ -141,3 +186,4 @@ class CertificadoController extends Controller
         return view('certificados.edit', compact('cert'));
     }
 }
+

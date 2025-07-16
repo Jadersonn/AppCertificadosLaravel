@@ -19,5 +19,10 @@ class AtividadeComplementar extends Model
     {
         return $this->hasMany(Certificado::class, 'idAtividadeComplementar');
     }
+    
+    public function tipoAtividade()
+    {
+        return $this->belongsTo(TipoAtividade::class, 'idTipoAtividade');
+    }
 }
 

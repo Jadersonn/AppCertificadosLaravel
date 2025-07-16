@@ -41,6 +41,4 @@ class AtividadeComplementarController extends Controller
         return AtividadeComplementar::destroy($id);
     }
 
-    
 }
-

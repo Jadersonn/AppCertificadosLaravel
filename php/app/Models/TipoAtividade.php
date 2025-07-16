@@ -17,4 +17,8 @@ class TipoAtividade extends Model
     {
         return $this->hasMany(AtividadeComplementar::class, 'idTipoAtividade');
     }
+    public function atividadesComplementares()
+    {
+        return $this->hasMany(AtividadeComplementar::class, 'idTipoAtividade');
+    }
 }
