@@ -113,7 +113,7 @@ Este projeto foi desenvolvido como parte de uma iniciativa acadêmica no
 * Jaderson Pillar
 * Lara Riomayor
 
-📩 Contato: [pillar.jaderson@gmail.com](mailto:pillar.jaderson@gmail.com)
-[riomayorlara@gmail.com](mailto:riomayorlara@gmail.com
-)
+📩 Contato: [pillar.jaderson@gmail.com](mailto:pillar.jaderson@gmail.com) 
+📩 Contato: [riomayorlara@gmail.com](mailto:riomayorlara@gmail.com)
+
 ---
