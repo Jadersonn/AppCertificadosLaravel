@@ -49,7 +49,7 @@ class ProfessorController extends Controller
     JOIN certificados ON certificados.idAluno = alunos.idAluno
     WHERE certificados.statusCertificado = 'pendente' AND certificados.idProfessor = ?*/
 
-    $certificados = DB::table('certificados')
+        $certificados = DB::table('certificados')
             ->join('alunos', 'certificados.idAluno', '=', 'alunos.idAluno')
             ->join('users', 'alunos.user_id', '=', 'users.id')
             ->join('turmas', 'alunos.idTurma', '=', 'turmas.id')
@@ -66,6 +66,8 @@ class ProfessorController extends Controller
             )
             ->where('certificados.statusCertificado', 'pendente')
             ->where('certificados.idProfessor', null) // Apenas certificados pendentes sem professor
+            ->limit(8) // Limita a 10 certificados pendentes por vez
+            ->orderBy('certificados.dataEnvio', 'desc')
             ->get();
         // Filtro para só pegar do professor logado
 
@@ -79,9 +81,12 @@ class ProfessorController extends Controller
             ->join('turmas', 'alunos.idTurma', '=', 'turmas.id')
             ->select('users.name', 'alunos.dataConclusao', 'turmas.nome as turma')
             ->where('alunos.statusDeConclusao', 'aprovado')
+            ->orderByDesc('alunos.dataConclusao')
+            ->limit(5)
             ->get();
+
         // Retorna a view com os dados do professor e os certificados
-        return view('professor.professor', compact('professor', 'certificados', 'aprovados' ));
+        return view('professor.professor', compact('professor', 'certificados', 'aprovados'));
     }
 
     public function showAdmin($numIdentidade)

@@ -72,25 +72,29 @@ class DatabaseSeeder extends Seeder
         $enriquecimentoCultural = TipoAtividade::create([
             'nome'            => 'Enriquecimento Cultural',
             'descricao'       => 'Atividades de aperfeiçoamento e enriquecimento cultural e esportivo',
-            'maximoSemestral' => 120,
+            'maximoSemestral' => 80,
+            'maximoCurso'    => 120,
         ]);
 
         $docencia = TipoAtividade::create([
             'nome'            => 'Docência',
             'descricao'       => 'Atividades de divulgação científica e de iniciação à docência',
             'maximoSemestral' => 60,
+            'maximoCurso'    => 100,
         ]);
 
         $vivenciaAcademica = TipoAtividade::create([
             'nome'            => 'Vivência Acadêmica',
             'descricao'       => 'Atividades de vivência acadêmica e profissional complementar',
             'maximoSemestral' => 60,
+            'maximoCurso'    => 100,
         ]);
 
         $pesquisaExtensao = TipoAtividade::create([
             'nome'            => 'Pesquisa ou Extensão',
             'descricao'       => 'Atividades de Pesquisa ou Extensão e publicações',
             'maximoSemestral' => 80,
+            'maximoCurso'    => 100,
         ]);
 
         // Cria Atividade Complementar utilizando o ID retornado dinamicamente do $tipoEnsino

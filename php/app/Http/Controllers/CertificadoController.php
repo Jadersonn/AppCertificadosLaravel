@@ -120,6 +120,7 @@ class CertificadoController extends Controller
     {
         $cert = Certificado::findOrFail($id);
         $cert->statusCertificado = 'aprovado';
+        $cert->idProfessor = Auth::user()->id; // Define o professor que aprovou
         $cert->save();
         return back()->with('success', 'Certificado aprovado!');
     }
@@ -128,6 +129,7 @@ class CertificadoController extends Controller
     {
         $cert = Certificado::findOrFail($id);
         $cert->statusCertificado = 'rejeitado';
+        $cert->idProfessor = Auth::user()->id; // Define o professor que rejeitou
         $cert->save();
         return back()->with('success', 'Certificado rejeitado!');
     }
@@ -135,6 +137,7 @@ class CertificadoController extends Controller
     public function edit($id)
     {
         $cert = Certificado::findOrFail($id);
+        $cert->idProfessor = Auth::user()->id; // Define o professor que está editando
         return view('certificados.edit', compact('cert'));
     }
 }
