@@ -5,7 +5,7 @@
         <div class="painel-categoria">
   <div class="painel-categoria-header">
     <span class="painel-categoria-titulo">NOME DA CATEGORIA</span>
-    <span class="painel-categoria-semestre">SEMESTRE: TAL</span>
+    <span class="painel-categoria-semestre">SEMESTRE:</span>
   </div>
   <table class="painel-categoria-tabela">
     <thead>
@@ -40,3 +40,11 @@
 </div>
     </div>
 </div>
+
+<script>
+document.getElementById('select-categorias').addEventListener('change', function() {
+    if (this.value === 'geral') {
+        document.getElementById('modal-relatorio').style.display = 'block';
+    }
+});
+</script>

@@ -58,7 +58,7 @@
 
 
                     <div class="titulo-categorias">CATEGORIAS</div>
-                    <select class="titulo-geral-select">
+                    <select class="titulo-geral-select" id="select-categorias">
                         <option value="geral" selected>GERAL</option>
                         @foreach ($tiposAtividades as $tipo)
                             <option value="{{ $tipo->idTipoAtividade }}">{{ $tipo->nome }}</option>
@@ -75,6 +75,20 @@
     </div>
     @include('aluno.modal-solicitacao')
     @include('aluno.modal-relatorio')
+
+    <script>
+    // filepath: c:\Users\Lara\OneDrive - Belago Technologies\Documentos\AppCertificadosLaravel-1\php\resources\views\aluno\basealuno.blade.php
+    document.getElementById('select-categorias').addEventListener('change', function() {
+        if (this.value === 'geral') {
+            document.getElementById('modal-relatorio').style.display = 'block';
+        }
+    });
+
+    // Fecha o modal ao clicar no botão de fechar
+    document.getElementById('fechar-modal').addEventListener('click', function() {
+        document.getElementById('modal-relatorio').style.display = 'none';
+    });
+    </script>
 </body>
 
 </html>
