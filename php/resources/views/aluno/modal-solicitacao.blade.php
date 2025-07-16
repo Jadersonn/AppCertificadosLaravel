@@ -8,21 +8,22 @@
                 <div class="modal-col">
                     <label for="categoria">Categoria</label>
                     <select id="categoria" name="categoria" required>
+                        <option value="" disabled selected>Selecione uma categoria</option>
                         @foreach ($tiposAtividades as $index => $tipo)
-                        <option value="{{ $tipo->id }}">{{ $tipo->nome }}</option>
+                            <option value="{{ $tipo->idTipoAtividade }}">{{ $tipo->nome }}</option>
                         @endforeach
-
-                        
                     </select>
                 </div>
                 <div class="modal-col">
-                    <label for="subcategoria">Sub categoria</label>
+                    <label for="subcategoria">Subcategoria</label>
                     @if ($subCategorias->isNotEmpty())
-                    <select id="subcategoria" name="subcategoria" required>
-                        @foreach ($subCategorias as $index => $tipo)
-                        <option value="{{ $tipo->id }}">{{ $tipo->nomeAtividadeComplementar }}</option>
-                        @endforeach
-                    </select>
+                        <select id="subcategoria" name="subcategoria" required>
+                            <option value="" disabled selected>Selecione uma subcategoria</option>
+                            @foreach ($subCategorias as $index => $tipo)
+                                <option value="{{ $tipo->idAtividadeComplementar }}">
+                                    {{ $tipo->nomeAtividadeComplementar }}</option>
+                            @endforeach
+                        </select>
                     @endif
                 </div>
             </div>
@@ -43,9 +44,11 @@
             <div style="margin-bottom: 1em;">
                 <label for="arquivo">Arquivo:</label>
                 <div class="input-arquivo-wrapper">
-                    <input type="file" id="arquivo"  name="arquivo" accept="application/pdf" required>
+                    <input type="file" id="arquivo" name="arquivo" accept="application/pdf" required>
                     <label for="arquivo" id="arquivo-label">
-                        <span id="arquivo-status"><span class="arquivo-mais">+</span><br><span class="arquivo-texto">Selecione um PDF</span></span><span class="arquivo-texto">Até 30MB</span>
+                        <span id="arquivo-status"><span class="arquivo-mais">+</span><br><span
+                                class="arquivo-texto">Selecione um PDF</span></span><span class="arquivo-texto">Até
+                            30MB</span>
                     </label>
                 </div>
             </div>

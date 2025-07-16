@@ -65,7 +65,7 @@ class ProfessorController extends Controller
                 'certificados.idCertificado'
             )
             ->where('certificados.statusCertificado', 'pendente')
-            ->where('certificados.idProfessor', $professor->idProfessor)
+            ->where('certificados.idProfessor', null) // Apenas certificados pendentes sem professor
             ->get();
         // Filtro para só pegar do professor logado
 

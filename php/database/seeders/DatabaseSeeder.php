@@ -237,7 +237,7 @@ class DatabaseSeeder extends Seeder
             'caminhoArquivo'          => 'certificados/palestra.pdf',
             'cargaHoraria'            => 5,
             'semestre'                => '2025-1',
-            'idProfessor'             => $professor->getKey(),
+            'idProfessor'             => null,
             'pontosGerados'           => 10,
         ]);
 
@@ -250,7 +250,7 @@ class DatabaseSeeder extends Seeder
             'caminhoArquivo' => 'certificados/visita_tecnica.pdf',
             'cargaHoraria' => 10,
             'semestre' => '2025-1',
-            'idProfessor' => $professor->getKey(),
+            'idProfessor' => null,
             'pontosGerados' => 15,
         ]);
 
@@ -263,7 +263,7 @@ class DatabaseSeeder extends Seeder
             'caminhoArquivo' => 'certificados/monitoria.pdf',
             'cargaHoraria' => 20,
             'semestre' => '2025-1',
-            'idProfessor' => $professor->getKey(),
+            'idProfessor' => null,
             'pontosGerados' => 25,
         ]);
 
@@ -271,12 +271,12 @@ class DatabaseSeeder extends Seeder
             'idAluno' => $aluno->getKey(),
             'idAtividadeComplementar' => $vivencia_atividade1->getKey(),
             'dataEnvio' => Carbon::now()->toDateString(),
-            'statusCertificado' => 'aceito',
+            'statusCertificado' => 'aprovado',
             'justificativa' => null,
             'caminhoArquivo' => 'certificados/evento.pdf',
             'cargaHoraria' => 15,
             'semestre' => '2025-1',
-            'idProfessor' => $professor->getKey(),
+            'idProfessor' => null,
             'pontosGerados' => 15,
         ]);
 
@@ -289,7 +289,7 @@ class DatabaseSeeder extends Seeder
             'caminhoArquivo' => 'certificados/lideranca.pdf',
             'cargaHoraria' => 5,
             'semestre' => '2025-1',
-            'idProfessor' => $professor->getKey(),
+            'idProfessor' => null,
             'pontosGerados' => 8,
         ]);
 
@@ -297,12 +297,12 @@ class DatabaseSeeder extends Seeder
             'idAluno' => $aluno->getKey(),
             'idAtividadeComplementar' => $pesquisa_atividade1->getKey(),
             'dataEnvio' => Carbon::now()->subDays(10)->toDateString(),
-            'statusCertificado' => 'aceito',
+            'statusCertificado' => 'aprovado',
             'justificativa' => null,
             'caminhoArquivo' => 'certificados/pesquisa.pdf',
             'cargaHoraria' => 30,
             'semestre' => '2025-1',
-            'idProfessor' => $professor->getKey(),
+            'idProfessor' => null,
             'pontosGerados' => 35,
         ]);
 
@@ -315,7 +315,7 @@ class DatabaseSeeder extends Seeder
             'caminhoArquivo' => 'certificados/palestra.pdf',
             'cargaHoraria' => 12,
             'semestre' => '2025-1',
-            'idProfessor' => $professor->getKey(),
+            'idProfessor' => null,
             'pontosGerados' => 20,
         ]);
 
@@ -323,12 +323,12 @@ class DatabaseSeeder extends Seeder
             'idAluno' => $aluno->getKey(),
             'idAtividadeComplementar' => $vivencia_atividade3->getKey(),
             'dataEnvio' => Carbon::now()->toDateString(),
-            'statusCertificado' => 'recusado',
+            'statusCertificado' => 'rejeitado',
             'justificativa' => 'Carga horária incompatível com o evento.',
             'caminhoArquivo' => 'certificados/banca_tcc.pdf',
             'cargaHoraria' => 8,
             'semestre' => '2025-1',
-            'idProfessor' => $professor->getKey(),
+            'idProfessor' => null,
             'pontosGerados' => 0,
         ]);
 
@@ -341,7 +341,7 @@ class DatabaseSeeder extends Seeder
             'caminhoArquivo' => 'certificados/artigo.pdf',
             'cargaHoraria' => 25,
             'semestre' => '2025-1',
-            'idProfessor' => $professor->getKey(),
+            'idProfessor' => null,
             'pontosGerados' => 40,
         ]);
 
@@ -354,7 +354,7 @@ class DatabaseSeeder extends Seeder
             'caminhoArquivo' => 'certificados/congresso.pdf',
             'cargaHoraria' => 15,
             'semestre' => '2025-1',
-            'idProfessor' => $professor->getKey(),
+            'idProfessor' => null,
             'pontosGerados' => 20,
         ]);
 
@@ -362,12 +362,12 @@ class DatabaseSeeder extends Seeder
             'idAluno' => $aluno->getKey(),
             'idAtividadeComplementar' => $pesquisa_atividade4->getKey(),
             'dataEnvio' => Carbon::now()->toDateString(),
-            'statusCertificado' => 'aceito',
+            'statusCertificado' => 'aprovado',
             'justificativa' => null,
             'caminhoArquivo' => 'certificados/resumo_artigo.pdf',
             'cargaHoraria' => 20,
             'semestre' => '2025-1',
-            'idProfessor' => $professor->getKey(),
+            'idProfessor' => null,
             'pontosGerados' => 30,
         ]);
 
@@ -380,7 +380,7 @@ class DatabaseSeeder extends Seeder
             'caminhoArquivo' => 'certificados/visita_area.pdf',
             'cargaHoraria' => 12,
             'semestre' => '2025-1',
-            'idProfessor' => $professor->getKey(),
+            'idProfessor' => null,
             'pontosGerados' => 15,
         ]);
 
@@ -393,7 +393,7 @@ class DatabaseSeeder extends Seeder
             'caminhoArquivo' => 'certificados/incubacao.pdf',
             'cargaHoraria' => 18,
             'semestre' => '2025-1',
-            'idProfessor' => $professor->getKey(),
+            'idProfessor' => null,
             'pontosGerados' => 22,
         ]);
 
@@ -406,7 +406,7 @@ class DatabaseSeeder extends Seeder
             'caminhoArquivo' => 'certificados/materia_jornal.pdf',
             'cargaHoraria' => 8,
             'semestre' => '2025-1',
-            'idProfessor' => $professor->getKey(),
+            'idProfessor' => null,
             'pontosGerados' => 10,
         ]);
 
@@ -419,7 +419,7 @@ class DatabaseSeeder extends Seeder
             'caminhoArquivo' => 'certificados/pedagogica.pdf',
             'cargaHoraria' => 10,
             'semestre' => '2025-1',
-            'idProfessor' => $professor->getKey(),
+            'idProfessor' => null,
             'pontosGerados' => 12,
         ]);
         Certificado::create([
@@ -431,7 +431,7 @@ class DatabaseSeeder extends Seeder
             'caminhoArquivo' => 'certificados/curso_lingua.pdf',
             'cargaHoraria' => 20,
             'semestre' => '2025-1',
-            'idProfessor' => $professor->getKey(),
+            'idProfessor' => null,
             'pontosGerados' => 25,
         ]);
 

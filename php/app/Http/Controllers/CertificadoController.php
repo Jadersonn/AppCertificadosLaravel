@@ -9,6 +9,7 @@ namespace App\Http\Controllers;
 use App\Models\Certificado;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Aluno;
+use App\Models\Professor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -20,7 +21,7 @@ class CertificadoController extends Controller
     }
 
     public function store(Request $request)
-    {
+{
         $request->validate([
             'categoria' => 'required|string',
             'subcategoria' => 'required|string',
@@ -44,7 +45,7 @@ class CertificadoController extends Controller
             'justificativa' => null,
             'caminhoArquivo' => '', // será atualizado depois
             'cargaHoraria' => $request->horas,
-            'idProfessor' => null,
+            'idProfessor' => null, // Será preenchido pelo professor posteriormente
             'semestre' => $request->semestre,
             'pontosGerados' => 0,
         ]);
@@ -54,7 +55,7 @@ class CertificadoController extends Controller
         $nomeArquivo = "{$alunoId}-{$certificado->idCertificado}-{$nomeOriginal}";
 
         // Salva o arquivo com o nome personalizado
-        $path = $request->file('arquivo')->storeAs('ENDERECO_CERTIFICADOS', $nomeArquivo, 'certificados');
+        $path = $request->file('arquivo')->storeAs('', $nomeArquivo, 'certificados');
         if (!$path) {
             // Se falhar, apaga o certificado criado
             $certificado->delete();
