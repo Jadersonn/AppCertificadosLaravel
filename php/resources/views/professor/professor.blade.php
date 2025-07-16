@@ -5,28 +5,45 @@
 @endpush
 
 @section('main')
-<div class="certificados-recebidos-box">
-    <h1>CERTIFICADOS RECEBIDOS</h1>
-    <div class="certificados-tabela-container">
-        <table class="certificados-tabela">
-            <thead>
-                <tr>
-                    <th>ALUNO</th>
-                    <th>TURMA</th>
-                    <th>CATEGORIA</th>
-                    <th>INICIO</th>
-                    <th>CONCLUSÃO</th>
-                    <th>SEMESTRE</th>
-                    <th>HORAS</th>
-                    <th>ARQUIVO</th>
-                    <th>APROVAÇÃO</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+    <div class="certificados-recebidos-box">
+        <h1>CERTIFICADOS RECEBIDOS</h1>
+        <div class="certificados-tabela-container">
+            <table class="certificados-tabela">
+                <thead>
+                    <tr>
+                        <th>ALUNO</th>
+                        <th>TURMA</th>
+                        <th>CATEGORIA</th>
+                        <th>ENVIO</th>
+                        <th>STATUS</th>
+                        <th>SEMESTRE</th>
+                        <th>HORAS</th>
+                        <th>ARQUIVO</th>
+                        <th>APROVAÇÃO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($certificados as $certificado)
+                        <tr>
+                            <td>{{ $certificado->name }}</td>
+                            <td>{{ $certificado->turma }}</td>
+                            <td>{{ $certificado->idAtividadeComplementar }}</td>
+                            <td>{{ $certificado->dataEnvio }}</td>
+                            <td>{{ $certificado->statusCertificado ?? '-' }}</td>
+                            <td>{{ $certificado->semestre }}</td>
+                            <td>{{ $certificado->cargaHoraria }}</td>
+                            <td>
+                                <a href="{{ asset('storage/' . $certificado->caminhoArquivo) }}" target="_blank">Ver
+                                    arquivo</a>
+                            </td>
+                            <td></td>
+                        </tr>
+                    @endforeach
+                </tbody>
+
+            </table>
+        </div>
     </div>
-</div>
     <div class="professor-cards-row">
         <!-- GERAR RELATÓRIO -->
         <div class="professor-card">
@@ -129,18 +146,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Aluno 1</td>
-                        <td>3A</td>
-                        <td>01/06/2024</td>
-                        <td>Sim</td>
-                    </tr>
-                    <tr>
-                        <td>Aluno 2</td>
-                        <td>2B</td>
-                        <td>15/05/2024</td>
-                        <td>Sim</td>
-                    </tr>
+                    @foreach ($aprovados as $item)
+                        <tr>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->turma }}</td>
+                            <td>{{ $item->dataConclusao }}</td>
+                            <td></td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

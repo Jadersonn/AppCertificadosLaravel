@@ -30,12 +30,12 @@ class User extends Authenticatable
 
     public function aluno()
     {
-        return $this->hasOne(Aluno::class, 'idUsuario');
+        return $this->hasOne(Aluno::class, 'user_id');
     }
 
     public function professor()
     {
-        return $this->hasOne(Professor::class, 'idUsuario');
+        return $this->hasOne(Professor::class, 'user_id');
     }
 
     public static function getTipoEIdPorUserId($userId)

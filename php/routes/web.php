@@ -70,5 +70,6 @@ Route::middleware('auth')->group(function () {
 //rotas para vizualizar certificados
 Route::get('/certificados/visualizar/{id}', [CertificadoController::class, 'visualizar'])->middleware('auth');
 
+
 require __DIR__ . '/auth.php';
 ?>
