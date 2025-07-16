@@ -34,6 +34,7 @@ function abrirModalCategoria(elemento) {
 }
 
 
+
 /*function animarBarraProgresso(valorFinal) {
     const barra = document.getElementById('progressBar');
     let valorAtual = 0;

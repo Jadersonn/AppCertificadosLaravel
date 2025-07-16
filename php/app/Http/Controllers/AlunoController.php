@@ -70,7 +70,7 @@ class AlunoController extends Controller
             $tipo->percentual = number_format($percentual, 2);
         }
 
-        return view('aluno.aluno', compact('aluno', 'tiposAtividades', 'certificados'));
+        return view('aluno.aluno', compact('aluno', 'tiposAtividades', 'subCategorias', 'certificados'));
     }
 
     public function update(Request $request, $id)

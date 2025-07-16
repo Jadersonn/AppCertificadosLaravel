@@ -8,19 +8,22 @@
                 <div class="modal-col">
                     <label for="categoria">Categoria</label>
                     <select id="categoria" name="categoria" required>
-                        <option value="">Categoria</option>
                         @foreach ($tiposAtividades as $index => $tipo)
                         <option value="{{ $tipo->id }}">{{ $tipo->nome }}</option>
                         @endforeach
+
+                        
                     </select>
                 </div>
                 <div class="modal-col">
                     <label for="subcategoria">Sub categoria</label>
-                    <select id="subcategoria" name="subcategoria" required aria-placeholder="Sub Categoria">
-                        <option value="1">Monitoria</option>
-                        <option value="2">Palestra</option>
-                        <option value="3">Curso</option>
+                    @if ($subCategorias->isNotEmpty())
+                    <select id="subcategoria" name="subcategoria" required>
+                        @foreach ($subCategorias as $index => $tipo)
+                        <option value="{{ $tipo->id }}">{{ $tipo->nomeAtividadeComplementar }}</option>
+                        @endforeach
                     </select>
+                    @endif
                 </div>
             </div>
             <div class="modal-row">
