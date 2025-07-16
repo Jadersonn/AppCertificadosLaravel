@@ -42,18 +42,46 @@ class ProfessorController extends Controller
             abort(403, 'Acesso não autorizado.');
         }
 
-        $certificados = DB::select("
-    SELECT users.name, turmas.nome AS turma, certificados.idAtividadeComplementar, certificados.dataEnvio, certificados.statusCertificado, certificados.caminhoArquivo, certificados.cargaHoraria, certificados.semestre, certificados.idCertificado
-    FROM users 
-    JOIN alunos ON users.id = alunos.user_id 
-    JOIN turmas ON alunos.idTurma = turmas.id 
+        /*SELECT users.name, turmas.nome AS turma, certificados.idAtividadeComplementar, certificados.dataEnvio, certificados.statusCertificado, certificados.caminhoArquivo, certificados.cargaHoraria, certificados.semestre, certificados.idCertificado
+    FROM users
+    JOIN alunos ON users.id = alunos.user_id
+    JOIN turmas ON alunos.idTurma = turmas.id
     JOIN certificados ON certificados.idAluno = alunos.idAluno
-    WHERE certificados.idProfessor = ?
-", [$professor->idProfessor]); // Filtro para só pegar do professor logado
+    WHERE certificados.statusCertificado = 'pendente' AND certificados.idProfessor = ?*/
 
-        $aprovados = DB::select("SELECT users.name, alunos.dataConclusao, turmas.nome as turma FROM users join alunos on users.id = alunos.user_id join turmas on turmas.id = alunos.idTurma WHERE statusDeConclusao = 'aprovado';");
+    $certificados = DB::table('certificados')
+            ->join('alunos', 'certificados.idAluno', '=', 'alunos.idAluno')
+            ->join('users', 'alunos.user_id', '=', 'users.id')
+            ->join('turmas', 'alunos.idTurma', '=', 'turmas.id')
+            ->select(
+                'users.name',
+                'turmas.nome as turma',
+                'certificados.idAtividadeComplementar',
+                'certificados.dataEnvio',
+                'certificados.statusCertificado',
+                'certificados.caminhoArquivo',
+                'certificados.cargaHoraria',
+                'certificados.semestre',
+                'certificados.idCertificado'
+            )
+            ->where('certificados.statusCertificado', 'pendente')
+            ->where('certificados.idProfessor', $professor->idProfessor)
+            ->get();
+        // Filtro para só pegar do professor logado
+
+        /*        SELECT users.name, alunos.dataConclusao, turmas.nome AS turma
+        FROM alunos
+        JOIN users ON alunos.user_id = users.id
+        JOIN turmas ON alunos.idTurma = turmas.id
+        WHERE alunos.statusDeConclusao = 'aprovado'*/
+        $aprovados = DB::table('alunos')
+            ->join('users', 'alunos.user_id', '=', 'users.id')
+            ->join('turmas', 'alunos.idTurma', '=', 'turmas.id')
+            ->select('users.name', 'alunos.dataConclusao', 'turmas.nome as turma')
+            ->where('alunos.statusDeConclusao', 'aprovado')
+            ->get();
         // Retorna a view com os dados do professor e os certificados
-        return view('professor.professor', compact('professor', 'certificados', 'aprovados'));
+        return view('professor.professor', compact('professor', 'certificados', 'aprovados' ));
     }
 
     public function showAdmin($numIdentidade)
@@ -87,4 +115,30 @@ class ProfessorController extends Controller
         return Professor::destroy($user_id);
     }
 
+    public function buscarAluno(Request $request)
+    {
+        $nome = $request->input('nome');
+        $turma = $request->input('turma');
+
+        $query = DB::table('alunos')
+            ->join('users', 'alunos.user_id', '=', 'users.id')
+            ->join('turmas', 'alunos.idTurma', '=', 'turmas.id')
+            ->select(
+                'users.name',
+                'users.id as id_user',
+                'turmas.nome as turma'
+            );
+
+        if ($nome) {
+            $query->where('users.name', 'like', '%' . $nome . '%');
+        }
+
+        if ($turma) {
+            $query->where('turmas.nome', 'like', '%' . $turma . '%');
+        }
+
+        $busca = $query->get();
+
+        return view('professor.professor', compact('busca'));
+    }
 }
