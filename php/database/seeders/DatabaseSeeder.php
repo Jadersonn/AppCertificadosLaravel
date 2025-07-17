@@ -124,7 +124,7 @@ class DatabaseSeeder extends Seeder
         $enriquecimento_atividade3 = AtividadeComplementar::create([
             'nomeAtividadeComplementar'          => 'Cursos',
             'descricaoAtividadeComplementar'       =>  'Realização de cursos de língua estrangeira, informática e outros de formação cultural, social ou específica do âmbito do curso.',
-            'maximoSemestralAtividadeComplementar' => 30,
+            'maximoSemestralAtividadeComplementar' => 40,
             'idTipoAtividade'                      => $enriquecimentoCultural->getKey(),
         ]);
 
