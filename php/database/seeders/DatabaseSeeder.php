@@ -61,7 +61,7 @@ class DatabaseSeeder extends Seeder
 
         $aluno = Aluno::create([
             'user_id'           => $alunoUser->getKey(),
-            'idTurma'           => $turmaA->id,
+            'idTurma'           => $turmaA->getKey(),
             'dataIngresso'      => Carbon::now(),
             'dataConclusao'     => null,
             'statusDeConclusao' => 'em andamento',
@@ -69,90 +69,375 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Cria Tipos de Atividades utilizando os valores dinamicamente
-        $tipoEnsino = TipoAtividade::create([
-            'nome'            => 'Ensino',
-            'descricao'       => 'Atividades relacionadas ao ensino',
-            'maximoSemestral' => 40,
+        $enriquecimentoCultural = TipoAtividade::create([
+            'nome'            => 'Enriquecimento Cultural',
+            'descricao'       => 'Atividades de aperfeiçoamento e enriquecimento cultural e esportivo',
+            'maximoSemestral' => 80,
+            'maximoCurso'    => 120,
         ]);
 
-        $tipoPesquisa = TipoAtividade::create([
-            'nome'            => 'Pesquisa',
-            'descricao'       => 'Atividades relacionadas à pesquisa',
-            'maximoSemestral' => 30,
+        $docencia = TipoAtividade::create([
+            'nome'            => 'Docência',
+            'descricao'       => 'Atividades de divulgação científica e de iniciação à docência',
+            'maximoSemestral' => 60,
+            'maximoCurso'    => 100,
         ]);
 
-        $tipoExtensao = TipoAtividade::create([
-            'nome'            => 'Extensão',
-            'descricao'       => 'Atividades de extensão',
-            'maximoSemestral' => 20,
+        $vivenciaAcademica = TipoAtividade::create([
+            'nome'            => 'Vivência Acadêmica',
+            'descricao'       => 'Atividades de vivência acadêmica e profissional complementar',
+            'maximoSemestral' => 60,
+            'maximoCurso'    => 100,
+        ]);
+
+        $pesquisaExtensao = TipoAtividade::create([
+            'nome'            => 'Pesquisa ou Extensão',
+            'descricao'       => 'Atividades de Pesquisa ou Extensão e publicações',
+            'maximoSemestral' => 80,
+            'maximoCurso'    => 100,
         ]);
 
         // Cria Atividade Complementar utilizando o ID retornado dinamicamente do $tipoEnsino
-        $atividadeComplementar = AtividadeComplementar::create([
-            'nomeAtividadeComplementar'             => 'Palestra',
-            'descricaoAtividadeComplementar'          => 'Participação em palestra',
-            'maximoSemestralAtividadeComplementar'    => 5,
-            'idTipoAtividade'                         => $tipoEnsino->getKey(),
+        /*
+        MODELO:
+        $ = AtividadeComplementar::create([
+            'nomeAtividadeComplementar'          => '',
+            'descricaoAtividadeComplementar'       =>  '',
+            'maximoSemestralAtividadeComplementar' => ,
+            'idTipoAtividade'                      => $->getKey(),
         ]);
-        $atividade2 = AtividadeComplementar::create([
+
+        */
+        $enriquecimento_atividade1 = AtividadeComplementar::create([
+            'nomeAtividadeComplementar'             => 'Participação como agente',
+            'descricaoAtividadeComplementar'        => 'Participação como agente em atividades culturais: filme, teatro, apresentações artísticas, feiras, exposições, festivais e competições esportivas, bandas, coral, olimpíadas em geral.',
+            'maximoSemestralAtividadeComplementar'  => 30,
+            'idTipoAtividade'                       => $enriquecimentoCultural->getKey(),
+        ]);
+
+        $enriquecimento_atividade2 = AtividadeComplementar::create([
             'nomeAtividadeComplementar'          => 'Pesquisa Avançada',
-            'descricaoAtividadeComplementar'       => 'Pesquisa em laboratório',
+            'descricaoAtividadeComplementar'       =>  'Visitas técnicas e culturais: patrimônios tombados, cidades históricas, monumentos, museus, memoriais, escola-modelo, creches, berçários, ONGs, APAE e entidades afins, hospitais laboratórios, instituições de ensino e pesquisa, empresas públicas e privadas e outras de interesse do curso.',
+            'maximoSemestralAtividadeComplementar' => 30,
+            'idTipoAtividade'                      => $enriquecimentoCultural->getKey(),
+        ]);
+        $enriquecimento_atividade3 = AtividadeComplementar::create([
+            'nomeAtividadeComplementar'          => 'Cursos',
+            'descricaoAtividadeComplementar'       =>  'Realização de cursos de língua estrangeira, informática e outros de formação cultural, social ou específica do âmbito do curso.',
+            'maximoSemestralAtividadeComplementar' => 30,
+            'idTipoAtividade'                      => $enriquecimentoCultural->getKey(),
+        ]);
+
+        $enriquecimento_atividade4 = AtividadeComplementar::create([
+            'nomeAtividadeComplementar'          => 'Trabalho Voluntário',
+            'descricaoAtividadeComplementar'       =>  'Trabalho voluntário, atividades comunitárias, associações de bairros, brigadas de incêndio e associações escolares.',
+            'maximoSemestralAtividadeComplementar' => 40,
+            'idTipoAtividade'                      => $enriquecimentoCultural->getKey(),
+        ]);
+
+        //ativiades de docência
+        $docencia_atividade1 = AtividadeComplementar::create([
+            'nomeAtividadeComplementar'          => 'Monitoria',
+            'descricaoAtividadeComplementar'       =>  'Monitoria remunerada ou voluntária',
+            'maximoSemestralAtividadeComplementar' => 60,
+            'idTipoAtividade'                      => $docencia->getKey(),
+        ]);
+
+        $docencia_atividade2 = AtividadeComplementar::create([
+            'nomeAtividadeComplementar'          => 'Atividades Técnico-Científicas',
+            'descricaoAtividadeComplementar'       =>  'Membro atuante em atividades técnico- científicas, tais como apresentação de trabalhos científicos, ministrar palestras, orientações técnicas supervisionadas e participação em bancas de debate.',
+            'maximoSemestralAtividadeComplementar' => 30,
+            'idTipoAtividade'                      => $docencia->getKey(),
+        ]);
+
+        $docencia_atividade3 = AtividadeComplementar::create([
+            'nomeAtividadeComplementar'          => 'Participação em Atividades Pedagógicas',
+            'descricaoAtividadeComplementar'       =>  'Participação em atividades pedagógicas de observação.',
+            'maximoSemestralAtividadeComplementar' => 20,
+            'idTipoAtividade'                      => $docencia->getKey(),
+        ]);
+
+        //atividades de vivência acadêmica
+        $vivencia_atividade1 = AtividadeComplementar::create([
+            'nomeAtividadeComplementar'          => 'Organização de Eventos',
+            'descricaoAtividadeComplementar'       =>  'Organização de eventos acadêmicos e festivais.',
+            'maximoSemestralAtividadeComplementar' => 30,
+            'idTipoAtividade'                      => $vivenciaAcademica->getKey(),
+        ]);
+
+        $vivencia_atividade2 = AtividadeComplementar::create([
+            'nomeAtividadeComplementar'          => 'Representação Estudantil',
+            'descricaoAtividadeComplementar'       =>  'Representação discente em Conselhos e Entidades estudantis, liderança de turma, órgãos de classe e conselhos representativos.',
+            'maximoSemestralAtividadeComplementar' => 20,
+            'idTipoAtividade'                      => $vivenciaAcademica->getKey(),
+        ]);
+        $vivencia_atividade3 = AtividadeComplementar::create([
+            'nomeAtividadeComplementar'          => 'Participação como ouvinte em Eventos Acadêmicos',
+            'descricaoAtividadeComplementar'       =>  'Participação como ouvinte em eventos acadêmicos, tais como bancas de TCC, dissertação, teses.',
+            'maximoSemestralAtividadeComplementar' => 18,
+            'idTipoAtividade'                      => $vivenciaAcademica->getKey(),
+        ]);
+        $vivencia_atividade4 = AtividadeComplementar::create([
+            'nomeAtividadeComplementar'          => 'Participação como ouvinte em eventos relacionados ao curso',
+            'descricaoAtividadeComplementar'       =>  'Participação como ouvinte em congressos, seminários, simpósios e demais eventos relacionados ao curso de graduação ou áreas afins.',
+            'maximoSemestralAtividadeComplementar' => 40,
+            'idTipoAtividade'                      => $vivenciaAcademica->getKey(),
+        ]);
+        $vivencia_atividade5 = AtividadeComplementar::create([
+            'nomeAtividadeComplementar'          => 'Participação como ouvinte em Visitas Técnicas',
+            'descricaoAtividadeComplementar'       =>  'Participação em visita técnica relacionada à área de atuação.',
+            'maximoSemestralAtividadeComplementar' => 20,
+            'idTipoAtividade'                      => $vivenciaAcademica->getKey(),
+        ]);
+        $vivencia_atividade6 = AtividadeComplementar::create([
+            'nomeAtividadeComplementar'          => 'Participação em projetos de incubação',
+            'descricaoAtividadeComplementar'       =>  'Participação em projetos de incubação.',
+            'maximoSemestralAtividadeComplementar' => 45,
+            'idTipoAtividade'                      => $vivenciaAcademica->getKey(),
+        ]);
+
+        //atividades de pesquisa e extensão
+        $pesquisa_atividade1 = AtividadeComplementar::create([
+            'nomeAtividadeComplementar'          => 'Participação em Projetos de Pesquisa',
+            'descricaoAtividadeComplementar'       =>  'Participação em projetos e grupos de pesquisa',
+            'maximoSemestralAtividadeComplementar' => 45,
+            'idTipoAtividade'                      => $pesquisaExtensao->getKey(),
+        ]);
+
+        $pesquisa_atividade2 = AtividadeComplementar::create([
+            'nomeAtividadeComplementar'          => 'Participação em Projetos de Extensão',
+            'descricaoAtividadeComplementar'       =>  'Participação em projetos e grupos de extensão',
+            'maximoSemestralAtividadeComplementar' => 45,
+            'idTipoAtividade'                      => $pesquisaExtensao->getKey(),
+        ]);
+
+        $pesquisa_atividade3 = AtividadeComplementar::create([
+            'nomeAtividadeComplementar'          => 'Publicação de Artigo Científico',
+            'descricaoAtividadeComplementar'       =>  'Publicação de artigo científico completo em revista ou periódico',
+            'maximoSemestralAtividadeComplementar' => 50,
+            'idTipoAtividade'                      => $pesquisaExtensao->getKey(),
+        ]);
+
+        $pesquisa_atividade4 = AtividadeComplementar::create([
+            'nomeAtividadeComplementar'          => 'Publicação de Resumo de Artigo Científico',
+            'descricaoAtividadeComplementar'       =>  'Publicação de resumos de artigo científico em revista ou periódico',
+            'maximoSemestralAtividadeComplementar' => 50,
+            'idTipoAtividade'                      => $pesquisaExtensao->getKey(),
+        ]);
+
+        $pesquisa_atividade5 = AtividadeComplementar::create([
+            'nomeAtividadeComplementar'          => 'Publicação de Matéria ou Nota',
+            'descricaoAtividadeComplementar'       =>  'Publicação de matérias ou notas em jornais e meios eletrônicos',
             'maximoSemestralAtividadeComplementar' => 10,
-            'idTipoAtividade'                      => $tipoPesquisa->getKey(),
+            'idTipoAtividade'                      => $pesquisaExtensao->getKey(),
         ]);
 
         Certificado::create([
             'idAluno'                 => $aluno->getKey(),
-            'idAtividadeComplementar' => $atividadeComplementar->getKey(),
+            'idAtividadeComplementar' => $enriquecimento_atividade1->getKey(),
             'dataEnvio'               => Carbon::now()->toDateString(),
             'statusCertificado'       => 'pendente',
             'justificativa'           => null,
             'caminhoArquivo'          => 'certificados/palestra.pdf',
             'cargaHoraria'            => 5,
             'semestre'                => '2025-1',
-            'idProfessor'             => $professor->getKey(),
+            'idProfessor'             => null,
             'pontosGerados'           => 10,
         ]);
 
+                Certificado::create([
+            'idAluno' => $aluno->getKey(),
+            'idAtividadeComplementar' => $enriquecimento_atividade2->getKey(),
+            'dataEnvio' => Carbon::now()->toDateString(),
+            'statusCertificado' => 'pendente',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/visita_tecnica.pdf',
+            'cargaHoraria' => 10,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 15,
+        ]);
 
-        // Registro 2:
         Certificado::create([
-            'idAluno'                 => $aluno->getKey(),
-            'idAtividadeComplementar' => $atividadeComplementar->getKey(),
-            'dataEnvio'               => Carbon::now()->toDateString(),
-            'statusCertificado'       => 'pendente',
-            'justificativa'           => null,
-            'caminhoArquivo'          => 'certificados/palestra.pdf',
-            'cargaHoraria'            => 25,
-            'semestre'                => '2025-1',
-            'idProfessor'             => $professor->getKey(),
-            'pontosGerados'           => 38,
+            'idAluno' => $aluno->getKey(),
+            'idAtividadeComplementar' => $docencia_atividade1->getKey(),
+            'dataEnvio' => Carbon::now()->toDateString(),
+            'statusCertificado' => 'pendente',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/monitoria.pdf',
+            'cargaHoraria' => 20,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 25,
         ]);
-        // Registro 3:
+
         Certificado::create([
-            'idAluno'                 => $aluno->getKey(),
-            'idAtividadeComplementar' => $atividadeComplementar->getKey(),
-            'dataEnvio'               => Carbon::now()->toDateString(),
-            'statusCertificado'       => 'pendente',
-            'justificativa'           => null,
-            'caminhoArquivo'          => 'certificados/palestra.pdf',
-            'cargaHoraria'            => 25,
-            'semestre'                => '2025-1',
-            'idProfessor'             => $professor->getKey(),
-            'pontosGerados'           => 2,
+            'idAluno' => $aluno->getKey(),
+            'idAtividadeComplementar' => $vivencia_atividade1->getKey(),
+            'dataEnvio' => Carbon::now()->toDateString(),
+            'statusCertificado' => 'aprovado',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/evento.pdf',
+            'cargaHoraria' => 15,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 15,
         ]);
-        // Registro 4:
+
         Certificado::create([
-            'idAluno'                 => $aluno->getKey(),
-            'idAtividadeComplementar' => $atividade2->getKey(),
-            'dataEnvio'               => Carbon::now()->toDateString(),
-            'statusCertificado'       => 'pendente',
-            'justificativa'           => null,
-            'caminhoArquivo'          => 'certificados/pesquisa_avancada.pdf',
-            'cargaHoraria'            => 25,
-            'semestre'                => '2025-1',
-            'idProfessor'             => $professor->getKey(),
-            'pontosGerados'           => 20,
+            'idAluno' => $aluno->getKey(),
+            'idAtividadeComplementar' => $vivencia_atividade2->getKey(),
+            'dataEnvio' => Carbon::now()->subDays(5)->toDateString(),
+            'statusCertificado' => 'pendente',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/lideranca.pdf',
+            'cargaHoraria' => 5,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 8,
         ]);
+
+        Certificado::create([
+            'idAluno' => $aluno->getKey(),
+            'idAtividadeComplementar' => $pesquisa_atividade1->getKey(),
+            'dataEnvio' => Carbon::now()->subDays(10)->toDateString(),
+            'statusCertificado' => 'aprovado',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/pesquisa.pdf',
+            'cargaHoraria' => 30,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 35,
+        ]);
+
+        Certificado::create([
+            'idAluno' => $aluno->getKey(),
+            'idAtividadeComplementar' => $docencia_atividade2->getKey(),
+            'dataEnvio' => Carbon::now()->toDateString(),
+            'statusCertificado' => 'pendente',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/palestra.pdf',
+            'cargaHoraria' => 12,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 20,
+        ]);
+
+        Certificado::create([
+            'idAluno' => $aluno->getKey(),
+            'idAtividadeComplementar' => $vivencia_atividade3->getKey(),
+            'dataEnvio' => Carbon::now()->toDateString(),
+            'statusCertificado' => 'rejeitado',
+            'justificativa' => 'Carga horária incompatível com o evento.',
+            'caminhoArquivo' => 'certificados/banca_tcc.pdf',
+            'cargaHoraria' => 8,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 0,
+        ]);
+
+        Certificado::create([
+            'idAluno' => $aluno->getKey(),
+            'idAtividadeComplementar' => $pesquisa_atividade3->getKey(),
+            'dataEnvio' => Carbon::now()->toDateString(),
+            'statusCertificado' => 'pendente',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/artigo.pdf',
+            'cargaHoraria' => 25,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 40,
+        ]);
+
+        Certificado::create([
+            'idAluno' => $aluno->getKey(),
+            'idAtividadeComplementar' => $vivencia_atividade4->getKey(),
+            'dataEnvio' => Carbon::now()->toDateString(),
+            'statusCertificado' => 'pendente',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/congresso.pdf',
+            'cargaHoraria' => 15,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 20,
+        ]);
+
+        Certificado::create([
+            'idAluno' => $aluno->getKey(),
+            'idAtividadeComplementar' => $pesquisa_atividade4->getKey(),
+            'dataEnvio' => Carbon::now()->toDateString(),
+            'statusCertificado' => 'aprovado',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/resumo_artigo.pdf',
+            'cargaHoraria' => 20,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 30,
+        ]);
+
+        Certificado::create([
+            'idAluno' => $aluno->getKey(),
+            'idAtividadeComplementar' => $vivencia_atividade5->getKey(),
+            'dataEnvio' => Carbon::now()->toDateString(),
+            'statusCertificado' => 'pendente',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/visita_area.pdf',
+            'cargaHoraria' => 12,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 15,
+        ]);
+
+        Certificado::create([
+            'idAluno' => $aluno->getKey(),
+            'idAtividadeComplementar' => $vivencia_atividade6->getKey(),
+            'dataEnvio' => Carbon::now()->toDateString(),
+            'statusCertificado' => 'pendente',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/incubacao.pdf',
+            'cargaHoraria' => 18,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 22,
+        ]);
+
+        Certificado::create([
+            'idAluno' => $aluno->getKey(),
+            'idAtividadeComplementar' => $pesquisa_atividade5->getKey(),
+            'dataEnvio' => Carbon::now()->toDateString(),
+            'statusCertificado' => 'pendente',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/materia_jornal.pdf',
+            'cargaHoraria' => 8,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 10,
+        ]);
+
+        Certificado::create([
+            'idAluno' => $aluno->getKey(),
+            'idAtividadeComplementar' => $docencia_atividade3->getKey(),
+            'dataEnvio' => Carbon::now()->toDateString(),
+            'statusCertificado' => 'pendente',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/pedagogica.pdf',
+            'cargaHoraria' => 10,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 12,
+        ]);
+        Certificado::create([
+            'idAluno' => $aluno->getKey(),
+            'idAtividadeComplementar' => $enriquecimento_atividade3->getKey(),
+            'dataEnvio' => Carbon::now()->toDateString(),
+            'statusCertificado' => 'pendente',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/curso_lingua.pdf',
+            'cargaHoraria' => 20,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 25,
+        ]);
+
     }
 }

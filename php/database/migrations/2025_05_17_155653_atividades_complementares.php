@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('atividades_complementares', function (Blueprint $table) {
             $table->id('idAtividadeComplementar');
-            $table->string('descricaoAtividadeComplementar');
+            $table->string('descricaoAtividadeComplementar',500);
             $table->string('nomeAtividadeComplementar');
             $table->integer('maximoSemestralAtividadeComplementar')->default(0);
             $table->foreignId('idTipoAtividade')

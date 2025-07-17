@@ -56,7 +56,8 @@ class AlunoController extends Controller
                 // Verifica se o certificado pertence a este tipo (via atividadeComplementar)
                 if (
                     $certificado->atividadeComplementar &&
-                    $certificado->atividadeComplementar->idTipoAtividade == $tipo->idTipoAtividade
+                    $certificado->atividadeComplementar->idTipoAtividade == $tipo->idTipoAtividade &&
+                    $certificado->statusCertificado === 'Aprovado' 
                 ) {
                     // Some os pontos gerados
                     $pontos += $certificado->pontosGerados;
@@ -70,7 +71,7 @@ class AlunoController extends Controller
             $tipo->percentual = number_format($percentual, 2);
         }
 
-        return view('aluno.aluno', compact('aluno', 'tiposAtividades', 'certificados'));
+        return view('aluno.aluno', compact('aluno', 'tiposAtividades', 'subCategorias', 'certificados'));
     }
 
     public function update(Request $request, $id)

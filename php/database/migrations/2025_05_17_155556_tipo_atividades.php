@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('nome');
             $table->string('descricao')->nullable();
             $table->integer('maximoSemestral')->default(0);
+            $table->integer('maximoCurso')->default(0);
             $table->timestamps();
         });
 
