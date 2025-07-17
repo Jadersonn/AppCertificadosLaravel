@@ -40,11 +40,3 @@
 </div>
     </div>
 </div>
-
-<script>
-document.getElementById('select-categorias').addEventListener('change', function() {
-    if (this.value === 'geral') {
-        document.getElementById('modal-relatorio').style.display = 'block';
-    }
-});
-</script>

@@ -21,9 +21,9 @@
           <ul>
             <li><a href="https://academico.ifms.edu.br" class="menu-btn" target="_blank">Sistemas IFMS</a></li>
             <li><a href="https://ead.ifms.edu.br" class="menu-btn" target="_blank">EAD - Moodle</a></li>
-            <li><a href="#" class="menu-btn" target="_blank">Regulamento</a></li>
-            <li><a href="#" class="menu-btn" target="_blank">Definir Turma</a></li>
-            <li><a href="#" class="menu-btn" target="_blank">Definir Responsável</a></li>
+            <li><a href="https://www.ifms.edu.br/centrais-de-conteudo/documentos-institucionais/regulamentos/regulamento-da-organizacao-didatico-pedagogica-retificacao-1" class="menu-btn" target="_blank">Regulamento</a></li>
+            <li><a href="#" class="menu-btn" data-bs-toggle="modal" data-bs-target="#turmaModal">Definir Turma</a></li>
+            <li><a href="#" class="menu-btn" data-bs-toggle="modal" data-bs-target="#responsavelModal">Definir Responsável</a></li>
 
           </ul>
         </nav>
@@ -92,6 +92,7 @@
 
     </div>
   </div>
+
 </body>
 
 </html>

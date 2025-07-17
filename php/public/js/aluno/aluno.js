@@ -16,6 +16,24 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+
+function abrirModalCategoria(elemento) {
+  const tipoId = elemento.getAttribute('data-id');
+  const url = `/categorias/modal/${tipoId}`; // Rota que retorna o HTML do modal
+
+  // Exemplo com jQuery
+  $('#categoriaModalContent').html('<div class="modal-body text-center p-5">Carregando...</div>');
+  fetch(url)
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById('categoriaModalContent').innerHTML = html;
+    })
+    .catch(error => {
+      document.getElementById('categoriaModalContent').innerHTML = '<div class="modal-body text-center p-5 text-danger">Erro ao carregar.</div>';
+    });
+}
+
+
 /*function animarBarraProgresso(valorFinal) {
     const barra = document.getElementById('progressBar');
     let valorAtual = 0;
