@@ -500,6 +500,103 @@ body {
     font-weight: 700;
     letter-spacing: 1px;
 }
+/* Modal geral */
+.modal-dialog {
+  max-height: 90vh;   /* Modal pode ocupar até 90% da altura da tela */
+  height: 500px;      /* Ou defina uma altura fixa, ex: 700px */
+  display: flex;
+  align-items: center;
+}
+.modal-content {
+  height: 100%;
+  overflow-y: auto;   /* Adiciona rolagem se o conteúdo passar da altura */
+}
+
+.modal-content {
+  border-radius: 16px;
+  box-shadow: 0 8px 20px (0, 0, 0, 0.2);
+  padding: 20px;
+  background-color:#6BA539;
+  border: none;
+}
+
+/* Cabeçalho do modal */
+.modal-header {
+  border-bottom: none;
+  padding: 1rem 1.5rem;
+}
+
+.modal-title {
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: #000000; /* Cor IFMS */
+  text-align: center;
+  width:100%;
+  display: block;
+  margin: 0 auto; ;
+}
+
+/* Campos de input */
+.modal-body .form-label {
+  font-weight: 500;
+  color: #000000;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.modal-body .form-control {
+  border-radius: 10px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+}
+
+/* Tabela */
+.table {
+  font-size: 0.9rem;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table thead {
+  background-color: #e9ecef;
+  color: #000000; /* Verde IFMS */
+}
+
+.table th, .table td {
+  vertical-align: middle;
+  padding: 0.75rem;
+}
+
+/* Botões Sim/Não */
+.btn-success, .btn-danger {
+  border-radius: 10px;
+  font-size: 0.75rem;
+  padding: 4px 12px;
+  font-weight: 500;
+}
+
+/* Botão de salvar */
+.btn-primary {
+  background-color: #2172ED;
+  border-color:  #2172ED;
+  border-radius: 12px;
+  padding: 8px 24px;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.btn-primary:hover {
+  background-color: #014b0e;
+  border-color: #014b0e;
+}
+
+/* Responsividade extra */
+@media (max-width: 768px) {
+  .modal-dialog {
+    margin: 1rem;
+  }
+}
+
 
 @media (max-width: 900px) {
     .cards-coluna-direita {
