@@ -28,7 +28,7 @@
             <thead class="table-light">
               <tr>
                 <th>NOME</th>
-                <th>SWAP</th>
+                <th>SUAP</th>
                 <th>APROVA CERTIFICADOS</th>
                 <th>ADMIN</th>
               </tr>
