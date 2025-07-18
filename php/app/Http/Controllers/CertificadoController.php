@@ -195,30 +195,30 @@ class CertificadoController extends Controller
         if ($pontosSubcategoriaSemestre >= $maxSubcategoriaSemestral) {
             info("Limite máximo da subcategoria para o semestre atingido.");
             return back()->with('error', 'Limite máximo da subcategoria para o semestre atingido.');
-        }elseif ($pontosSubcategoriaSemestre + $pontosCertificado >= $maxSubcategoriaSemestral){
+        } elseif ($pontosSubcategoriaSemestre + $pontosCertificado >= $maxSubcategoriaSemestral) {
             $pontosCertificado = $maxSubcategoriaSemestral - $pontosSubcategoriaSemestre;
         }
 
         if ($pontosSubcategoriaCurso  >= $maxCategoriaCurso) {
-            
+
             info("Limite máximo da subcategoria para o curso atingido.");
             return back()->with('error', 'Limite máximo da subcategoria para o curso atingido.');
-        }elseif ($pontosSubcategoriaCurso + $pontosCertificado >= $maxCategoriaCurso){
+        } elseif ($pontosSubcategoriaCurso + $pontosCertificado >= $maxCategoriaCurso) {
             $pontosCertificado = $maxCategoriaCurso - $pontosSubcategoriaCurso;
         }
 
         if ($pontosCategoriaSemestre  >= $maxCategoriaSemestral) {
-            
+
             info("Limite máximo da categoria para o semestre atingido.");
             return back()->with('error', 'Limite máximo da categoria para o semestre atingido.');
-        }elseif ($pontosCategoriaSemestre + $pontosCertificado >= $maxCategoriaSemestral){
+        } elseif ($pontosCategoriaSemestre + $pontosCertificado >= $maxCategoriaSemestral) {
             $pontosCertificado = $maxCategoriaSemestral - $pontosCategoriaSemestre;
         }
 
         if ($pontosCategoriaCurso  >= $maxCategoriaCurso) {
             info("Limite máximo da categoria para o curso atingido.");
             return back()->with('error', 'Limite máximo da categoria para o curso atingido.');
-        }elseif ($pontosCategoriaCurso + $pontosCertificado >= $maxCategoriaCurso){
+        } elseif ($pontosCategoriaCurso + $pontosCertificado >= $maxCategoriaCurso) {
             $pontosCertificado = $maxCategoriaCurso - $pontosCategoriaCurso;
         }
 
@@ -254,9 +254,15 @@ class CertificadoController extends Controller
     }
 
     public function edit($id)
-    {
-        $cert = Certificado::findOrFail($id);
-        $cert->idProfessor = Auth::user()->id; // Define o professor que está editando
-        return view('certificados.edit', compact('cert'));
+{
+    $cert = Certificado::findOrFail($id);
+    $cert->idProfessor = Auth::user()->id;
+
+    if (request()->ajax()) {
+        return response()->json($cert);
     }
+
+    return view('certificados.edit', compact('cert'));
+}
+
 }

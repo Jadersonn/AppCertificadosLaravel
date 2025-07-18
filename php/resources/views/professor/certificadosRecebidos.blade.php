@@ -1,4 +1,8 @@
 {{-- resources/views/professor/certificadosRecebidos.blade.php --}}
+@push('scripts')
+    <script src="{{ asset('js/professor/professor.js') }}"></script>
+@endpush
+
 <div class="certificados-recebidos-box">
     <h1>CERTIFICADOS RECEBIDOS</h1>
     <div class="certificados-tabela-container">
@@ -46,9 +50,14 @@
                             </form>
 
                             <!-- Editar -->
-                            <a href="{{ route('certificados.editar', $certificado->idCertificado) }}">
+                            <a href="#" class="btn-editar"
+                                data-url="{{ route('certificados.editar', $certificado->idCertificado) }}"
+                                style="text-decoration: none; color: inherit; display: inline-block;">
                                 <img src="{{ asset('imagens/professor/edit.ico') }}" alt="Editar" width="20">
                             </a>
+
+
+
 
                             <!-- Aprovar -->
                             <form action="{{ route('certificados.aprovar', $certificado->idCertificado) }}"

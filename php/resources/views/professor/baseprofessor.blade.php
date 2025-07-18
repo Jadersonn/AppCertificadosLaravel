@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+@stack('scripts')
 <head>
   <meta charset="UTF-8">
   <title>{{ config('app.name', 'Certificados IFMS') }}</title>
