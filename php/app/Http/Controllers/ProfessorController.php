@@ -105,7 +105,11 @@ class ProfessorController extends Controller
             abort(403, 'Acesso não autorizado.');
         }
 
-        return view('administrador.administrador', compact('administrador'));
+        $turmas = DB::table('turmas')->get();
+
+        
+
+        return view('administrador.administrador', compact('administrador', 'turmas'));
     }
 
     public function update(Request $request, $id)
