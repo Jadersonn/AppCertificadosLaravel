@@ -27,13 +27,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td><span style="color:red; cursor:pointer; text-align: center;">&#10006;</span>
-                                        </td>
-                                        <td class="fw-bold">JADERSON DA SILVA PILLAR MARTINS</td>
-                                        <td class="fw-bold">052476...0X</td>
-                                        <td>SEM TURMA</td>
-                                    </tr>
+                                  @foreach ($alunos as $aluno)
+                                      <tr>
+                                          <td><input type="checkbox" value="{{ $aluno->idAluno }}" class="form-check-input"></td>
+                                          <td class="fw-bold">{{ $aluno->name }}</td>
+                                          <td class="fw-bold">{{ $aluno->numIdentidade }}</td>
+                                          <td class="fw-bold">{{ $aluno->idTurma }}</td>
+                                      </tr>
+                                  @endforeach
                                 </tbody>
                             </table>
                         </div>

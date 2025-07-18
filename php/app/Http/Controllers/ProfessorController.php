@@ -107,9 +107,13 @@ class ProfessorController extends Controller
 
         $turmas = DB::table('turmas')->get();
 
-        
+        //SELECT idAluno, name, numIdentidade, idTurma FROM users join alunos on alunos.user_id = users.id;
+        $alunos = DB::table('users')
+            ->join('alunos', 'alunos.user_id', '=', 'users.id')
+            ->select('alunos.idAluno', 'users.name', 'users.numIdentidade', 'alunos.idTurma')
+            ->get();
 
-        return view('administrador.administrador', compact('administrador', 'turmas'));
+        return view('administrador.administrador', compact('administrador', 'turmas', 'alunos'));
     }
 
     public function update(Request $request, $id)
