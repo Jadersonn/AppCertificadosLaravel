@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>{{ config('app.name', 'Certificados IFMS') }}</title>
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('css/layouts/base.css') }}">
   @stack('head')
 </head>
@@ -22,8 +23,8 @@
             <li><a href="https://academico.ifms.edu.br" class="menu-btn" target="_blank">Sistemas IFMS</a></li>
             <li><a href="https://ead.ifms.edu.br" class="menu-btn" target="_blank">EAD - Moodle</a></li>
             <li><a href="https://www.ifms.edu.br/centrais-de-conteudo/documentos-institucionais/regulamentos/regulamento-da-organizacao-didatico-pedagogica-retificacao-1" class="menu-btn" target="_blank">Regulamento</a></li>
-            <li><a href="#" class="menu-btn" data-bs-toggle="modal" data-bs-target="#turmaModal">Definir Turma</a></li>
-            <li><a href="#" class="menu-btn" data-bs-toggle="modal" data-bs-target="#responsavelModal">Definir Responsável</a></li>
+            <li><a href="#" class="modal-fade" data-bs-toggle="modal" data-bs-target="#turmaModal">Definir Turma</a></li>
+            <li><a href="#" class="modal-fade" data-bs-toggle="modal" data-bs-target="#responsavelModal">Definir Responsável</a></li>
 
           </ul>
         </nav>
@@ -92,6 +93,9 @@
 
     </div>
   </div>
+@include('administrador.modal-definirResponsavel')
+@include('administrador.modal-definirTurma')
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
