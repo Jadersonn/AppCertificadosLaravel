@@ -15,6 +15,7 @@
             <input type="text" id="cpfAluno" class="form-control mb-2" placeholder="CPF do aluno">
             <label for="turmaAluno" class="form-label">TURMA</label>
             <input type="text" id="turmaAluno" class="form-control mb-3" placeholder="Turma do aluno">
+            <label for="labelAlunos" class="form-label">ALUNOS: </label>
             <div class="bg-white rounded p-2 mt-2">
               <table class="table table-bordered align-middle mb-0">
                 <thead>
@@ -59,9 +60,12 @@
               </table>
             </div>
             <div class="bg-white rounded p-2">
-              <span class="fw-bold d-block mb-1 modal-turma-label">CRIAR TURMA</span>
-              <input type="text" class="form-control mb-2">
-              <button class="btn btn-primary w-100">CRIAR</button>
+              <form action="{{ route('administrador.criarTurma') }}" method="POST">
+                @csrf
+                <span class="fw-bold d-block mb-1 modal-turma-label">CRIAR TURMA</span>
+                <input type="text" id="nomeTurma" name="nome" class="form-control mb-2">
+                <button class="btn btn-primary w-100">CRIAR</button>
+              </form>
             </div>
             <div class="bg-white rounded p-2">
               <span class="fw-bold d-block mb-1 modal-turma-label">ADICIONAR ALUNO(s) PARA TURMA</span>

@@ -6,7 +6,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\CertificadoController;
 use App\Http\Controllers\ProfessorController;
+use App\Http\Controllers\TurmaController;
 use App\Models\Certificado;
+use App\Models\Turma;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -70,6 +72,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/administrador/create', [ProfessorController::class, 'create'])->name('administrador.create');
     Route::get('/administrador/{idnumIdentidade}/edit', [ProfessorController::class, 'update'])->name('administrador.edit');
     //Route::get('/administrador/{numIdentidade}/delete', [ProfessorController::class, 'destroy'])->name('administrador.delete');
+
+    //rotas para criar turma
+    Route::get('/administrador/turma', [ProfessorController::class, 'turma'])->name('administrador.turma');
+    Route::post('/administrador/criarTurma', [TurmaController::class, 'store'])->name('administrador.criarTurma');
 });
 
 
