@@ -21,8 +21,8 @@ class AlunoController extends Controller
     {
         $request->validate([
             'dataIngresso' => 'required|date',
-            'user_id'      => 'required|exists:users,id',
-            'idTurma'      => 'required|exists:turmas,id',
+            'user_id' => 'required|exists:users,id',
+            'idTurma' => 'required|exists:turmas,id',
         ]);
 
         return Aluno::create($request->all());
@@ -55,19 +55,25 @@ class AlunoController extends Controller
         $subCategorias = AtividadeComplementar::all();
 
         /*SQL 
-        SELECT certificados.idAtividadeComplementar, sum(cargaHoraria)
+        SELECT idTipoAtividade, sum(cargaHoraria)
     FROM users
     JOIN alunos ON users.id = alunos.user_id
     JOIN turmas ON alunos.idTurma = turmas.id
     JOIN certificados ON certificados.idAluno = alunos.idAluno
-    WHERE alunos.idAluno = ?  and statusCertificado = 'aprovado' and certificados.idAtividadeComplementar = ?
+    join atividades_complementares AC on AC.idAtividadeComplementar = certificados.idAtividadeComplementar
+    WHERE alunos.idAluno = ?  and statusCertificado = 'aprovado' group by AC.idTipoAtividade
         */
         $pontos = DB::table('certificados')
-            ->where('idAluno', $aluno->getKey())
+            ->join('alunos', 'certificados.idAluno', '=', 'alunos.idAluno')
+            ->join('users', 'alunos.user_id', '=', 'users.id')
+            ->join('turmas', 'alunos.idTurma', '=', 'turmas.id')
+            ->join('atividades_complementares as AC', 'AC.idAtividadeComplementar', '=', 'certificados.idAtividadeComplementar')
+            ->where('alunos.idAluno', $aluno->getKey())
             ->where('statusCertificado', 'aprovado')
-            ->select(DB::raw('idAtividadeComplementar, SUM(cargaHoraria) as totalCargaHoraria'))
-            ->groupBy('idAtividadeComplementar')
+            ->select('AC.idTipoAtividade', DB::raw('SUM(cargaHoraria) as totalCargaHoraria'))
+            ->groupBy('AC.idTipoAtividade')
             ->get();
+
 
 
 

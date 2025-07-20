@@ -22,9 +22,13 @@
     <!-- card -->
     <div class="card">
         <div class="card-body">
-            <h1 class="card-title">Status</h1>
-            <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
-            <p class="card-text">mensagem de status</p>
+            <h1 class="card-title">Status</h1><br><br>
+            @if ($aluno->statusDeConclusao == 'concluido')
+                <p class="card-text">Parabéns! Você concluiu o curso.</p>
+            @else
+                <p class="card-text">Você ainda não concluiu o curso.</p><br><br>
+                <p class="card-text">Restam {{ 120 - $aluno->pontosRecebidos }} pontos para a conclusão.</p>
+            @endif
         </div>
     </div>
     <div class="card">

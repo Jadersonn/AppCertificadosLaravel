@@ -19,7 +19,8 @@
                 </div>
                 <nav class="menu mt-4">
                     <ul>
-                        <li><a href="https://academico.ifms.edu.br" class="menu-btn" target="_blank">Sistema acadêmico</a></li>
+                        <li><a href="https://academico.ifms.edu.br" class="menu-btn" target="_blank">Sistema
+                                acadêmico</a></li>
                         <li><a href="https://ead.ifms.edu.br" class="menu-btn" target="_blank">EAD - Moodle</a></li>
                         <li><a href="https://ifms.edu.br" class="menu-btn" target="_blank">Site IFMS</a></li>
                     </ul>
@@ -39,19 +40,26 @@
                 Oi, {{ Auth::user()->name }}
                 <div class="categorias-container">
                     @foreach ($tiposAtividades as $index => $tipo)
+                        @php
+                            // Busca o ponto da categoria, se existir
+                            $ponto = $pontos->firstWhere('idTipoAtividade', $tipo->idTipoAtividade);
+                            $percentual = $ponto ? $ponto->totalCargaHoraria : 0;
+                        @endphp
+
                         <div class="categoria-box" style="top: {{ 83 + $index * 110 }}px;" data-bs-toggle="modal"
                             data-bs-target="#categoriaModal" data-id="{{ $tipo->id }}"
                             ondblclick="abrirModalCategoria(this)">
                             {{ $tipo->nome }}
                         </div>
-
+                        <!-- barra de progresso -->
                         <div class="progress-bar" style="top: {{ 140 + $index * 110 }}px;">
                             <div class="progress-inner" id="progressBar-{{ $index }}" role="progressbar"
-                                style="width: {{ $tipo->percentual }}%;" aria-valuenow="{{ $tipo->percentual }}"
-                                aria-valuemin="0" aria-valuemax="100">
-                                {{ $tipo->percentual }}%
+                                style="width: {{ $percentual }}%; padding-left: 10px;" aria-valuenow="{{ $percentual }}"
+                                aria-valuemin="0" aria-valuemax="{{$aluno->pontosRecebidos}}">
+                                {{ $percentual }} Pontos
                             </div>
                         </div>
+
                         <button class="enviar-btn" id="enviar-btn-{{ $index }}"
                             style="top: {{ 100 + $index * 110 }}px;">Enviar
                         </button>
@@ -73,20 +81,18 @@
     @include('aluno.modal-relatorio')
 
     <script>
-    // filepath: c:\Users\Lara\OneDrive - Belago Technologies\Documentos\AppCertificadosLaravel-1\php\resources\views\aluno\basealuno.blade.php
-    document.getElementById('select-categorias').addEventListener('change', function() {
-        if (this.value === 'geral') {
-            document.getElementById('modal-relatorio').style.display = 'block';
-        }
-    });
+        // filepath: c:\Users\Lara\OneDrive - Belago Technologies\Documentos\AppCertificadosLaravel-1\php\resources\views\aluno\basealuno.blade.php
+        document.getElementById('select-categorias').addEventListener('change', function() {
+            if (this.value === 'geral') {
+                document.getElementById('modal-relatorio').style.display = 'block';
+            }
+        });
 
-    // Fecha o modal ao clicar no botão de fechar
-    document.getElementById('fechar-modal').addEventListener('click', function() {
-        document.getElementById('modal-relatorio').style.display = 'none';
-    });
+        // Fecha o modal ao clicar no botão de fechar
+        document.getElementById('fechar-modal').addEventListener('click', function() {
+            document.getElementById('modal-relatorio').style.display = 'none';
+        });
     </script>
 </body>
 
 </html>
-
-
