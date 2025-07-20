@@ -28,7 +28,7 @@ body {
       color: white;
       padding: 30px 0 0 0;
       text-align: center;
-      width: 290px;
+      width: 500px;
       align-items: center;
       display: flex;
       flex-direction: column;
@@ -602,9 +602,10 @@ body {
   z-index: 9999;
 }
 .modal-turma-content {
-  background: #6BA539 !important;
+  background: #6BA539;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  
 }
 .modal-turma-fechar {
   position: absolute;
@@ -619,12 +620,12 @@ body {
   font-weight: bold;
   font-size: 1.5rem;
   letter-spacing: 1px;
-  text-shadow: 1px 1px 4px #2222;
+  text-shadow: 1px 1px 4px #00000022;
   text-align: center;
   margin-bottom: 18px;
 }
 .modal-turma-body {
-  background: #6BA539 !important;
+  background: #6BA539;
   border-radius: 0 0 12px 12px;
 }
 .modal-turma-form label {
@@ -688,7 +689,7 @@ body {
   margin-top: 8px;
 }
 .modal-turma-btn-salvar {
-  width: 100%;
+  width: 300px;
   margin-top: 24px;
   font-size: 1.1rem;
 }
@@ -709,10 +710,11 @@ body {
   background-color: #ffffff;
   border: none;
   color: white;
+  text-align: center;
 }
 
 .btn-warning:hover {
-  background-color: #ec971f;
+  background-color: #eda745;
 }
 
 /* Estilo botão deletar */
@@ -720,10 +722,11 @@ body {
   background-color: #ffffff;
   border: none;
   color: white;
+  text-align: center;
 }
 
 .btn-danger:hover {
-  background-color: #c9302c;
+  background-color: #f85b55;
 }
 
 /* Tabelas menores no modal de turma */

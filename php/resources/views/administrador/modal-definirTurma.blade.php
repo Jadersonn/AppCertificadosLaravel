@@ -67,9 +67,12 @@
               <span class="fw-bold d-block mb-1 modal-turma-label">ADICIONAR ALUNO(s) PARA TURMA</span>
               <select class="form-select"></select>
             </div>
+             <div class="d-flex justify-content-end">
+          <button type="button" class="modal-turma-btn-salvar">SALVAR</button>
+        </div>
           </div>
         </div>
-        <button class="btn btn-primary w-100 mt-4">SALVAR</button>
+       
       </div>
     </div>
   </div>
