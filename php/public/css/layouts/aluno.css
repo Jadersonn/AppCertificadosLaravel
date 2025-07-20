@@ -211,7 +211,7 @@ input[type="password"] {
   font-weight: bold;
   color: #00420C;
   margin-top: 32px;
-  margin-bottom: px;
+  margin-bottom: 0;
   text-align: left;
   padding-left: 24px;
   width: 100%;
@@ -222,7 +222,7 @@ input[type="password"] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 30px;
+  margin-top: 0;
 }
 
 .card-container {
@@ -230,7 +230,7 @@ input[type="password"] {
   background: none #fff;
   border-radius: 10px;
   box-shadow: none rgba(0, 0, 0, 0.10);
-  margin-bottom: 32px;
+  margin-bottom: 8px;
   margin-top: 0;
   padding-top: 0;
   margin-left: 0;
@@ -239,7 +239,7 @@ input[type="password"] {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 40px;
   padding: 1rem;
   flex-direction: column;
   box-sizing: border-box;
@@ -254,6 +254,7 @@ input[type="password"] {
   padding: 20px 24px;
   border: 1px solid #e0e0e0;
   text-align: center;
+  margin: 0;
 
 }
 
@@ -269,6 +270,8 @@ input[type="password"] {
   margin-bottom: 8px;
   padding: 0;
   text-align: center;
+  margin-top: -10px; /* faz o título subir */
+  display: inline-block;
 }
 
 .card-subtitle {
@@ -281,13 +284,18 @@ input[type="password"] {
   color: #555;
   margin-bottom: 12px;
   text-align: center;
+  margin-top: -35px; /* faz o texto subir */
+  font-size: 0.9rem;
+  display: inline-block; /* garante que o margin-top funcione */
 }
 
 .card-link {
-  color: #0b611b;
+  color: #555;
   text-decoration: underline;
-  margin-right: 12px;
+  text-align: center;
   font-size: 0.98rem;
+  margin-top: -20px; /* faz o link subir */
+  display: inline-block; /* garante que o margin-top funcione */
 }
 
 .card-link:hover {
@@ -297,7 +305,7 @@ input[type="password"] {
 .card-row {
   display: flex;
   align-items: center;
-  gap: 56px;
+  gap: 30px;
 }
 
 .progress-circle {
@@ -324,10 +332,8 @@ input[type="password"] {
   stroke: #0b611b;
   stroke-width: 8;
   stroke-linecap: round;
-  stroke-dasharray: 346;
-  /* Circunferência do círculo */
-  stroke-dashoffset: 346;
-  /* Inicialmente, a barra está vazia */
+  stroke-dasharray: 377; /* circunferência do círculo */
+  stroke-dashoffset: 377; /* começa em zero preenchido */
   transition: stroke-dashoffset 0.5s ease-in-out;
 }
 
@@ -421,11 +427,11 @@ input[type="password"] {
   background: #1556b0;
 }
 
-.titulo-categorias {
+.titulo-categorias .titulo-geral {
   position: absolute;
   left: 0;
   top: 10px;
-  width: 173px;
+  width: 150px;
   height: 55px;
   display: flex;
   align-items: center;
@@ -436,25 +442,9 @@ input[type="password"] {
   font-weight: 700;
 }
 
-.titulo-geral {
+.titulo-categorias {
   position: absolute;
-  left: 645px;
-  top: 0;
-  width: 173px;
-  height: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: black;
-  font-size: 20px;
-  font-family: Roboto, Arial, sans-serif;
-  font-weight: 700;
-  text-decoration: underline;
-}
-
-.titulo-geral-select {
-  position: absolute;
-  left: 700px;
+  left: 0;
   top: 10px;
   width: 150px;
   /* largura menor */
@@ -463,35 +453,50 @@ input[type="password"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
   font-size: 20px;
   font-family: Roboto, Arial, sans-serif;
   font-weight: 700;
-  text-decoration: underline;
   border: none;
   border-radius: 8px;
-  cursor: pointer;
-  outline: none;
   padding: 15px;
   /* espaçamento interno */
   appearance: none;
 }
 
-.titulo-geral-select option {
-  color: white;
-  background: #518b27;
-  text-align: center;
-  font-size: 0.8em;
-  /* Letras menores */
+.titulo-geral {
+  position: absolute;
+  left: 650px;
+  top: 10px;
+  width: 150px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color:  #003C0B;
+  font-size: 20px;
   font-family: Roboto, Arial, sans-serif;
-  border-bottom: 1px solid #fff;
-  /* Linha branca separando as opções */
+  font-weight: 700;
 }
 
-.titulo-geral-select:hover {
-  background: #e6f0fa;
-  color: #00420C;
-  border-color: #00420C;
+.titulo-geral {
+  position: absolute;
+  left: 650px;
+  top: 10px;
+  width: 150px;
+  /* largura menor */
+  height: 55px;
+  /* altura menor */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 15px;
+  /* espaçamento interno */
+  appearance: none;
 }
 
 .progress-bar {

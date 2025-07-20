@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ asset('css/layouts/aluno.css') }}">
     <link rel="icon" href="{{ asset('imagens/favicon.ico') }}" type="image/x-icon">
 @endpush
-
+<!-- circulo de progresso -->
 @section('right-panel')
     <div class="card-container">
         <div class="progress-circle" data-percentage="{{ $aluno->pontosRecebidos }}" data-radius="60">
@@ -19,6 +19,7 @@
             <div class="progress-text">{{ $aluno->pontosRecebidos }} pontos</div>
         </div>
     </div>
+    <!-- card -->
     <div class="card">
         <div class="card-body">
             <h1 class="card-title">Status</h1>
@@ -29,15 +30,15 @@
     <div class="card">
         <div class="card-body">
             <h1 class="card-title">Regulamento de cargas horárias</h1>
-            <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
-            <p class="card-text">mensagem aqui</p>
+            <h6 class="card-subtitle mb-2 text-body-secondary">
+            <a href="https://www.ifms.edu.br/centrais-de-conteudo/documentos-institucionais/regulamentos/regulamento-da-organizacao-didatico-pedagogica-retificacao-1" class="card-link" target="_blank">Para suas dúvidas</a></h6>
         </div>
     </div>
     <div class="card">
         <div class="card-body">
             <h1 class="card-title">Dicas</h1>
             <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
-            <p class="card-text">mensagem aqui</p>
+            <p class="card-text">Participe de eventos e workshops relacionados à sua área de estudo.</p>
         </div>
     </div>
     </div>

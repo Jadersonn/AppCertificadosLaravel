@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <title>Certificados de Aluno</title>
     <link rel="stylesheet" href="{{ asset('css/layouts/base.css') }}">
@@ -20,8 +19,7 @@
                 </div>
                 <nav class="menu mt-4">
                     <ul>
-                        <li><a href="https://academico.ifms.edu.br" class="menu-btn" target="_blank">Sistema
-                                acadêmico</a></li>
+                        <li><a href="https://academico.ifms.edu.br" class="menu-btn" target="_blank">Sistema acadêmico</a></li>
                         <li><a href="https://ead.ifms.edu.br" class="menu-btn" target="_blank">EAD - Moodle</a></li>
                         <li><a href="https://ifms.edu.br" class="menu-btn" target="_blank">Site IFMS</a></li>
                     </ul>
@@ -61,12 +59,7 @@
 
 
                     <div class="titulo-categorias">CATEGORIAS</div>
-                    <select class="titulo-geral-select" id="select-categorias">
-                        <option value="geral" selected>GERAL</option>
-                        @foreach ($tiposAtividades as $tipo)
-                            <option value="{{ $tipo->idTipoAtividade }}">{{ $tipo->nome }}</option>
-                        @endforeach
-                    </select>
+                    <div class="titulo-geral">GERAL</div>
                 </div>
             </div>
 

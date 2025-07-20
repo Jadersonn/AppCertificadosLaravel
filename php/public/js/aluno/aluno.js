@@ -33,20 +33,17 @@ function abrirModalCategoria(elemento) {
     });
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    const circle = document.querySelector('.progress-ring-bar');
+    const progressCircle = document.querySelector('.progress-circle');
+    const pontos = parseInt(progressCircle.getAttribute('data-percentage'), 10);
+    const maxPontos = 120;
+    const radius = 60;
+    const circumference = 2 * Math.PI * radius;
 
-
-/*function animarBarraProgresso(valorFinal) {
-    const barra = document.getElementById('progressBar');
-    let valorAtual = 0;
-    const intervalo = setInterval(() => {
-        if (valorAtual >= valorFinal) {
-            clearInterval(intervalo);
-        } else {
-            valorAtual++;
-            barra.style.width = valorAtual + '%';
-            barra.setAttribute('aria-valuenow', valorAtual);
-            barra.textContent = valorAtual + '%';
-        }
-    }, 10); // velocidade da animação
-}*/
+    circle.style.strokeDasharray = circumference;
+    // Calcula o offset: quanto maior os pontos, menor o offset
+    const offset = circumference - (pontos / maxPontos) * circumference;
+    circle.style.strokeDashoffset = offset;
+});
 

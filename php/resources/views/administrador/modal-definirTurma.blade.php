@@ -90,10 +90,13 @@
                                 @endforeach
                             </select>
                         </div>
-                    </div>
+                       <div class="d-flex justify-content-end">
+          <button type="button" class="modal-turma-btn-salvar">SALVAR</button>
+        </div>
+          </div>
                 </div>
                 
-                <button class="btn btn-primary w-100 mt-4">SALVAR</button>
+               
             </div>
         </div>
     </div>
