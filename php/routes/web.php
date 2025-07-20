@@ -76,6 +76,12 @@ Route::middleware('auth')->group(function () {
     //rotas para criar turma
     Route::get('/administrador/turma', [ProfessorController::class, 'turma'])->name('administrador.turma');
     Route::post('/administrador/criarTurma', [TurmaController::class, 'store'])->name('administrador.criarTurma');
+
+    //rotas para definir turma
+    Route::post('/administrador/definirTurma', [TurmaController::class, 'adicionarAlunos'])->name('administrador.definirTurma');
+
+    //rotas para deletar turma
+    Route::delete('/administrador/turma/{id}', [TurmaController::class, 'destroy'])->name('administrador.deletarTurma');
 });
 
 

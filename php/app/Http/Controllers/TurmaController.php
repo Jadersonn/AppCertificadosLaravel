@@ -37,5 +37,16 @@ class TurmaController extends Controller
     {
         return Turma::destroy($id);
     }
-}
 
+    public function adicionarAlunos(Request $request)
+    {
+        $turma = Turma::findOrFail($request->turma_id);
+        $alunos = $request->input('alunos', []);
+
+        foreach ($alunos as $alunoId) {
+            $turma->alunos()->attach($alunoId);
+        }
+
+        return redirect()->back()->with('success', 'Alunos adicionados à turma com sucesso.');
+    }
+}

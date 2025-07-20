@@ -9,7 +9,6 @@ namespace App\Http\Controllers;
 use App\Models\Certificado;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Aluno;
-use App\Models\Professor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\TipoAtividade;

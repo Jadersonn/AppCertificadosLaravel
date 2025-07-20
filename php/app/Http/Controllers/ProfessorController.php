@@ -28,6 +28,10 @@ class ProfessorController extends Controller
 
     public function show($numIdentidade)
     {
+        $user = Auth::user();
+        if ($user->funcao !== \App\Enums\FuncaoEnum::PROFESSOR) {
+            abort(403, 'Acesso não autorizado.');
+        } 
         // Valida o numero de identidade
         $professor = Professor::with('user')->whereHas('user', function ($query) use ($numIdentidade) {
             $query->where('numIdentidade', $numIdentidade);
@@ -36,10 +40,6 @@ class ProfessorController extends Controller
         // Verifica se o professor foi encontrado
         if (!$professor) {
             abort(404, 'Professor não encontrado');
-        }
-        // Verifica se o usuário autenticado é professor. Se for outro tipo, impede o acesso.
-        if ($professor->user->funcao !== \App\Enums\FuncaoEnum::PROFESSOR) {
-            abort(403, 'Acesso não autorizado.');
         }
 
         /*SELECT users.name, turmas.nome AS turma, certificados.idAtividadeComplementar, certificados.dataEnvio, certificados.statusCertificado, certificados.caminhoArquivo, certificados.cargaHoraria, certificados.semestre, certificados.idCertificado
@@ -91,6 +91,10 @@ class ProfessorController extends Controller
 
     public function showAdmin($numIdentidade)
     {
+         $user = Auth::user();
+        if ($user->funcao !== \App\Enums\FuncaoEnum::ADMINISTRADOR) {
+            abort(403, 'Acesso não autorizado.');
+        } 
         // Valida o numero de identidade
         $administrador = Professor::with('user')->whereHas('user', function ($query) use ($numIdentidade) {
             $query->where('numIdentidade', $numIdentidade);
