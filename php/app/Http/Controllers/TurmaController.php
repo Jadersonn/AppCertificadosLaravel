@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Turma;
 use Illuminate\Http\Request;
+use App\Models\Aluno;
 
 class TurmaController extends Controller
 {
@@ -18,7 +19,9 @@ class TurmaController extends Controller
             'nome' => 'required|string',
         ]);
 
-        return Turma::create($request->all());
+        Turma::create($request->all());
+
+        return redirect()->back()->with('success', 'Turma criada com sucesso!');
     }
 
     public function show($id)
@@ -35,7 +38,8 @@ class TurmaController extends Controller
 
     public function destroy($id)
     {
-        return Turma::destroy($id);
+        Turma::destroy($id);
+        return redirect()->back()->with('success', 'Turma deletada com sucesso!');
     }
 
     public function adicionarAlunos(Request $request)
@@ -44,7 +48,7 @@ class TurmaController extends Controller
         $alunos = $request->input('alunos', []);
 
         foreach ($alunos as $alunoId) {
-            $turma->alunos()->attach($alunoId);
+            Aluno::where('idAluno', $alunoId)->update(['idTurma' => $turma->id]);
         }
 
         return redirect()->back()->with('success', 'Alunos adicionados à turma com sucesso.');

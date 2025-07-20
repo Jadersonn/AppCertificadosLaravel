@@ -31,7 +31,7 @@ class ProfessorController extends Controller
         $user = Auth::user();
         if ($user->funcao !== \App\Enums\FuncaoEnum::PROFESSOR) {
             abort(403, 'Acesso não autorizado.');
-        } 
+        }
         // Valida o numero de identidade
         $professor = Professor::with('user')->whereHas('user', function ($query) use ($numIdentidade) {
             $query->where('numIdentidade', $numIdentidade);
@@ -91,10 +91,10 @@ class ProfessorController extends Controller
 
     public function showAdmin($numIdentidade)
     {
-         $user = Auth::user();
+        $user = Auth::user();
         if ($user->funcao !== \App\Enums\FuncaoEnum::ADMINISTRADOR) {
             abort(403, 'Acesso não autorizado.');
-        } 
+        }
         // Valida o numero de identidade
         $administrador = Professor::with('user')->whereHas('user', function ($query) use ($numIdentidade) {
             $query->where('numIdentidade', $numIdentidade);
@@ -109,15 +109,29 @@ class ProfessorController extends Controller
             abort(403, 'Acesso não autorizado.');
         }
 
-        $turmas = DB::table('turmas')->get();
+        $turmas = DB::table('turmas')
+            ->leftJoin('alunos', 'alunos.idTurma', '=', 'turmas.id')
+            ->select('turmas.id', 'turmas.nome', DB::raw('COUNT(alunos.idAluno) as totalAlunos'))
+            ->groupBy('turmas.id', 'turmas.nome')
+            ->orderBy('turmas.nome')
+            ->get();
+
 
         //SELECT idAluno, name, numIdentidade, idTurma FROM users join alunos on alunos.user_id = users.id;
         $alunos = DB::table('users')
             ->join('alunos', 'alunos.user_id', '=', 'users.id')
-            ->select('alunos.idAluno', 'users.name', 'users.numIdentidade', 'alunos.idTurma')
+            ->leftJoin('turmas', 'turmas.id', '=', 'alunos.idTurma')
+            ->select(
+                'alunos.idAluno',
+                'users.name',
+                'users.numIdentidade',
+                'alunos.idTurma',
+                'turmas.nome as nomeTurma'
+            )
             ->get();
 
-            // Retorna a view com os dados do professor
+
+        // Retorna a view com os dados do professor
         $professores = Professor::join('users as U', 'U.id', '=', 'professores.user_id')
             ->select('U.name', 'U.numIdentidade', 'funcao')
             ->get();

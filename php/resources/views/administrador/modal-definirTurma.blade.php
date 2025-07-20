@@ -16,27 +16,24 @@
                         <label for="turmaAluno" class="form-label">TURMA</label>
                         <input type="text" id="turmaAluno" class="form-control mb-3" placeholder="Turma do aluno">
 
-                        <div class=""></div>
                         <label class="label">ALUNOS: </label>
                         <div class="bg-white rounded p-2 mt-2">
                             <table class="table table-bordered align-middle mb-0">
                                 <thead>
                                     <tr>
-                                        <th style="width: 400px;"></th>
                                         <th>NOME</th>
                                         <th>CPF</th>
                                         <th>TURMA</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                  @foreach ($alunos as $aluno)
-                                      <tr>
-                                        <td align="center"><input type="checkbox" name="alunos[]" value="{{ $aluno->idAluno }}"></td>
-                                          <td class="fw-bold">{{ $aluno->name }}</td>
-                                          <td class="fw-bold">{{ $aluno->numIdentidade }}</td>
-                                          <td class="fw-bold">{{ $aluno->idTurma }}</td>
-                                      </tr>
-                                  @endforeach
+                                    @foreach ($alunos as $aluno)
+                                        <tr>
+                                            <td class="fw-bold">{{ $aluno->name }}</td>
+                                            <td class="fw-bold">{{ $aluno->numIdentidade }}</td>
+                                            <td class="fw-bold">{{ $aluno->nomeTurma }}</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -58,14 +55,23 @@
                                         <tr>
                                             <td class="fw-bold">{{ $turma->nome }}</td>
                                             <td class="fw-bold">
-                                                alunos
+                                                {{ $turma->totalAlunos }}
                                             </td>
                                             <td><button class="btn btn-sm btn-warning btn-editar" title="Editar"><img
                                                         src="{{ asset('imagens/professor/edit.ico') }}" alt="Editar"
                                                         width="20"></button></td>
-                                            <td><a href="{{ route('administrador.deletarTurma', ['id' => $turma->id]) }}" class="btn btn-sm btn-danger btn-deletar" title="Deletar"><img
-                                                        src="{{ asset('imagens/professor/reject.ico') }}" alt="Deletar"
-                                                        width="20"></a></td>
+                                            <td>
+                                                <form action="{{ route('administrador.deletarTurma', ['id' => $turma->id]) }}"
+                                                    method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger btn-deletar"
+                                                        title="Deletar">
+                                                        <img src="{{ asset('imagens/professor/reject.ico') }}" alt="Deletar"
+                                                            width="20">
+                                                    </button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     @endforeach
 
@@ -77,26 +83,55 @@
                                 @csrf
                                 <span class="fw-bold d-block mb-1 modal-turma-label">CRIAR TURMA</span>
                                 <input type="text" id="nomeTurma" name="nome" class="form-control mb-2">
-                                <button class="btn btn-primary w-100">CRIAR</button>
+                                <button type="submit" class="btn btn-primary w-100">CRIAR</button>
                             </form>
-                        </div>                      
-                        <div class="bg-white rounded p-2">
-                            <span class="fw-bold d-block mb-1 modal-turma-label">ADICIONAR ALUNO(s) PARA TURMA</span>
-                            <label for="selectTurma" class="form-label">TURMA</label>
-                            <select id="selectTurma" class="form-select mb-2">
-                                <option value="">Selecione uma turma</option>
-                                @foreach ($turmas as $turma)
-                                    <option value="{{ $turma->id }}">{{ $turma->nome }}</option>
-                                @endforeach
-                            </select>
                         </div>
-                       <div class="d-flex justify-content-end">
-          <button type="button" class="modal-turma-btn-salvar">SALVAR</button>
-        </div>
-          </div>
+                        <div class="bg-white rounded p-2">
+                            <form action="{{ route('administrador.definirTurma') }}" method="POST">
+                                @csrf
+                                <span class="fw-bold d-block mb-1 modal-turma-label">ADICIONAR ALUNO(s) PARA
+                                    TURMA</span>
+                                <label for="selectTurma" class="form-label">TURMA</label>
+                                <select id="selectTurma" name="turma_id" class="form-select mb-2" required>
+                                    <option value="">Selecione uma turma</option>
+                                    @foreach ($turmas as $turma)
+                                        <option value="{{ $turma->id }}">{{ $turma->nome }}</option>
+                                    @endforeach
+                                </select>
+                                <div class="bg-white rounded p-2 mt-2">
+                                    <table class="table table-bordered align-middle mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 40px;"></th>
+                                                <th>NOME</th>
+                                                <th>CPF</th>
+                                                <th>TURMA</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($alunos as $aluno)
+                                                <tr>
+                                                    <td align="center">
+                                                        <input type="checkbox" name="alunos[]"
+                                                            value="{{ $aluno->idAluno }}">
+                                                    </td>
+                                                    <td class="fw-bold">{{ $aluno->name }}</td>
+                                                    <td class="fw-bold">{{ $aluno->numIdentidade }}</td>
+                                                    <td class="fw-bold">{{ $aluno->nomeTurma }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="d-flex justify-content-end mt-2">
+                                    <button type="submit" class="btn btn-success">SALVAR</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                
-               
+
+
             </div>
         </div>
     </div>

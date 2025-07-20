@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->date('dataConclusao')->nullable();
             $table->string('statusDeConclusao');
             $table->double('pontosRecebidos')->default(0);
-            $table->foreignId('idTurma')->nullable()->constrained('turmas')->onDelete('cascade');
+            $table->foreignId('idTurma')->nullable()->constrained('turmas')->onDelete('set null');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

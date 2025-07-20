@@ -38,7 +38,8 @@
                                 @foreach ($professores as $professor)
                                     <tr>
                                         <td>{{ $professor->name }}</td>
-                                        <td>{{ $professor->numIdentidade }}</td>
+                                        <td>{{ $professor->numIdentidade }}</
+                                            td>
                                         @if ($professor->funcao == 'administrador')
                                             <td>
                                                 <!-- Tornar professor -->

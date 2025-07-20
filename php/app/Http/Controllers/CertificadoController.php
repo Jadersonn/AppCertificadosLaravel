@@ -32,28 +32,28 @@ class CertificadoController extends Controller
         ]);
 
         // Busca o id do aluno
-        $alunoId = Aluno::getIdByUserId(Auth::user()->id);
+        $alunoId = Aluno::getIdByUserId(Auth::user()->input('id'));
         if (!$alunoId) {
             return redirect()->back()->withErrors(['aluno' => 'Aluno não encontrado para este usuário.']);
         }
 
         // Cria o certificado sem o caminho do arquivo
-        $certificado = \App\Models\Certificado::create([
+        $certificado = Certificado::create([
             'idAluno' => $alunoId,
-            'idAtividadeComplementar' => $request->categoria,
+            'idAtividadeComplementar' => $request->input('categoria'),
             'dataEnvio' => now(),
             'statusCertificado' => 'pendente',
             'justificativa' => null,
             'caminhoArquivo' => '', // será atualizado depois
-            'cargaHoraria' => $request->horas,
+            'cargaHoraria' => $request->input('horas'),
             'idProfessor' => null, // Será preenchido pelo professor posteriormente
-            'semestre' => $request->semestre,
+            'semestre' => $request->input('semestre'),
             'pontosGerados' => 0,
         ]);
 
         // Monta o nome do arquivo "idAluno-idCertificado-nomeOriginal.extensão" e retirando espacos
         $nomeOriginal = preg_replace('/[^A-Za-z0-9\.\-_]/', '_', $request->file('arquivo')->getClientOriginalName());
-        $nomeArquivo = "{$alunoId}-{$certificado->idCertificado}-{$nomeOriginal}";
+        $nomeArquivo = "{$alunoId}-{$certificado->input('idCertificado')}-{$nomeOriginal}";
 
         // Salva o arquivo com o nome personalizado
         $path = $request->file('arquivo')->storeAs('', $nomeArquivo, 'certificados');
@@ -75,12 +75,12 @@ class CertificadoController extends Controller
         $certificado = Certificado::findOrFail($id);
         $user = Auth::user();
 
-        $isDono = $user->aluno && $certificado->idAluno == $user->aluno->idAluno;
+        $isDono = $user->aluno && $certificado->input('idAluno') == $user->aluno->input('idAluno');
         $isProfessor = $user->funcao === \App\Enums\FuncaoEnum::PROFESSOR;
         $isAdmin = $user->funcao === \App\Enums\FuncaoEnum::ADMINISTRADOR;
 
         if ($isDono || $isProfessor || $isAdmin) {
-            $filePath = Storage::disk('certificados')->path($certificado->caminhoArquivo);
+            $filePath = Storage::disk('certificados')->path($certificado->input('caminhoArquivo'));
 
             if (!file_exists($filePath)) {
                 abort(404, 'Arquivo não encontrado');
@@ -121,45 +121,45 @@ class CertificadoController extends Controller
     {
         $cert = Certificado::with('atividadeComplementar.tipoAtividade', 'aluno')->findOrFail($id);
 
-        $alunoId = $cert->idAluno;
-        $semestre = $cert->semestre;
-        $pontosCertificado = $cert->cargaHoraria;
+        $alunoId = $cert->input('idAluno');
+        $semestre = $cert->input('semestre');
+        $pontosCertificado = $cert->input('cargaHoraria');
 
         // Verifica se aluno já aprovado
-        if ($cert->aluno->statusDeConclusao === 'aprovado') {
+        if ($cert->aluno->input('statusDeConclusao') === 'aprovado') {
             return back()->with('error', 'Aluno já está aprovado.');
         }
 
         // Dados da atividade complementar e tipo atividade
-        $atividade = AtividadeComplementar::findOrFail($cert->idAtividadeComplementar);
-        $tipo = TipoAtividade::findOrFail($atividade->idTipoAtividade);
+        $atividade = AtividadeComplementar::findOrFail($cert->input('idAtividadeComplementar'));
+        $tipo = TipoAtividade::findOrFail($atividade->input('idTipoAtividade'));
 
-        $idTipoAtividade = $tipo->idTipoAtividade;
+        $idTipoAtividade = $tipo->input('idTipoAtividade');
 
         // Limites
-        $maxSubcategoriaSemestral = $atividade->maximoSemestralAtividadeComplementar;
-        $maxCategoriaCurso = $tipo->maximoCurso; // Limite padrão para subcategoria no curso
+        $maxSubcategoriaSemestral = $atividade->input('maximoSemestralAtividadeComplementar');
+        $maxCategoriaCurso = $tipo->input('maximoCurso'); // Limite padrão para subcategoria no curso
 
-        $maxCategoriaSemestral = $tipo->maximoSemestral;
+        $maxCategoriaSemestral = $tipo->input('maximoSemestral');
         $maxCategoriaCurso = 120; // Limite total do curso
 
         // Soma pontos aprovados do aluno na subcategoria naquele semestre
-        info("idAluno: $alunoId, idAtividadeComplementar: {$atividade->idAtividadeComplementar}, semestre: $semestre");
+        //info("idAluno: $alunoId, idAtividadeComplementar: {$atividade->input('idAtividadeComplementar')}, semestre: $semestre");
         $pontosSubcategoriaSemestre = Certificado::where('idAluno', $alunoId)
-            ->where('idAtividadeComplementar', $atividade->idAtividadeComplementar)
+            ->where('idAtividadeComplementar', $atividade->input('idAtividadeComplementar'))
             ->where('statusCertificado', 'aprovado')
             ->where('semestre', $semestre)
             ->sum('pontosGerados');
 
         // Soma pontos aprovados na subcategoria no curso inteiro
-        info("idAluno: $alunoId, idAtividadeComplementar: {$atividade->idAtividadeComplementar}, semestre: $semestre");
+        //info("idAluno: $alunoId, idAtividadeComplementar: {$atividade->input('idAtividadeComplementar')}, semestre: $semestre");
         $pontosSubcategoriaCurso = Certificado::where('idAluno', $alunoId)
-            ->where('idAtividadeComplementar', $atividade->idAtividadeComplementar)
+            ->where('idAtividadeComplementar', $atividade->input('idAtividadeComplementar'))
             ->where('statusCertificado', 'aprovado')
             ->sum('pontosGerados');
 
         // Soma pontos aprovados na categoria naquele semestre
-        info("idAluno: $alunoId, idTipoAtividade: $idTipoAtividade, semestre: $semestre");
+        //info("idAluno: $alunoId, idTipoAtividade: $idTipoAtividade, semestre: $semestre");
         $pontosCategoriaSemestre = Certificado::where('idAluno', $alunoId)
             ->wherehas('atividadeComplementar', function ($query) use ($idTipoAtividade) {
                 $query->where('idTipoAtividade', $idTipoAtividade);
@@ -169,7 +169,7 @@ class CertificadoController extends Controller
             ->sum('pontosGerados');
 
         // Soma pontos aprovados na categoria no curso inteiro
-        info("idAluno: $alunoId, idTipoAtividade: $idTipoAtividade");
+        //info("idAluno: $alunoId, idTipoAtividade: $idTipoAtividade");
         $pontosCategoriaCurso = Certificado::where('idAluno', $alunoId)
             ->whereHas('atividadeComplementar', function ($query) use ($idTipoAtividade) {
                 $query->where('idTipoAtividade', $idTipoAtividade);
@@ -183,16 +183,16 @@ class CertificadoController extends Controller
             ->sum('pontosGerados');
 
         // Log para debug
-        info("Pontos Subcategoria Semestre: $pontosSubcategoriaSemestre");
-        info("Pontos Subcategoria Curso: $pontosSubcategoriaCurso");
-        info("Pontos Categoria Semestre: $pontosCategoriaSemestre");
-        info("Pontos Categoria Curso: $pontosCategoriaCurso");
-        info("Pontos Total Curso: $pontosTotalCurso");
+        //info("Pontos Subcategoria Semestre: $pontosSubcategoriaSemestre");
+        //info("Pontos Subcategoria Curso: $pontosSubcategoriaCurso");
+        //info("Pontos Categoria Semestre: $pontosCategoriaSemestre");
+        //info("Pontos Categoria Curso: $pontosCategoriaCurso");
+        //info("Pontos Total Curso: $pontosTotalCurso");
 
 
         // Agora verifica os limites
         if ($pontosSubcategoriaSemestre >= $maxSubcategoriaSemestral) {
-            info("Limite máximo da subcategoria para o semestre atingido.");
+            //info("Limite máximo da subcategoria para o semestre atingido.");
             return back()->with('error', 'Limite máximo da subcategoria para o semestre atingido.');
         } elseif ($pontosSubcategoriaSemestre + $pontosCertificado >= $maxSubcategoriaSemestral) {
             $pontosCertificado = $maxSubcategoriaSemestral - $pontosSubcategoriaSemestre;
@@ -200,7 +200,7 @@ class CertificadoController extends Controller
 
         if ($pontosSubcategoriaCurso  >= $maxCategoriaCurso) {
 
-            info("Limite máximo da subcategoria para o curso atingido.");
+            //info("Limite máximo da subcategoria para o curso atingido.");
             return back()->with('error', 'Limite máximo da subcategoria para o curso atingido.');
         } elseif ($pontosSubcategoriaCurso + $pontosCertificado >= $maxCategoriaCurso) {
             $pontosCertificado = $maxCategoriaCurso - $pontosSubcategoriaCurso;
@@ -208,21 +208,21 @@ class CertificadoController extends Controller
 
         if ($pontosCategoriaSemestre  >= $maxCategoriaSemestral) {
 
-            info("Limite máximo da categoria para o semestre atingido.");
+            //info("Limite máximo da categoria para o semestre atingido.");
             return back()->with('error', 'Limite máximo da categoria para o semestre atingido.');
         } elseif ($pontosCategoriaSemestre + $pontosCertificado >= $maxCategoriaSemestral) {
             $pontosCertificado = $maxCategoriaSemestral - $pontosCategoriaSemestre;
         }
 
         if ($pontosCategoriaCurso  >= $maxCategoriaCurso) {
-            info("Limite máximo da categoria para o curso atingido.");
+            //info("Limite máximo da categoria para o curso atingido.");
             return back()->with('error', 'Limite máximo da categoria para o curso atingido.');
         } elseif ($pontosCategoriaCurso + $pontosCertificado >= $maxCategoriaCurso) {
             $pontosCertificado = $maxCategoriaCurso - $pontosCategoriaCurso;
         }
 
         if ($pontosTotalCurso >= 120) {
-            info("Limite total do curso (120 pontos) atingido.");
+            //info("Limite total do curso (120 pontos) atingido.");
             return back()->with('error', 'Limite total do curso (120 pontos) atingido.');
         }
 
@@ -233,10 +233,10 @@ class CertificadoController extends Controller
         // Ajusta pontos gerados para não ultrapassar 120 (se necessário)
         $limiteRestante = 120 - $pontosTotalCurso;
         $cert->pontosGerados = min($pontosCertificado, $limiteRestante);
-        info("Pontos Salvos: $cert->pontosGerados");
+        //info("Pontos Salvos: $cert->pontosGerados");
         $cert->save();
 
-        return back()->with('success', 'Certificado aprovado com ' . $cert->pontosGerados . ' pontos.');
+        return back()->with('success', 'Certificado aprovado com ' . $cert->input('pontosGerados') . ' pontos.');
     }
 
 
@@ -247,7 +247,7 @@ class CertificadoController extends Controller
     {
         $cert = Certificado::findOrFail($id);
         $cert->statusCertificado = 'rejeitado';
-        $cert->idProfessor = Auth::user()->id; // Define o professor que rejeitou
+        $cert->idProfessor = Auth::user()->input('id'); // Define o professor que rejeitou
         $cert->save();
         return back()->with('success', 'Certificado rejeitado!');
     }
@@ -255,7 +255,7 @@ class CertificadoController extends Controller
     public function edit($id)
 {
     $cert = Certificado::findOrFail($id);
-    $cert->idProfessor = Auth::user()->id;
+    $cert->idProfessor = Auth::user()->input('id'); // Define o professor que está editando
 
     if (request()->ajax()) {
         return response()->json($cert);
