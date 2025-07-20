@@ -82,6 +82,12 @@ Route::middleware('auth')->group(function () {
 
     //rotas para deletar turma
     Route::delete('/administrador/turma/{id}', [TurmaController::class, 'destroy'])->name('administrador.deletarTurma');
+
+    //gerar relatório de alunos
+    Route::get('/administrador/{numIdentidade}/relatorio', [ProfessorController::class, 'gerarRelatorio'])->name('administrador.gerarRelatorio');
+
+    Route::get('administrador/buscar-aluno', [ProfessorController::class, 'buscarAluno'])
+        ->name('administrador.buscarAluno');
 });
 
 

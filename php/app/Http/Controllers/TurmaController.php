@@ -48,7 +48,7 @@ class TurmaController extends Controller
         $alunos = $request->input('alunos', []);
 
         foreach ($alunos as $alunoId) {
-            Aluno::where('idAluno', $alunoId)->update(['idTurma' => $turma->input('id')]);
+            Aluno::where('idAluno', $alunoId)->update(['idTurma' => $turma->getKey()]);
         }
 
         return redirect()->back()->with('success', 'Alunos adicionados à turma com sucesso.');

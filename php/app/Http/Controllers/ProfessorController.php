@@ -71,22 +71,23 @@ class ProfessorController extends Controller
             ->get();
         // Filtro para só pegar do professor logado
 
-        /*        SELECT users.name, alunos.dataConclusao, turmas.nome AS turma
-        FROM alunos
-        JOIN users ON alunos.user_id = users.id
-        JOIN turmas ON alunos.idTurma = turmas.id
-        WHERE alunos.statusDeConclusao = 'aprovado'*/
-        $aprovados = DB::table('alunos')
+        $aprovados = $this->alunoAprovado();
+
+        // Retorna a view com os dados do professor e os certificados
+        return view('professor.professor', compact('professor', 'certificados', 'aprovados'));
+    }
+
+    public function alunoAprovado()
+    {
+        //busca os alunos aprovados
+        return DB::table('alunos')
             ->join('users', 'alunos.user_id', '=', 'users.id')
             ->join('turmas', 'alunos.idTurma', '=', 'turmas.id')
-            ->select('users.name', 'alunos.dataConclusao', 'turmas.nome as turma')
+            ->select('users.name', 'alunos.dataConclusao as dataConclusao', 'turmas.nome as turma')
             ->where('alunos.statusDeConclusao', 'aprovado')
             ->orderByDesc('alunos.dataConclusao')
             ->limit(5)
             ->get();
-
-        // Retorna a view com os dados do professor e os certificados
-        return view('professor.professor', compact('professor', 'certificados', 'aprovados'));
     }
 
     public function showAdmin($numIdentidade)
@@ -136,7 +137,9 @@ class ProfessorController extends Controller
             ->select('U.name', 'U.numIdentidade', 'funcao')
             ->get();
 
-        return view('administrador.administrador', compact('administrador', 'turmas', 'alunos', 'professores'));
+        $aprovados = $this->alunoAprovado();
+
+        return view('administrador.administrador', compact('administrador', 'turmas', 'alunos', 'professores', 'aprovados'));
     }
 
     public function update(Request $request, $id)
@@ -162,7 +165,7 @@ class ProfessorController extends Controller
             ->select(
                 'users.name',
                 'users.id as id_user',
-                'turmas.nome as turma'
+                'turmas.nome as nomeTurma'
             );
 
         if ($nome) {
@@ -174,8 +177,13 @@ class ProfessorController extends Controller
         }
 
         $busca = $query->get();
+        $user = Auth::user();
+        if ($user->funcao == \App\Enums\FuncaoEnum::ADMINISTRADOR) {
+            return view('professor.administrador', compact('busca'));
+        } else {
+            return view('professor.professor', compact('busca'));
+        }
 
-        return view('professor.professor', compact('busca'));
     }
     public function updateAdmin(Request $request, $numIdentidade)
     {
@@ -184,5 +192,16 @@ class ProfessorController extends Controller
         $user->save();
 
         return redirect()->back()->with('success', 'Função alterada com sucesso!');
+    }
+
+    public function gerarRelatorio($numIdentidade)
+    {
+
+        $user = Auth::user();
+        if ($user->funcao == \App\Enums\FuncaoEnum::ADMINISTRADOR) {
+            return view('administrador.relatorio', compact('numIdentidade'));
+        } else {
+            return view('professor.relatorio', compact('numIdentidade'));
+        }
     }
 }
