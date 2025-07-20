@@ -22,7 +22,7 @@ class ProfessorController extends Controller
         ]);
 
         return Professor::create([
-            'user_id' => $request->user_id,
+            'user_id' => $request->input('user_id'),
         ]);
     }
 
@@ -117,7 +117,12 @@ class ProfessorController extends Controller
             ->select('alunos.idAluno', 'users.name', 'users.numIdentidade', 'alunos.idTurma')
             ->get();
 
-        return view('administrador.administrador', compact('administrador', 'turmas', 'alunos'));
+            // Retorna a view com os dados do professor
+        $professores = Professor::join('users as U', 'U.id', '=', 'professores.user_id')
+            ->select('U.name', 'U.numIdentidade', 'funcao')
+            ->get();
+
+        return view('administrador.administrador', compact('administrador', 'turmas', 'alunos', 'professores'));
     }
 
     public function update(Request $request, $id)
@@ -157,5 +162,13 @@ class ProfessorController extends Controller
         $busca = $query->get();
 
         return view('professor.professor', compact('busca'));
+    }
+    public function updateAdmin(Request $request, $numIdentidade)
+    {
+        $user = \App\Models\User::where('numIdentidade', $numIdentidade)->firstOrFail();
+        $user->funcao = $request->input('nova_funcao');
+        $user->save();
+
+        return redirect()->back()->with('success', 'Função alterada com sucesso!');
     }
 }

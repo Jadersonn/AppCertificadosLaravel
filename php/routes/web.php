@@ -70,7 +70,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/administrador/{numIdentidade}', [ProfessorController::class, 'showAdmin'])->name('professor.showAdmin');
     Route::get('/administrador/create', [ProfessorController::class, 'create'])->name('administrador.create');
-    Route::get('/administrador/{idnumIdentidade}/edit', [ProfessorController::class, 'update'])->name('administrador.edit');
+    Route::put('/administrador/{idnumIdentidade}/edit', [ProfessorController::class, 'updateAdmin'])->name('administrador.edit');
     //Route::get('/administrador/{numIdentidade}/delete', [ProfessorController::class, 'destroy'])->name('administrador.delete');
 
     //rotas para criar turma

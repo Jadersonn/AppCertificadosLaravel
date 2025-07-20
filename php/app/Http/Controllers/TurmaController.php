@@ -40,7 +40,7 @@ class TurmaController extends Controller
 
     public function adicionarAlunos(Request $request)
     {
-        $turma = Turma::findOrFail($request->turma_id);
+        $turma = Turma::findOrFail($request->input('turma_id'));
         $alunos = $request->input('alunos', []);
 
         foreach ($alunos as $alunoId) {

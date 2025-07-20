@@ -50,7 +50,7 @@ class User extends Authenticatable
         if ($aluno) {
             return [
                 'tipo' => 'aluno',
-                'id' => $aluno->idAluno,
+                'id' => $aluno->input('idAluno'),
             ];
         }
 
@@ -59,7 +59,7 @@ class User extends Authenticatable
         if ($professor) {
             return [
                 'tipo' => 'professor',
-                'id' => $professor->idProfessor,
+                'id' => $professor->input('idProfessor'),
             ];
         }
 
