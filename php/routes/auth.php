@@ -11,11 +11,19 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
-        ->name('register');
+Route::get('register/aluno/{idSala}', [RegisteredUserController::class, 'createAluno'])
+    ->name('register.aluno');
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
+Route::post('register/aluno', [RegisteredUserController::class, 'storeAluno'])
+    ->name('register.aluno.store');
+
+Route::get('register/professor', [RegisteredUserController::class, 'createProfessor'])
+    ->name('register.professor');
+
+Route::post('register/professor', [RegisteredUserController::class, 'storeProfessor'])
+    ->name('register.professor.store');
+
+Route::middleware('guest')->group(function () {
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
@@ -56,7 +64,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
-        
+
     Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 });
+Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->name('logout');

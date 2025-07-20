@@ -36,14 +36,16 @@
                             </thead>
                             <tbody>
                                 @foreach ($professores as $professor)
-                                    <tr>
-                                        <td>{{ $professor->name }}</td>
-                                        <td>{{ $professor->numIdentidade }}</
-                                            td>
-                                        @if ($professor->funcao == 'administrador')
+                                    @if ($professor->numIdentidade != Auth::user()->numIdentidade)
+                                        <tr>
+                                            <td>{{ $professor->name }}</td>
+                                            <td>{{ $professor->numIdentidade }}</ td>
+                                                @if ($professor->funcao == 'administrador')
                                             <td>
                                                 <!-- Tornar professor -->
-                                                <form method="POST" action="{{ route('administrador.edit', ['idnumIdentidade' => $professor->numIdentidade]) }}" style="display:inline;">
+                                                <form method="POST"
+                                                    action="{{ route('administrador.edit', ['idnumIdentidade' => $professor->numIdentidade]) }}"
+                                                    style="display:inline;">
                                                     @csrf
                                                     @method('PUT')
                                                     <input type="hidden" name="nova_funcao" value="professor">
@@ -51,34 +53,68 @@
                                                 </form>
                                             </td>
                                             <td>
-                                                <!-- Já é admin, botão SIM desabilitado -->
-                                                <button type="button" class="btn btn-success btn-sm" disabled>SIM</button>
+                                                <!-- Já é professor, botão SIM para tornar professor-E -->
+                                                <form method="POST"
+                                                    action="{{ route('administrador.edit', ['idnumIdentidade' => $professor->numIdentidade]) }}"
+                                                    style="display:inline;">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <input type="hidden" name="nova_funcao" value="professor-E">
+                                                    <button type="submit" class="btn btn-success btn-sm">SIM</button>
+                                                </form>
                                             </td>
-                                        @else
+                                        @elseif ($professor->funcao == 'professor')
                                             <td>
-                                                <!-- Já é professor, botão SIM desabilitado -->
-                                                <button type="button" class="btn btn-success btn-sm" disabled>SIM</button>
+                                                <!-- Já é professor, botão SIM para tornar professor-E -->
+                                                <form method="POST"
+                                                    action="{{ route('administrador.edit', ['idnumIdentidade' => $professor->numIdentidade]) }}"
+                                                    style="display:inline;">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <input type="hidden" name="nova_funcao" value="professor-E">
+                                                    <button type="submit" class="btn btn-success btn-sm">SIM</button>
+                                                </form>
                                             </td>
                                             <td>
                                                 <!-- Tornar administrador -->
-                                                <form method="POST" action="{{ route('administrador.edit', ['idnumIdentidade' => $professor->numIdentidade]) }}" style="display:inline;">
+                                                <form method="POST"
+                                                    action="{{ route('administrador.edit', ['idnumIdentidade' => $professor->numIdentidade]) }}"
+                                                    style="display:inline;">
                                                     @csrf
                                                     @method('PUT')
                                                     <input type="hidden" name="nova_funcao" value="administrador">
                                                     <button type="submit" class="btn btn-danger btn-sm">NÃO</button>
                                                 </form>
                                             </td>
-                                        @endif
-                                      
+                                        @else
+                                            <td>
+                                                <!-- Tornar professor -->
+                                                <form method="POST"
+                                                    action="{{ route('administrador.edit', ['idnumIdentidade' => $professor->numIdentidade]) }}"
+                                                    style="display:inline;">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <input type="hidden" name="nova_funcao" value="professor">
+                                                    <button type="submit" class="btn btn-danger btn-sm">NÃO</button>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <!-- Tornar administrador -->
+                                                <form method="POST"
+                                                    action="{{ route('administrador.edit', ['idnumIdentidade' => $professor->numIdentidade]) }}"
+                                                    style="display:inline;">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <input type="hidden" name="nova_funcao" value="administrador">
+                                                    <button type="submit" class="btn btn-danger btn-sm">NÃO</button>
+                                                </form>
+                                            </td>
+                                    @endif
                                     </tr>
+                                @endif
                                 @endforeach
                             </tbody>
                         </table>
-                    </div>
-
-                    <!-- Botão Salvar -->
-                    <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-primary">SALVAR</button>
                     </div>
                 </div>
             </div>

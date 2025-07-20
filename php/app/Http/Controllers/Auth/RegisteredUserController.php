@@ -41,11 +41,11 @@ class RegisteredUserController extends Controller
         ]);
 
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'numIdentidade' => $request->numIdentidade,
-            'funcao' => $request->funcao,
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password')),
+            'numIdentidade' => $request->input('numIdentidade'),
+            'funcao' => $request->input('funcao'),
         ]);
         event(new Registered($user));
 
@@ -54,7 +54,7 @@ class RegisteredUserController extends Controller
         // Se for aluno, cria o registro na tabela alunos
         if ($user->funcao === \App\Enums\FuncaoEnum::ALUNO) {
             Aluno::create([
-                'user_id' => $user->id, 
+                'user_id' => $user->input('id'), 
                 'idTurma' => null,
                 'dataIngresso' => now(),
                 'dataConclusao' => null,
@@ -68,18 +68,99 @@ class RegisteredUserController extends Controller
         //se for professor or admin, redireciona para a rota correspondente 
         if ($user->funcao === \App\Enums\FuncaoEnum::PROFESSOR) {
             Professor::create([
-                'user_id' => $user->id,
+                'user_id' => $user->input('id'),
             ]);
             return redirect()->route('professor');
         } elseif ($user->funcao === \App\Enums\FuncaoEnum::ADMINISTRADOR) {
             Professor::create([
-                'user_id' => $user->id,
+                'user_id' => $user->input('id'),
             ]);
             return redirect()->route('administrador');
         }
 
 
         return redirect(route('dashboard', absolute: false));
+    }
+
+    // Exibe o formulário de registro para aluno, já preenchendo idTurma
+    public function createAluno($idSala)
+    {
+        return view('auth.register', [
+            'tipoCadastro' => 'aluno',
+            'idSala' => $idSala,
+        ]);
+    }
+
+    // Salva o aluno
+    public function storeAluno(Request $request)
+    {
+        $request->merge(['funcao' => 'aluno']); // força a função aluno
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|confirmed|min:8',
+            'numIdentidade' => 'required|string|unique:users|max:20',
+            'idSala' => 'required|exists:turmas,id',
+        ]);
+
+        $user = User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password')),
+            'numIdentidade' => $request->input('numIdentidade'),
+            'funcao' => 'aluno',
+        ]);
+        event(new Registered($user));
+
+        Auth::login($user);
+
+        Aluno::create([
+            'user_id' => $user->getKey(),
+            'idTurma' => $request->input('idSala'),
+            'dataIngresso' => now(),
+            'dataConclusao' => null,
+            'statusDeConclusao' => 'em andamento',
+            'pontosRecebidos' => 0,
+        ]);
+
+        return redirect()->route('aluno', ['numIdentidade' => $user->numIdentidade]);
+    }
+
+    // Exibe o formulário de registro para professor
+    public function createProfessor()
+    {
+        return view('auth.register', [
+            'tipoCadastro' => 'professor',
+        ]);
+    }
+
+    // Salva o professor
+    public function storeProfessor(Request $request)
+    {
+        $request->merge(['funcao' => 'professor-E']); // força a função professor
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|confirmed|min:8',
+            'numIdentidade' => 'required|string|unique:users|max:20',
+        ]);
+
+        $user = User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password')),
+            'numIdentidade' => $request->input('numIdentidade'),
+            'funcao' => 'professor-E',
+        ]);
+        event(new Registered($user));
+
+        Auth::login($user);
+
+        Professor::create([
+            'user_id' => $user->getKey(),
+        ]);
+
+        return redirect()->route('/')->with('status', 'Professor registrado com sucesso!');
     }
 
 }

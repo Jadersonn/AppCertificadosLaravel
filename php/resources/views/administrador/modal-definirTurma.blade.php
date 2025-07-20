@@ -46,7 +46,7 @@
                                     <tr>
                                         <th>NOME</th>
                                         <th>ALUNOS</th>
-                                        <th>EDITAR</th>
+                                        <th>LINK</th>
                                         <th>DELETAR</th>
                                     </tr>
                                 </thead>
@@ -57,9 +57,12 @@
                                             <td class="fw-bold">
                                                 {{ $turma->totalAlunos }}
                                             </td>
-                                            <td><button class="btn btn-sm btn-warning btn-editar" title="Editar"><img
-                                                        src="{{ asset('imagens/professor/edit.ico') }}" alt="Editar"
-                                                        width="20"></button></td>
+                                            <td>
+                                                <a href="{{ url('/register/aluno/' . $turma->id) }}" class="btn btn-sm btn-warning btn-editar"
+                                                    title="Registrar sala" target="_blank">
+                                                    LINK
+                                                </a>
+                                            </td>
                                             <td>
                                                 <form action="{{ route('administrador.deletarTurma', ['id' => $turma->id]) }}"
                                                     method="POST" style="display:inline;">

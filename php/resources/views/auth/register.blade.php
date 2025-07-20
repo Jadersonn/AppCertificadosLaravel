@@ -1,5 +1,13 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST"
+        @if(isset($tipoCadastro) && $tipoCadastro === 'aluno')
+            action="{{ route('register.aluno.store') }}"
+        @elseif(isset($tipoCadastro) && $tipoCadastro === 'professor')
+            action="{{ route('register.professor.store') }}"
+        @else
+            action="{{ route('register') }}"
+        @endif
+    >
         @csrf
 
          <!-- Session Status -->
@@ -48,7 +56,12 @@
             <input id="numIdentidade" type="text" name="numIdentidade" required>
         </div>
 
-    
+        @if(isset($tipoCadastro))
+            <input type="hidden" name="funcao" value="{{ $tipoCadastro }}">
+        @endif
+        @if(isset($idSala))
+            <input type="hidden" name="idSala" value="{{ $idSala }}">
+        @endif
 
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
