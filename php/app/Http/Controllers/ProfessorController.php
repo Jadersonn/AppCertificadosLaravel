@@ -134,7 +134,7 @@ class ProfessorController extends Controller
 
         // Retorna a view com os dados do professor
         $professores = Professor::join('users as U', 'U.id', '=', 'professores.user_id')
-            ->select('U.name', 'U.numIdentidade', 'funcao')
+            ->select('U.name', 'U.numIdentidade', 'funcao', 'professores.updated_at as dataAtualizacao')
             ->get();
 
         $aprovados = $this->alunoAprovado();
@@ -158,6 +158,7 @@ class ProfessorController extends Controller
             ])
             ->orderBy('certificados.dataEnvio', 'desc')
             ->get();
+
         return view('administrador.administrador', compact('administrador', 'turmas', 'alunos', 'professores', 'aprovados', 'certificados'));
     }
 

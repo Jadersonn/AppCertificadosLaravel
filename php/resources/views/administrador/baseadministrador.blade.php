@@ -62,7 +62,30 @@
                                 </tr>
                             </thead>
                             <tbody>
-
+                              @if ($professores->isEmpty())
+                                    <tr>
+                                        <td colspan="6" class="text-center">Nenhum professor cadastrado.</td>
+                                    </tr>
+                                @else
+                                  @foreach ($professores as $item)
+                                    @if($item->funcao === 'professor' or $item->funcao === 'professor-E')
+                                        <tr>
+                                            <td>ADS</td>
+                                            <td>{{ $item->name }}</td>
+                                            <td>{{ $item->numIdentidade }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($item->dataAtualizacao)->format('d/m/Y') }}</td>
+                                            <td>
+                                                <a href="{{ url('/relatorio/historico/' . $item->id) }}">Ver</a>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="modal-fade" data-bs-toggle="modal"
+                                                    data-bs-target="#responsavelModal">Editar</a>
+                                            </td>
+                                        </tr>
+                                        @endif
+                                @endforeach
+                              @endif
+                                
                             </tbody>
                         </table>
                     </div>
