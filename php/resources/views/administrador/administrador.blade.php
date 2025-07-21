@@ -54,11 +54,11 @@
                 <div class="relatorio-datas">
                     <div>
                         <label for="data_inicio">Data Início</label>
-                        <input type="date" id="data_inicio" name="data_inicio">
+                        <input type="date" id="data_inicio" name="data_inicio" required>
                     </div>
                     <div>
                        <label for="data_fim">Data Fim</label>
-                        <input type="date" id="data_fim" name="data_fim">
+                        <input type="date" id="data_fim" name="data_fim" required>
                     </div>
                 </div>
                 <div class="relatorio-opcoes-row">

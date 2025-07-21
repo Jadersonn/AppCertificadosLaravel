@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\TipoAtividade;
 use App\Models\AtividadeComplementar;
 use App\Enums\FuncaoEnum;
-use App\Models\Turma;
+use Illuminate\Support\Facades\DB;
 
 class CertificadoController extends Controller
 {
@@ -301,34 +301,55 @@ class CertificadoController extends Controller
     public function relatorioAprovados() {}
     public function relatorioPorTurma(Request $request)
     {
-        $turmas = Turma::all();
+        $dataInicio = $request->input('data_inicio'); // Ex: '2025-01-01'
+        $dataFim = $request->input('data_fim');       // Ex: '2025-12-31'
 
-        $dadosTurmas = $turmas->map(function ($turma) use ($request) {
-            $alunos = $turma->alunos->map(function ($aluno) use ($request) {
-                $certificados = $aluno->certificados()
-                    ->where('statusCertificado', 'aprovado')
-                    ->where('dataEnvio', '>=', $request->input('data_inicio'))
-                    ->where('dataEnvio', '<=', $request->input('data_fim'))
-                    ->get();
+        $dadosTurmasRaw = DB::table('turmas as t')
+            ->leftJoin('alunos as a', 'a.idTurma', '=', 't.id')
+            ->leftJoin('users as u', 'u.id', '=', 'a.user_id')
+            ->leftJoin('certificados as c', function ($join) use ($dataInicio, $dataFim) {
+                $join->on('c.idAluno', '=', 'a.idAluno')
+                    ->where('c.statusCertificado', '=', 'aprovado')
+                    ->whereBetween('c.dataEnvio', [$dataInicio, $dataFim]);
+            })
+            ->select(
+                't.nome as nome',
+                'u.name as nomeAluno',
+                DB::raw('SUM(c.cargaHoraria) as cargaHoraria'),
+                'a.pontosRecebidos as pontosGerados',
+                'a.statusDeConclusao as situacao'
+            )
+            ->groupBy('t.nome', 'u.name', 'a.pontosRecebidos', 'a.statusDeConclusao')
+            ->orderBy('t.nome')
+            ->orderBy('u.name')
+            ->get();
 
-                $cargaHoraria = $certificados->sum('cargaHoraria');
-                $pontos = $certificados->sum('pontosGerados');
-                $situacao = ($cargaHoraria >= 120) ? 'Aprovado' : 'Em andamento';
+        // Agrupa alunos por turma
+        $dadosTurmas = [];
 
-                return [
-                    'nomeAluno' => $aluno->user->name ?? '-',
-                    'cargaHoraria' => $cargaHoraria,
-                    'pontosGerados' => $pontos,
-                    'situacao' => $situacao,
+        foreach ($dadosTurmasRaw as $linha) {
+            $turmaNome = $linha->nome;
+
+            if (!isset($dadosTurmas[$turmaNome])) {
+                $dadosTurmas[$turmaNome] = [
+                    'nome' => $turmaNome,
+                    'alunos' => []
                 ];
-            });
+            }
 
-            return [
-                'nome' => $turma->nome,
-                'alunos' => $alunos,
-            ];
-        });
+            // Se não houver aluno (null), adiciona um aluno vazio para não quebrar o loop
+            if ($linha->nomeAluno !== null) {
+                $dadosTurmas[$turmaNome]['alunos'][] = [
+                    'nomeAluno' => $linha->nomeAluno,
+                    'cargaHoraria' => $linha->cargaHoraria ?? 0,
+                    'pontosGerados' => $linha->pontosGerados ?? 0,
+                    'situacao' => $linha->situacao ?? 'Não informado',
+                ];
+            }
+        }
 
-        return view('relatorio.relatorioTurma', ['dadosTurmas' => $dadosTurmas]);
+        $dadosTurmas = array_values($dadosTurmas);
+
+        return view('relatorio.relatorioTurma', compact('dadosTurmas'));
     }
 }
