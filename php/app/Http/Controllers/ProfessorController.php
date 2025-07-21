@@ -101,7 +101,7 @@ class ProfessorController extends Controller
             $query->where('numIdentidade', $numIdentidade);
         })->first();
 
-        // Verifica se o aluno foi encontrado
+        // Verifica se o administrador foi encontrado
         if (!$administrador) {
             abort(404, 'Administrador não encontrado');
         }
@@ -134,12 +134,32 @@ class ProfessorController extends Controller
 
         // Retorna a view com os dados do professor
         $professores = Professor::join('users as U', 'U.id', '=', 'professores.user_id')
-            ->select('U.name', 'U.numIdentidade', 'funcao')
+            ->select('U.name', 'U.numIdentidade', 'funcao', 'professores.updated_at as dataAtualizacao')
             ->get();
 
         $aprovados = $this->alunoAprovado();
+        $certificados = DB::table('certificados')
+            ->join('alunos', 'certificados.idAluno', '=', 'alunos.idAluno')
+            ->join('users as aluno_user', 'alunos.user_id', '=', 'aluno_user.id')
+            ->leftJoin('professores', 'certificados.idProfessor', '=', 'professores.idProfessor')
+            ->leftJoin('users as professor_user', 'professores.user_id', '=', 'professor_user.id')
+            ->join('turmas', 'alunos.idTurma', '=', 'turmas.id')
+            ->join('atividades_complementares', 'certificados.idAtividadeComplementar', '=', 'atividades_complementares.idAtividadeComplementar')
+            ->join('tipos_atividades', 'atividades_complementares.idTipoAtividade', '=', 'tipos_atividades.idTipoAtividade')
+            ->select([
+                'aluno_user.name as aluno_nome',
+                'professor_user.name as professor_nome',
+                'turmas.nome as turma_nome',
+                'certificados.pontosGerados as ponto',
+                'tipos_atividades.nome as categoria',
+                'certificados.caminhoArquivo as certificado',
+                'certificados.dataEnvio',
+                'certificados.cargaHoraria'
+            ])
+            ->orderBy('certificados.dataEnvio', 'desc')
+            ->get();
 
-        return view('administrador.administrador', compact('administrador', 'turmas', 'alunos', 'professores', 'aprovados'));
+        return view('administrador.administrador', compact('administrador', 'turmas', 'alunos', 'professores', 'aprovados', 'certificados'));
     }
 
     public function update(Request $request, $id)
