@@ -103,5 +103,5 @@ Route::get('/certificados/visualizar/{id}', [CertificadoController::class, 'visu
 
 Route::get('/relatorio/aluno/{numIdentidade}', [AlunoController::class, 'relatorioAluno'])->middleware('auth')->name('aluno.relatorio');
 Route::post('/relatorio', [CertificadoController::class, 'gerarRelatorio'])->middleware('auth')->name('certificado.relatorio');
-
+Route::get('/relatorio/historico/{numIdentidade}', [CertificadoController::class, 'historicoProfessor'])->middleware('auth')->name('certificado.historico');
 require __DIR__ . '/auth.php';

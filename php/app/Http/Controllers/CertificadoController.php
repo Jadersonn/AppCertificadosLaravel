@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\TipoAtividade;
 use App\Models\AtividadeComplementar;
 use App\Enums\FuncaoEnum;
+use App\Models\Professor;
 use Illuminate\Support\Facades\DB;
 
 class CertificadoController extends Controller
@@ -261,7 +262,37 @@ class CertificadoController extends Controller
 
         return view('certificados.edit', compact('cert'));
     }
+    public function historicoProfessor($numIdentidade)
+    {
+        $professor = DB::table('professores')
+            ->join('users', 'users.id', '=', 'professores.user_id')
+            ->where('users.numIdentidade', $numIdentidade)
+            ->select('professores.*', 'users.*') // ou apenas os campos desejados
+            ->first();
 
+        if (!$professor) {
+            return redirect()->back()->withErrors(['professor' => 'Professor não encontrado.']);
+        }
+
+        $certificados = DB::table('certificados as c')
+            ->join('alunos as a', 'c.idAluno', '=', 'a.idAluno')
+            ->join('turmas as t', 't.id', '=', 'a.idTurma')
+            ->join('users as u', 'u.id', '=', 'a.user_id')
+            ->where('c.idProfessor', $professor->idProfessor)
+            ->select(
+                'u.name',
+                't.nome',
+                'c.statusCertificado',
+                'c.justificativa',
+                'c.semestre',
+                'c.cargaHoraria',
+                'c.dataEnvio',
+                'c.pontosGerados'
+            )
+            ->get();
+
+        return view('relatorio.relatorioProfessor', compact('professor', 'certificados'));
+    }
     public function gerarRelatorio(Request $request)
     {
         // Validação dos campos obrigatórios
@@ -297,7 +328,42 @@ class CertificadoController extends Controller
     public function relatorioRecusados() {}
     public function relatorioHoras() {}
     public function relatorioRecebidos() {}
-    public function relatorioPorProfessor() {}
+    public function relatorioPorProfessor()
+    {
+        $certificados = DB::table('certificados as c')
+            ->join('alunos as a', 'c.idAluno', '=', 'a.idAluno')
+            ->join('turmas as t', 't.id', '=', 'a.idTurma')
+            ->join('users as u', 'u.id', '=', 'a.user_id')
+            ->leftJoin('professores as p', 'c.idProfessor', '=', 'p.idProfessor')
+            ->leftJoin('users as up', 'up.id', '=', 'p.user_id') // Nome do professor
+            ->whereNotNull('c.idProfessor')
+            ->select(
+                'p.idProfessor',
+                'up.name as professor',
+                'u.name',
+                't.nome',
+                'c.statusCertificado',
+                'c.justificativa',
+                'c.semestre',
+                'c.cargaHoraria',
+                'c.dataEnvio',
+                'c.pontosGerados'
+            )
+            ->orderBy('up.name')
+            ->get();
+
+        // Agrupa os certificados por professor
+        $relatorios = $certificados->groupBy('professor')->map(function ($certs, $professor) {
+            return [
+                'professor' => $professor,
+                'certificados' => $certs,
+            ];
+        })->values();
+
+        return view('relatorio.relatorioProfessores', compact('relatorios'));
+    }
+
+
     public function relatorioAprovados() {}
     public function relatorioPorTurma(Request $request)
     {
