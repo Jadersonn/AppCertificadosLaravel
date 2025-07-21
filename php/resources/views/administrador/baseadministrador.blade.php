@@ -48,82 +48,86 @@
             </div>
             <div class="container-admin">
                 <div class="tabela-recebidos">
-                    <h1>PAINEL DO ADMINISTRADOR</h1>
+                    <h3>PAINEL DO ADMINISTRADOR</h3>
                     <div class="tabela-container">
-                        <table class="admin-tabela">
-                            <thead>
-                                <tr>
-                                    <th>CURSO</th>
-                                    <th>RESPONSÁVEL</th>
-                                    <th>IDENTIFICAÇÃO</th>
-                                    <th>PERÍODO</th>
-                                    <th>HISTÓRICO</th>
-                                    <th>EDITAR</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                              @if ($professores->isEmpty())
+                        <div class="tabela-scroll-vertical">
+                            <table class="admin-tabela">
+                                <thead>
                                     <tr>
-                                        <td colspan="6" class="text-center">Nenhum professor cadastrado.</td>
+                                        <th>CURSO</th>
+                                        <th>RESPONSÁVEL</th>
+                                        <th>IDENTIFICAÇÃO</th>
+                                        <th>PERÍODO</th>
+                                        <th>HISTÓRICO</th>
+                                        <th>EDITAR</th>
                                     </tr>
-                                @else
-                                  @foreach ($professores as $item)
-                                    @if($item->funcao === 'professor' or $item->funcao === 'professor-E')
+                                </thead>
+                                <tbody>
+                                  @if ($professores->isEmpty())
                                         <tr>
-                                            <td>ADS</td>
-                                            <td>{{ $item->name }}</td>
-                                            <td>{{ $item->numIdentidade }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($item->dataAtualizacao)->format('d/m/Y') }}</td>
-                                            <td>
-                                                <a href="{{ url('/relatorio/historico/' . $item->numIdentidade) }}" target="_blank">Ver</a>
-                                            </td>
-                                            <td>
-                                                <a href="#" class="modal-fade" data-bs-toggle="modal"
-                                                    data-bs-target="#responsavelModal">Editar</a>
-                                            </td>
+                                            <td colspan="6" class="text-center">Nenhum professor cadastrado.</td>
                                         </tr>
-                                        @endif
-                                @endforeach
-                              @endif
-                                
-                            </tbody>
-                        </table>
+                                    @else
+                                      @foreach ($professores as $item)
+                                        @if($item->funcao === 'professor' or $item->funcao === 'professor-E')
+                                            <tr>
+                                                <td>ADS</td>
+                                                <td>{{ $item->name }}</td>
+                                                <td>{{ $item->numIdentidade }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->dataAtualizacao)->format('d/m/Y') }}</td>
+                                                <td>
+                                                    <a href="{{ url('/relatorio/historico/' . $item->id) }}">Ver</a>
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="modal-fade" data-bs-toggle="modal"
+                                                        data-bs-target="#responsavelModal">Editar</a>
+                                                </td>
+                                            </tr>
+                                            @endif
+                                    @endforeach
+                                  @endif
+                                    
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <div class="tabela-recebidos">
-                    <h1>HISTÓRICO DE CERTIFICADOS</h1>
+                    <h3>HISTÓRICO DE CERTIFICADOS</h3>
                     <div class="tabela-container">
-                        <table class="admin-tabela">
-                            <thead>
-                                <tr>
-                                    <th>ALUNO</th>
-                                    <th>PROFESSOR</th>
-                                    <th>TURMA</th>
-                                    <th>PONTO</th>
-                                    <th>CATEGORIA</th>
-                                    <th>CERTIFICADO</th>
-                                    <th>DATA ENVIO</th>
-                                    <th>CARGA HORÁRIA</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($certificados as $cert)
+                        <div class="tabela-scroll-vertical">
+                            <table class="admin-tabela">
+                                <thead>
                                     <tr>
-                                        <td>{{ $cert->aluno_nome }}</td>
-                                        <td>{{ $cert->professor_nome ?? '-' }}</td>
-                                        <td>{{ $cert->turma_nome }}</td>
-                                        <td>{{ $cert->ponto }}</td>
-                                        <td>{{ $cert->categoria }}</td>
-                                        <td>
-                                            <a href="{{ url('/certificados/visualizar/' . $cert->idCertificado) }}"
-                                                target="_blank">Ver</a>
-                                        </td>
-                                        <td>{{ \Carbon\Carbon::parse($cert->dataEnvio)->format('d/m/Y') }}</td>
-                                        <td>{{ $cert->cargaHoraria }}</td>
+                                        <th>ALUNO</th>
+                                        <th>PROFESSOR</th>
+                                        <th>TURMA</th>
+                                        <th>PONTO</th>
+                                        <th>CATEGORIA</th>
+                                        <th>CERTIFICADO</th>
+                                        <th>DATA ENVIO</th>
+                                        <th>CARGA HORÁRIA</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($certificados as $cert)
+                                        <tr>
+                                            <td>{{ $cert->aluno_nome }}</td>
+                                            <td>{{ $cert->professor_nome ?? '-' }}</td>
+                                            <td>{{ $cert->turma_nome }}</td>
+                                            <td>{{ $cert->ponto }}</td>
+                                            <td>{{ $cert->categoria }}</td>
+                                            <td>
+                                                <a href="{{ url('/certificados/visualizar/' . $cert->certificado) }}"
+                                                    target="_blank">Ver</a>
+                                            </td>
+                                            <td>{{ \Carbon\Carbon::parse($cert->dataEnvio)->format('d/m/Y') }}</td>
+                                            <td>{{ $cert->cargaHoraria }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -506,22 +506,23 @@ body {
     display: flex;
     flex-direction: column;
     align-items: stretch; /* Alinha pelo topo */
-    gap: 32px;              /* Espaço entre painel e tabela */
+    gap: 32px;   /* Espaço entre painel e tabela */
 }
 .tabela-recebidos {
     width: 100%;
-    min-width: 400px;
-    max-width: 1000px;
+    min-width: 200px;
+    max-width: 800px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    margin-bottom: 12px;
+    margin-bottom: 5px;
     font-family: Arial, sans-serif;
     font-size: 0.75rem;
+    
 }
 
 .tabela-recebidos th, .tabela-recebidos td {
     
-    padding: 8px 10px;
+    padding: 3px 5px;
     text-align: center;
     vertical-align: middle;
 }
@@ -531,6 +532,58 @@ body {
     font-weight: 700;
     letter-spacing: 1px;
 }
+.tabela-recebidos h3{
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #00420C;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.tabela-container {
+    max-width: 800px;   /* diminui a largura máxima da tabela */
+    margin: 0 auto;     /* centraliza */
+}
+
+.admin-tabela {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    font-size: 0.85rem;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    margin-bottom: 1.5em;
+}
+
+.admin-tabela th, .admin-tabela td,
+.tabela-recebidos th, .tabela-recebidos td {
+    padding: 8px 7px; /* menos espaço interno */
+}
+
+.admin-tabela th {
+    background:#ededed;
+    color: #00420C;
+    font-weight: bold;
+    font-size: 1em;
+    letter-spacing: 0.5px;
+}
+
+.admin-tabela tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-tabela tbody tr:hover {
+    background: #ededed;
+    transition: background 0.2s;
+}
+
+.tabela-scroll-vertical {
+    max-height: 400px;   /* ajuste a altura conforme necessário */
+    overflow-y: auto;
+    width: 100%;
+}
+
 /* Modal Professor */
 .modal-dialog {
   max-height: 90vh;   /* Modal pode ocupar até 90% da altura da tela */
@@ -798,3 +851,4 @@ body {
         align-items: stretch;
     }
 }
+
