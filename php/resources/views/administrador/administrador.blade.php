@@ -32,8 +32,7 @@
                                 <td>{{ $aluno->name }}</td>
                                 <td>{{ $aluno->nomeTurma }}</td>
                                 <td>
-                                    <a
-                                        href="{{ route('administrador.gerarRelatorio', ['numIdentidade' => $aluno->numIdentidade]) }}">VER
+                                    <a href="{{ url('/relatorio/aluno/' . $aluno->numIdentidade) }}" target="_blank">VER
                                         RELATÓRIO</a>
                                 </td>
                             </tr>
@@ -62,21 +61,21 @@
                     </div>
                 </div>
                 <div class="relatorio-opcoes-row">
-                <div class="relatorio-opcoes1">
-                    <div>
-                        <div class="ordem-titulo">Ordem:</div>
-                        <label><input type="checkbox" name="ordem" value="turma"> Por turma</label>
-                        <label><input type="checkbox" name="ordem" value="professor"> Professor</label>
-                        <label><input type="checkbox" name="ordem" value="aprovados"> Aprovados</label>
+                    <div class="relatorio-opcoes1">
+                        <div>
+                            <div class="ordem-titulo">Ordem:</div>
+                            <label><input type="checkbox" name="ordem" value="turma"> Por turma</label>
+                            <label><input type="checkbox" name="ordem" value="professor"> Professor</label>
+                            <label><input type="checkbox" name="ordem" value="aprovados"> Aprovados</label>
+                        </div>
                     </div>
-                </div>
                     <div class="relatorio-opcoes2">
-                    <div>
-                        <label><input type="checkbox" name="pontos" value="pontos"> Pontos recebidos</label>
-                        <label><input type="checkbox" name="horas" value="horas"> Por horas</label>
-                        <label><input type="checkbox" name="recusados" value="recusados"> Recusados</label>
+                        <div>
+                            <label><input type="checkbox" name="pontos" value="pontos"> Pontos recebidos</label>
+                            <label><input type="checkbox" name="horas" value="horas"> Por horas</label>
+                            <label><input type="checkbox" name="recusados" value="recusados"> Recusados</label>
+                        </div>
                     </div>
-                </div>
                 </div>
                 <button type="submit" class="btn-relatorio">GERAR RELATÓRIO</button>
             </form>
@@ -84,7 +83,9 @@
 
         <div class="card-tabela">
             <div class="tabela-header">
-                <span><h6>ALUNOS APROVADOS</h6></span>
+                <span>
+                    <h6>ALUNOS APROVADOS</h6>
+                </span>
                 <button class="btn-voltar" title="Voltar">&#60;</button>
             </div>
             <table class="tabela-aprovados">
@@ -103,7 +104,7 @@
                             <td>{{ $item->turma }}</td>
                             <td>{{ \Carbon\Carbon::parse($item->dataConclusao)->format('d/m/Y') }}</td>
                             <td>
-                                
+
                             </td>
                         </tr>
                     @endforeach

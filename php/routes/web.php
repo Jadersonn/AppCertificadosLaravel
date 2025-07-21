@@ -101,5 +101,6 @@ Route::middleware('auth')->group(function () {
 //rotas para vizualizar certificados
 Route::get('/certificados/visualizar/{id}', [CertificadoController::class, 'visualizar'])->middleware('auth');
 
+Route::get('/relatorio/aluno/{numIdentidade}', [AlunoController::class, 'relatorioAluno'])->middleware('auth')->name('aluno.relatorio');
 
 require __DIR__ . '/auth.php';
