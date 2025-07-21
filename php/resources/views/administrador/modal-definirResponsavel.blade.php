@@ -23,7 +23,7 @@
                     </div>
 
                     <!-- Tabela Professores Ativos -->
-                    <h6 class="mt-4"><strong>PROFESSORES ATIVOS</strong></h6>
+                    <h6 class="titulo-prof mt-4"><strong>PROFESSORES ATIVOS</strong></h6>
                     <div class="table-responsive">
                         <table class="table table-bordered bg-white text-center">
                             <thead class="table-light">

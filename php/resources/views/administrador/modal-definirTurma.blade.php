@@ -16,8 +16,8 @@
                         <label for="turmaAluno" class="form-label">TURMA</label>
                         <input type="text" id="turmaAluno" class="form-control mb-3" placeholder="Turma do aluno">
 
-                        <label class="label">ALUNOS: </label>
-                        <div class="bg-white rounded p-2 mt-2">
+                        <div class="bg-white rounded p-2 mt-2 modal-turma-table-scroll alunos">
+                            <span class="modal-turma-table-title">ALUNOS:</span>
                             <table class="table table-bordered align-middle mb-0">
                                 <thead>
                                     <tr>
@@ -39,7 +39,7 @@
                         </div>
                     </div>
                     <div class="col-md-5 d-flex flex-column gap-3">
-                        <div class="bg-white rounded p-2">
+                        <div class="bg-white rounded p-2 modal-turma-table-scroll">
                             <span class="fw-bold d-block mb-1 modal-turma-label">TURMAS EXISTENTES</span>
                             <table class="table table-bordered align-middle mb-0">
                                 <thead>
@@ -86,48 +86,43 @@
                                 @csrf
                                 <span class="fw-bold d-block mb-1 modal-turma-label">CRIAR TURMA</span>
                                 <input type="text" id="nomeTurma" name="nome" class="form-control mb-2">
-                                <button type="submit" class="btn btn-primary w-100">CRIAR</button>
+                                <button type="submit" class="modal-turma-btn-criar">CRIAR</button>
                             </form>
                         </div>
                         <div class="bg-white rounded p-2">
                             <form action="{{ route('administrador.definirTurma') }}" method="POST">
                                 @csrf
-                                <span class="fw-bold d-block mb-1 modal-turma-label">ADICIONAR ALUNO(s) PARA
-                                    TURMA</span>
-                                <label for="selectTurma" class="form-label">TURMA</label>
+                                <label for="selectTurma" class="form-label">ADICIONAR ALUNO(s) PARA TURMA</label>
                                 <select id="selectTurma" name="turma_id" class="form-select mb-2" required>
                                     <option value="">Selecione uma turma</option>
                                     @foreach ($turmas as $turma)
                                         <option value="{{ $turma->id }}">{{ $turma->nome }}</option>
                                     @endforeach
                                 </select>
-                                <div class="bg-white rounded p-2 mt-2">
-                                    <table class="table table-bordered align-middle mb-0">
-                                        <thead>
+                                <table class="table table-bordered align-middle mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 40px;"></th>
+                                            <th>NOME</th>
+                                            <th>CPF</th>
+                                            <th>TURMA</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($alunos as $aluno)
                                             <tr>
-                                                <th style="width: 40px;"></th>
-                                                <th>NOME</th>
-                                                <th>CPF</th>
-                                                <th>TURMA</th>
+                                                <td align="center">
+                                                    <input type="checkbox" name="alunos[]" value="{{ $aluno->idAluno }}">
+                                                </td>
+                                                <td class="fw-bold">{{ $aluno->name }}</td>
+                                                <td class="fw-bold">{{ $aluno->numIdentidade }}</td>
+                                                <td class="fw-bold">{{ $aluno->nomeTurma }}</td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($alunos as $aluno)
-                                                <tr>
-                                                    <td align="center">
-                                                        <input type="checkbox" name="alunos[]"
-                                                            value="{{ $aluno->idAluno }}">
-                                                    </td>
-                                                    <td class="fw-bold">{{ $aluno->name }}</td>
-                                                    <td class="fw-bold">{{ $aluno->numIdentidade }}</td>
-                                                    <td class="fw-bold">{{ $aluno->nomeTurma }}</td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                                 <div class="d-flex justify-content-end mt-2">
-                                    <button type="submit" class="btn btn-success">SALVAR</button>
+                                    <button type="submit" class="modal-turma-btn-salvar">SALVAR</button>
                                 </div>
                             </form>
                         </div>
