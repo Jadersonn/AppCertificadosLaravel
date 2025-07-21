@@ -7,7 +7,7 @@
 @section('right-panel')
     <div class="cards-coluna-direita">
         <div class="card-busca">
-            <h1>BUSCAR ALUNO</h1>
+            <h6>BUSCAR ALUNO</h6>
             <form class="busca-form" method="GET" action="{{ route('administrador.buscarAluno') }}">
                 <label for="nome">Nome:</label>
                 <input type="text" id="nome" name="nome" value="{{ request('nome') }}">
@@ -48,8 +48,8 @@
         </div>
 
         <div class="card-relatorio">
-            <h2>GERAR RELATÓRIO</h2>
-            <div class="periodo-titulo">Período</div>
+            <h6>GERAR RELATÓRIO</h6>
+            <div class="periodo-titulo">Período:</div>
             <form class="relatorio-form">
                 <div class="relatorio-datas">
                     <div>
@@ -61,18 +61,22 @@
                         <input type="date" id="data_fim" name="data_fim">
                     </div>
                 </div>
-                <div class="relatorio-opcoes">
+                <div class="relatorio-opcoes-row">
+                <div class="relatorio-opcoes1">
                     <div>
-                        <span>Ordem:</span>
+                        <div class="ordem-titulo">Ordem:</div>
                         <label><input type="checkbox" name="ordem" value="turma"> Por turma</label>
                         <label><input type="checkbox" name="ordem" value="professor"> Professor</label>
                         <label><input type="checkbox" name="ordem" value="aprovados"> Aprovados</label>
                     </div>
+                </div>
+                    <div class="relatorio-opcoes2">
                     <div>
                         <label><input type="checkbox" name="pontos" value="pontos"> Pontos recebidos</label>
                         <label><input type="checkbox" name="horas" value="horas"> Por horas</label>
                         <label><input type="checkbox" name="recusados" value="recusados"> Recusados</label>
                     </div>
+                </div>
                 </div>
                 <button type="submit" class="btn-relatorio">GERAR RELATÓRIO</button>
             </form>
@@ -80,7 +84,7 @@
 
         <div class="card-tabela">
             <div class="tabela-header">
-                <span>ALUNOS APROVADOS</span>
+                <span><h6>ALUNOS APROVADOS</h6></span>
                 <button class="btn-voltar" title="Voltar">&#60;</button>
             </div>
             <table class="tabela-aprovados">

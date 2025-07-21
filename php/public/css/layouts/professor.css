@@ -1,3 +1,8 @@
+
+
+
+
+
 body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -16,10 +21,10 @@ body {
     background-color: white;
     border-radius: 10px; 
     display: flex;
-    width: 1100px;    
-    height: 600px;   
-    max-width: 95vw;
-    max-height: 90vh;
+    width: 90vw;    
+    height: 86vh;   
+    max-width: 1700px;
+    max-height: 1000px  ;
     overflow: hidden;
     }
 
@@ -28,8 +33,8 @@ body {
       color: white;
       padding: 30px 0 0 0;
       text-align: center;
-      width: 450px;
-      min-width: 300px;
+      width: 200px;
+      min-width: 140px;
       align-items: center;
       display: flex;
       flex-direction: column;
@@ -60,6 +65,7 @@ body {
     h1 {
       text-align: center;
       color: #00420C;
+      margin-top: 0.2em;
     }
 
     p {
@@ -220,7 +226,7 @@ body {
     display: flex;
     gap: 2vw;
     justify-content: center;
-    margin-top: 2em;
+    margin-top: 0.5em; /* cards mais para cima */
     flex-wrap: wrap;
 }
 
@@ -228,15 +234,15 @@ body {
 .professor-card {
     background: #D9D9D9;
     border-radius: 12px;
-    padding: 1.2em 1.2em 1em 1.2em;
-    flex: 1 1 280px;      /* Cresce igualmente, mínimo de 280px */
-    max-width: 350px;     /* Limita o máximo para não esticar demais */
-    min-width: 220px;     /* Limita o mínimo para não ficar muito pequeno */
+    padding: 0.5em 1.2em 0.5em 1.2em; /* padding vertical menor, largura igual */
+    flex: 1 1 280px;
+    max-width: 350px;
+    min-width: 220px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 1.2em;
+    margin-bottom: 0.7em; /* menos espaço entre os cards */
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
@@ -248,12 +254,12 @@ body {
     margin-bottom: 8px;
     color: #222;
     letter-spacing: 0.5px;
+    margin-top: -5px;
 }
 
 /* Subtítulo */
 .professor-card-subtitle {
-    font-size: 1
-    em;
+    font-size: 1em;
     font-weight: 600;
     text-align: center;
     margin-bottom: 8px;
@@ -356,7 +362,7 @@ body {
 
 /* Certificados Recebidos */
 .certificados-recebidos-box {
-    margin-bottom: 2em;
+    margin-bottom: 0.7em;
 }
 
 .certificados-recebidos-box h1 {
@@ -370,28 +376,44 @@ body {
 .certificados-tabela-container {
     background: #ddd;
     border-radius: 12px;
-    padding: 0 0 1.5em 0;
-    margin-top: 0.5em;
+    padding: 0 0 0.3em 0;
+    margin-top: 0.2em;
+    padding-bottom: 0.2em;
+    width: 90%;           /* largura maior */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .certificados-tabela {
     width: 100%;
     border-collapse: collapse;
-}
-
-.certificados-tabela thead tr {
-    font-weight: bold;
-    font-size: 1em;
+    font-size: 0.78rem;   /* fonte menor */
 }
 
 .certificados-tabela th {
-    padding: 12px 0;
+    padding: 6px 0;       /* menos espaço interno */
     text-align: center;
+    margin-top: -6px;
 }
 
 .certificados-tabela td {
     text-align: center;
-    padding: 8px 0;
+    padding: 4px 0;       /* menos espaço interno */
+    margin-top: -6px;
+}
+
+/* Novas regras para a tabela */
+.certificados-table, .table {
+    width: 90%;           /* diminui a largura da tabela */
+    margin: 0 auto;       /* centraliza */
+    font-size: 0.75rem;   /* fonte menor */
+}
+
+.certificados-table th, .certificados-table td,
+.table th, .table td {
+    padding: 4px 0;    /* menos espaço interno */
+    text-align: center; /* centraliza o texto */
+    margin-top: -20px;
 }
 
 /* Responsivo */
