@@ -116,7 +116,9 @@ class AlunoController extends Controller
                 'P.user_id as professor_user_id',
                 'U.name as nomeProfessor'
             ])
+            ->where('C.idAluno', $aluno->idAluno)
             ->get();
+
 
         return view('relatorio.relatorioAluno', compact('aluno', 'certificados'));
     }

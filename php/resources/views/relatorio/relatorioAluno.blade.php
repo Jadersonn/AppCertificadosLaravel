@@ -14,6 +14,16 @@
         <h1>Relatório de Certificados</h1>
 
         <div class="info"><strong>Aluno:</strong> {{ $aluno->user->name }}</div>
+        <div class="info">
+            <strong>Status:</strong>
+            @if ($aluno->statusDeConclusao === 'aprovado')
+                <span style="color:green;font-weight:bold;">Aprovado</span>
+            @elseif ($aluno->statusDeConclusao === 'em andamento')
+                <span style="color:orange;font-weight:bold;">Pendente</span>
+            @else
+                <span style="color:gray;">Indefinido</span>
+            @endif
+        </div>
         <div class="info"><strong>Turma:</strong> {{ $aluno->turma->nome ?? '-' }}</div>
         <div class="info"><strong>Data de Geração:</strong> {{ \Carbon\Carbon::now()->format('d/m/Y') }}</div>
 
