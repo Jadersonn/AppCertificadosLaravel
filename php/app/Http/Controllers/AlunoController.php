@@ -91,4 +91,33 @@ class AlunoController extends Controller
     {
         return Aluno::destroy($id);
     }
+
+    public function relatorioAluno($numIdentidade)
+    {
+        $aluno = Aluno::with('user')->whereHas('user', function ($query) use ($numIdentidade) {
+            $query->where('numIdentidade', $numIdentidade);
+        })->first();
+        if (!$aluno) {
+            abort(404, 'Aluno não encontrado');
+        }
+
+        $certificados = DB::table('certificados as C')
+            ->join('atividades_complementares as AC', 'AC.idAtividadeComplementar', '=', 'C.idAtividadeComplementar')
+            ->join('tipos_atividades as TA', 'TA.idTipoAtividade', '=', 'AC.idTipoAtividade')
+            ->leftJoin('professores as P', 'C.idProfessor', '=', 'P.idProfessor')
+            ->leftJoin('users as U', 'P.user_id', '=', 'U.id')
+            ->select([
+                'AC.nomeAtividadeComplementar as atividade',
+                'C.cargaHoraria',
+                'C.pontosGerados',
+                'C.dataEnvio',
+                'TA.nome as categoria',
+                'P.idProfessor',
+                'P.user_id as professor_user_id',
+                'U.name as nomeProfessor'
+            ])
+            ->get();
+
+        return view('relatorio.relatorioAluno', compact('aluno', 'certificados'));
+    }
 }

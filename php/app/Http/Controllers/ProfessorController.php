@@ -150,6 +150,7 @@ class ProfessorController extends Controller
                 'aluno_user.name as aluno_nome',
                 'professor_user.name as professor_nome',
                 'turmas.nome as turma_nome',
+                'certificados.idCertificado as idCertificado',
                 'certificados.pontosGerados as ponto',
                 'tipos_atividades.nome as categoria',
                 'certificados.caminhoArquivo as certificado',
