@@ -49,14 +49,15 @@
         <div class="card-relatorio">
             <h6>GERAR RELATÓRIO</h6>
             <div class="periodo-titulo">Período:</div>
-            <form class="relatorio-form">
+            <form class="relatorio-form" method="POST" action="{{ route('certificado.relatorio') }}">
+                @csrf
                 <div class="relatorio-datas">
                     <div>
                         <label for="data_inicio">Data Início</label>
                         <input type="date" id="data_inicio" name="data_inicio">
                     </div>
                     <div>
-                        <label for="data_fim">Data Fim</label>
+                       <label for="data_fim">Data Fim</label>
                         <input type="date" id="data_fim" name="data_fim">
                     </div>
                 </div>
@@ -64,16 +65,23 @@
                     <div class="relatorio-opcoes1">
                         <div>
                             <div class="ordem-titulo">Ordem:</div>
-                            <label><input type="checkbox" name="ordem" value="turma"> Por turma</label>
-                            <label><input type="checkbox" name="ordem" value="professor"> Professor</label>
-                            <label><input type="checkbox" name="ordem" value="aprovados"> Aprovados</label>
+                            <label>
+                                <input type="radio" name="ordem" value="turma" id="categoria"> Por turma
+                            </label>
+                            <label>
+                                <input type="radio" name="ordem" value="professor"> Professor
+                            </label>
+                            <label>
+                                <input type="radio" name="ordem" value="aprovados"> Aprovados
+                            </label>
                         </div>
                     </div>
                     <div class="relatorio-opcoes2">
                         <div>
-                            <label><input type="checkbox" name="pontos" value="pontos"> Pontos recebidos</label>
-                            <label><input type="checkbox" name="horas" value="horas"> Por horas</label>
-                            <label><input type="checkbox" name="recusados" value="recusados"> Recusados</label>
+                            <br>
+                            <label><input type="radio" name="ordem" value="pontos"> Pontos recebidos</label>
+                            <label><input type="radio" name="ordem" value="horas"> Por horas</label>
+                            <label><input type="radio" name="ordem" value="recusados"> Recusados</label>
                         </div>
                     </div>
                 </div>
@@ -114,3 +122,4 @@
         </div>
     </div>
 @endsection
+

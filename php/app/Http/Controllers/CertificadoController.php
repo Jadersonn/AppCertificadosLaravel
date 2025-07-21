@@ -2,10 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-namespace App\Http\Controllers;
-
 use App\Models\Certificado;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Aluno;
@@ -14,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\TipoAtividade;
 use App\Models\AtividadeComplementar;
 use App\Enums\FuncaoEnum;
+use App\Models\Turma;
 
 class CertificadoController extends Controller
 {
@@ -254,15 +251,84 @@ class CertificadoController extends Controller
     }
 
     public function edit($id)
-{
-    $cert = Certificado::findOrFail($id);
-    $cert->idProfessor = Auth::user()->id;
+    {
+        $cert = Certificado::findOrFail($id);
+        $cert->idProfessor = Auth::user()->id;
 
-    if (request()->ajax()) {
-        return response()->json($cert);
+        if (request()->ajax()) {
+            return response()->json($cert);
+        }
+
+        return view('certificados.edit', compact('cert'));
     }
 
-    return view('certificados.edit', compact('cert'));
-}
+    public function gerarRelatorio(Request $request)
+    {
+        // Validação dos campos obrigatórios
+        $request->validate([
+            'data_inicio' => 'required|date',
+            'data_fim' => 'required|date|after_or_equal:data_inicio',
+            'ordem' => 'required|in:turma,professor,aprovados',
+            // Adicione outras validações conforme necessário
+        ]);
 
+        // Recupera a opção selecionada
+        $ordem = $request->input('ordem');
+
+        // Switch para tratar cada opção
+        switch ($ordem) {
+            case 'turma':
+                return $this->relatorioPorTurma($request);
+            case 'professor':
+                return $this->relatorioPorProfessor($request);
+            case 'aprovados':
+                return $this->relatorioAprovados($request);
+            case 'pontos':
+                return $this->relatorioRecebidos($request);
+            case 'horas':
+                return $this->relatorioHoras($request);
+            case 'recusados':
+                return $this->relatorioRecusados($request);
+            default:
+                abort(400, 'Opção inválida');
+        }
+    }
+
+    public function relatorioRecusados() {}
+    public function relatorioHoras() {}
+    public function relatorioRecebidos() {}
+    public function relatorioPorProfessor() {}
+    public function relatorioAprovados() {}
+    public function relatorioPorTurma(Request $request)
+    {
+        $turmas = Turma::all();
+
+        $dadosTurmas = $turmas->map(function ($turma) use ($request) {
+            $alunos = $turma->alunos->map(function ($aluno) use ($request) {
+                $certificados = $aluno->certificados()
+                    ->where('statusCertificado', 'aprovado')
+                    ->where('dataEnvio', '>=', $request->input('data_inicio'))
+                    ->where('dataEnvio', '<=', $request->input('data_fim'))
+                    ->get();
+
+                $cargaHoraria = $certificados->sum('cargaHoraria');
+                $pontos = $certificados->sum('pontosGerados');
+                $situacao = ($cargaHoraria >= 120) ? 'Aprovado' : 'Em andamento';
+
+                return [
+                    'nomeAluno' => $aluno->user->name ?? '-',
+                    'cargaHoraria' => $cargaHoraria,
+                    'pontosGerados' => $pontos,
+                    'situacao' => $situacao,
+                ];
+            });
+
+            return [
+                'nome' => $turma->nome,
+                'alunos' => $alunos,
+            ];
+        });
+
+        return view('relatorio.relatorioTurma', ['dadosTurmas' => $dadosTurmas]);
+    }
 }

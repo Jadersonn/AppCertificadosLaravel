@@ -3,79 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Relatório de Certificados</title>
-  <style>
-    @page {
-      margin: 2cm;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      font-size: 12pt;
-      line-height: 1.6;
-      color: #333;
-    }
-
-    .container {
-      width: 100%;
-      padding: 20px;
-      box-sizing: border-box;
-    }
-
-    h1 {
-      text-align: center;
-      font-size: 20pt;
-      margin-bottom: 30px;
-      text-transform: uppercase;
-      color: #222;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-    }
-
-    th, td {
-      border: 1px solid #aaa;
-      padding: 8px;
-      text-align: left;
-    }
-
-    th {
-      background-color: #f2f2f2;
-      font-weight: bold;
-    }
-
-    .footer {
-      margin-top: 40px;
-      text-align: center;
-      font-size: 10pt;
-      color: #666;
-    }
-
-    .logo {
-      width: 80px;
-      margin-bottom: 20px;
-    }
-
-    .info {
-      margin-bottom: 10px;
-      font-size: 12pt;
-    }
-
-    .section-title {
-      font-size: 14pt;
-      margin-top: 30px;
-      margin-bottom: 10px;
-      font-weight: bold;
-    }
-  </style>
+  <link rel="stylesheet" href="{{ asset('css/layouts/relatorio.css') }}">
 </head>
 <body>
   <div class="container">
-    <img src="logo.png" class="logo" alt="Logo da Instituição">
+    <img src="cabecalho.png" class="logo" alt="LogoIFMS">
     <h1>Relatório de Certificados</h1>
 
     <div class="info"><strong>Aluno:</strong> {{ $aluno->user->name }}</div>
@@ -117,8 +49,8 @@
     </table>
 
     <div class="footer">
-      Instituto Federal de Mato Grosso do Sul - Campus Exemplo<br>
-      Relatório gerado automaticamente pelo sistema.
+      Instituto Federal de Mato Grosso do Sul - Campus Corumbá<br>
+      Relatório gerado automaticamente pelo sistema. Em: {{ \Carbon\Carbon::now()->format('d/m/Y') }}
     </div>
   </div>
 </body>
