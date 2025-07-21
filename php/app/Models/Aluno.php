@@ -20,7 +20,7 @@ class Aluno extends Model
     public static function getIdByUserId($userId)
     {
         $aluno = self::where('user_id', $userId)->first();
-        return $aluno ? $aluno->input('idAluno') : null;
+        return $aluno ? $aluno->idAluno : null;
     }
     public function usuario()
     {

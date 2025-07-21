@@ -75,7 +75,7 @@
                                             <td>{{ $item->numIdentidade }}</td>
                                             <td>{{ \Carbon\Carbon::parse($item->dataAtualizacao)->format('d/m/Y') }}</td>
                                             <td>
-                                                <a href="{{ url('/relatorio/historico/' . $item->id) }}">Ver</a>
+                                                <a href="{{ url('/relatorio/historico/' . $item->numIdentidade) }}" target="_blank">Ver</a>
                                             </td>
                                             <td>
                                                 <a href="#" class="modal-fade" data-bs-toggle="modal"
@@ -115,7 +115,7 @@
                                         <td>{{ $cert->ponto }}</td>
                                         <td>{{ $cert->categoria }}</td>
                                         <td>
-                                            <a href="{{ url('/certificados/visualizar/' . $cert->certificado) }}"
+                                            <a href="{{ url('/certificados/visualizar/' . $cert->idCertificado) }}"
                                                 target="_blank">Ver</a>
                                         </td>
                                         <td>{{ \Carbon\Carbon::parse($cert->dataEnvio)->format('d/m/Y') }}</td>
