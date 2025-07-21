@@ -15,8 +15,8 @@
         <div class="info"><strong>Data de Geração:</strong> {{ \Carbon\Carbon::now()->format('d/m/Y') }}</div>
 
         @foreach ($dadosTurmas as $turma)
-            <div class="info" style="margin-top:30px;"><strong>Turma:</strong> {{ $turma['nome'] }}</div>
-            <div class="section-title">Certificados dos Alunos</div>
+            <div class="info" style="margin-top:50px;"><strong>Turma:</strong> {{ $turma['nome'] }}</div>
+            <div class="section-title" style="margin-top:1px;">Certificados dos Alunos</div>
             <table>
                 <thead>
                     <tr>

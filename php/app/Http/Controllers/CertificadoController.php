@@ -299,8 +299,7 @@ class CertificadoController extends Controller
         $request->validate([
             'data_inicio' => 'required|date',
             'data_fim' => 'required|date|after_or_equal:data_inicio',
-            'ordem' => 'required|in:turma,professor,aprovados',
-            // Adicione outras validações conforme necessário
+            'ordem' => 'required|in:turma,professor,aprovados,pontos,horas,recusados',
         ]);
 
         // Recupera a opção selecionada
@@ -321,22 +320,107 @@ class CertificadoController extends Controller
             case 'recusados':
                 return $this->relatorioRecusados($request);
             default:
-                abort(400, 'Opção inválida');
+                return redirect()->back(); // ou uma página de erro
         }
     }
 
-    public function relatorioRecusados() {}
-    public function relatorioHoras() {}
-    public function relatorioRecebidos() {}
-    public function relatorioPorProfessor()
+    public function relatorioRecusados(Request $request)
     {
+        $dataInicio = $request->input('data_inicio'); // Ex: '2025-01-01'
+        $dataFim = $request->input('data_fim');       // Ex: '2025-12-31'
+
         $certificados = DB::table('certificados as c')
             ->join('alunos as a', 'c.idAluno', '=', 'a.idAluno')
             ->join('turmas as t', 't.id', '=', 'a.idTurma')
             ->join('users as u', 'u.id', '=', 'a.user_id')
             ->leftJoin('professores as p', 'c.idProfessor', '=', 'p.idProfessor')
             ->leftJoin('users as up', 'up.id', '=', 'p.user_id') // Nome do professor
+            ->where('c.statusCertificado', '=', 'rejeitado')
+            ->whereBetween('c.dataEnvio', [$dataInicio, $dataFim]) // <-- Filtro de período
+            ->select(
+                'c.idCertificado',
+                'u.name as aluno',
+                't.nome as turma',
+                'up.name as professor',
+                'c.justificativa',
+                'c.semestre',
+                'c.cargaHoraria',
+                'c.dataEnvio',
+                'c.pontosGerados'
+            )
+            ->orderBy('c.dataEnvio', 'desc')
+            ->get();
+        return view('relatorio.relatorioCertificados', compact('certificados'));
+    }
+    public function relatorioHoras(Request $request)
+    {
+        $dataInicio = $request->input('data_inicio'); // Ex: '2025-01-01'
+        $dataFim = $request->input('data_fim');       // Ex: '2025-12-31'
+
+        $certificados = DB::table('certificados as c')
+            ->join('alunos as a', 'c.idAluno', '=', 'a.idAluno')
+            ->join('turmas as t', 't.id', '=', 'a.idTurma')
+            ->join('users as u', 'u.id', '=', 'a.user_id')
+            ->leftJoin('professores as p', 'c.idProfessor', '=', 'p.idProfessor')
+            ->leftJoin('users as up', 'up.id', '=', 'p.user_id') // Nome do professor
+            ->whereBetween('c.dataEnvio', [$dataInicio, $dataFim]) // <-- Filtro de período
+            ->select(
+                'c.idCertificado',
+                'u.name as aluno',
+                't.nome as turma',
+                'up.name as professor',
+                'c.justificativa',
+                'c.semestre',
+                'c.cargaHoraria',
+                'c.dataEnvio',
+                'c.pontosGerados'
+            )
+            ->orderBy('c.cargaHoraria', 'desc')
+            ->get();
+        return view('relatorio.relatorioCertificados', compact('certificados'));
+    }
+    public function relatorioRecebidos(Request $request)
+    {
+        $dataInicio = $request->input('data_inicio'); // Ex: '2025-01-01'
+        $dataFim = $request->input('data_fim');       // Ex: '2025-12-31'
+
+        $certificados = DB::table('certificados as c')
+            ->join('alunos as a', 'c.idAluno', '=', 'a.idAluno')
+            ->join('turmas as t', 't.id', '=', 'a.idTurma')
+            ->join('users as u', 'u.id', '=', 'a.user_id')
+            ->leftJoin('professores as p', 'c.idProfessor', '=', 'p.idProfessor')
+            ->leftJoin('users as up', 'up.id', '=', 'p.user_id') // Nome do professor
+            ->whereBetween('c.dataEnvio', [$dataInicio, $dataFim]) // <-- Filtro de período
+            ->where('c.pontosGerados', '>', 0) // <-- Evita mostrar pontos = 0
+            ->select(
+                'c.idCertificado',
+                'u.name as aluno',
+                't.nome as turma',
+                'up.name as professor',
+                'c.justificativa',
+                'c.semestre',
+                'c.cargaHoraria',
+                'c.dataEnvio',
+                'c.pontosGerados'
+            )
+            ->orderBy('c.pontosGerados', 'desc')
+            ->get();
+
+        return view('relatorio.relatorioCertificados', compact('certificados'));
+    }
+    public function relatorioPorProfessor(Request $request)
+    {
+        $dataInicio = $request->input('data_inicio'); // Ex: '2025-01-01'
+        $dataFim = $request->input('data_fim');       // Ex: '2025-12-31'
+
+        $certificados = DB::table('certificados as c')
+            ->join('alunos as a', 'c.idAluno', '=', 'a.idAluno')
+            ->join('turmas as t', 't.id', '=', 'a.idTurma')
+            ->join('users as u', 'u.id', '=', 'a.user_id')
+            ->leftJoin('professores as p', 'c.idProfessor', '=', 'p.idProfessor')
+            ->leftJoin('users as up', 'up.id', '=', 'p.user_id')
             ->whereNotNull('c.idProfessor')
+            ->whereBetween('c.dataEnvio', [$dataInicio, $dataFim]) // <-- Adicione este filtro
             ->select(
                 'p.idProfessor',
                 'up.name as professor',
@@ -364,7 +448,33 @@ class CertificadoController extends Controller
     }
 
 
-    public function relatorioAprovados() {}
+    public function relatorioAprovados(Request $request) {
+        $dataInicio = $request->input('data_inicio'); // Ex: '2025-01-01'
+        $dataFim = $request->input('data_fim');       // Ex: '2025-12-31'
+
+        $certificados = DB::table('certificados as c')
+            ->join('alunos as a', 'c.idAluno', '=', 'a.idAluno')
+            ->join('turmas as t', 't.id', '=', 'a.idTurma')
+            ->join('users as u', 'u.id', '=', 'a.user_id')
+            ->leftJoin('professores as p', 'c.idProfessor', '=', 'p.idProfessor')
+            ->leftJoin('users as up', 'up.id', '=', 'p.user_id') // Nome do professor
+            ->where('c.statusCertificado', '=', 'aprovado')
+            ->whereBetween('c.dataEnvio', [$dataInicio, $dataFim]) // <-- Filtro de período
+            ->select(
+                'c.idCertificado',
+                'u.name as aluno',
+                't.nome as turma',
+                'up.name as professor',
+                'c.justificativa',
+                'c.semestre',
+                'c.cargaHoraria',
+                'c.dataEnvio',
+                'c.pontosGerados'
+            )
+            ->orderBy('c.dataEnvio', 'desc')
+            ->get();
+        return view('relatorio.relatorioCertificados', compact('certificados'));
+    }
     public function relatorioPorTurma(Request $request)
     {
         $dataInicio = $request->input('data_inicio'); // Ex: '2025-01-01'

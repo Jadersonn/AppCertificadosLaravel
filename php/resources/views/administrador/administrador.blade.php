@@ -49,7 +49,7 @@
         <div class="card-relatorio">
             <h6>GERAR RELATÓRIO</h6>
             <div class="periodo-titulo">Período:</div>
-            <form class="relatorio-form" method="POST" action="{{ route('certificado.relatorio') }}">
+            <form class="relatorio-form" method="POST" action="{{ route('certificado.relatorio') }}" target="_blank">
                 @csrf
                 <div class="relatorio-datas">
                     <div>
@@ -66,7 +66,7 @@
                         <div>
                             <div class="ordem-titulo">Ordem:</div>
                             <label>
-                                <input type="radio" name="ordem" value="turma" id="categoria"> Por turma
+                                <input type="radio" name="ordem" value="turma" id="categoria" checked> Por turma
                             </label>
                             <label>
                                 <input type="radio" name="ordem" value="professor"> Professor
@@ -75,8 +75,8 @@
                                 <input type="radio" name="ordem" value="aprovados"> Aprovados
                             </label>
                         </div>
-                    </div>
-                    <div class="relatorio-opcoes2">
+                        </div>
+                        <div class="relatorio-opcoes2">
                         <div>
                             <br>
                             <label><input type="radio" name="ordem" value="pontos"> Pontos recebidos</label>
