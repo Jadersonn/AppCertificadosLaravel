@@ -17,7 +17,7 @@
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->turma }}</td>
                         <td>{{ $item->dataConclusao }}</td>
-                        <td></td>
+                        <td><a href="{{ route('certificado.relatorioSuap', ['id' => $item->idAluno]) }}" target="_blank">Visualizar</a></td>
                     </tr>
                 @endforeach
             </tbody>

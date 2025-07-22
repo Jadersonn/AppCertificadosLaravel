@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <img src="{{ asset('imagens/cabecalho.png') }}" class="logo" alt="Cabeçalho do Relatório">
-        <h1>Relatório de Certificados Rejeitados</h1>
+        <h1>Relatório de Certificados</h1>
         <div class="info"><strong>Data de Geração:</strong> {{ \Carbon\Carbon::now()->format('d/m/Y') }}</div>
 
         <table>
