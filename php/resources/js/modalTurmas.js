@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Adicionar aluno na tabela
     const nomeInput = document.getElementById('nomeAluno');
     const cpfInput = document.getElementById('cpfAluno');
     const turmaInput = document.getElementById('turmaAluno');
@@ -34,23 +33,16 @@ document.addEventListener("DOMContentLoaded", function () {
         if (nome && cpf && turma) {
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td align="center">
-                    <input type="checkbox" name="alunos[]" checked>
-                </td>
-                <td class="fw-bold">${nome}</td>
-                <td class="fw-bold">${cpf}</td>
-                <td class="fw-bold">${turma}</td>
+                <td>${nome}</td>
+                <td>${cpf}</td>
+                <td>${turma}</td>
             `;
             tbody.appendChild(tr);
-
-            // Limpa os campos
             nomeInput.value = '';
             cpfInput.value = '';
             turmaInput.value = '';
         }
     }
-
-    turmaInput.addEventListener('blur', adicionarAlunoNaTabela);
 
     [nomeInput, cpfInput, turmaInput].forEach(input => {
         input.addEventListener('keydown', function(e) {
@@ -59,34 +51,28 @@ document.addEventListener("DOMContentLoaded", function () {
                 adicionarAlunoNaTabela();
             }
         });
+        input.addEventListener('input', filtrarTabelaAluno);
     });
 
-    // Filtro da tabela de alunos
     function filtrarTabelaAluno() {
         const nome = nomeInput.value.toLowerCase();
         const cpf = cpfInput.value.toLowerCase();
         const turma = turmaInput.value.toLowerCase();
 
         Array.from(tbody.querySelectorAll('tr')).forEach(function(row) {
-            const tdNome = row.querySelector('td:nth-child(2)')?.textContent.toLowerCase() || '';
-            const tdCpf = row.querySelector('td:nth-child(3)')?.textContent.toLowerCase() || '';
-            const tdTurma = row.querySelector('td:nth-child(4)')?.textContent.toLowerCase() || '';
+            const tdNome = row.children[0]?.textContent.toLowerCase() || '';
+            const tdCpf = row.children[1]?.textContent.toLowerCase() || '';
+            const tdTurma = row.children[2]?.textContent.toLowerCase() || '';
 
-            const matchNome = tdNome.includes(nome);
-            const matchCpf = tdCpf.includes(cpf);
-            const matchTurma = tdTurma.includes(turma);
-
-            if ((nome === '' || matchNome) && (cpf === '' || matchCpf) && (turma === '' || matchTurma)) {
+            if ((nome === '' || tdNome.includes(nome)) &&
+                (cpf === '' || tdCpf.includes(cpf)) &&
+                (turma === '' || tdTurma.includes(turma))) {
                 row.style.display = '';
             } else {
                 row.style.display = 'none';
             }
         });
     }
-
-    [nomeInput, cpfInput, turmaInput].forEach(input => {
-        input.addEventListener('input', filtrarTabelaAluno);
-    });
 });
 
 // Fechar modais
