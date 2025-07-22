@@ -104,7 +104,7 @@
                                         <th>ALUNO</th>
                                         <th>PROFESSOR</th>
                                         <th>TURMA</th>
-                                        <th>PONTO</th>
+                                        <th>PONTOS</th>
                                         <th>CATEGORIA</th>
                                         <th>CERTIFICADO</th>
                                         <th>DATA ENVIO</th>

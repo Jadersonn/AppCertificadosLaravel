@@ -53,9 +53,14 @@ class ProfessorController extends Controller
             ->join('alunos', 'certificados.idAluno', '=', 'alunos.idAluno')
             ->join('users', 'alunos.user_id', '=', 'users.id')
             ->join('turmas', 'alunos.idTurma', '=', 'turmas.id')
+            ->join('atividades_complementares', 'certificados.idAtividadeComplementar', '=', 'atividades_complementares.idAtividadeComplementar')
+            ->join('tipos_atividades', 'atividades_complementares.idTipoAtividade', '=', 'tipos_atividades.idTipoAtividade')
             ->select(
                 'users.name',
                 'turmas.nome as turma',
+                'tipos_atividades.nome as tipo_atividade',
+                'atividades_complementares.idAtividadeComplementar',
+                'atividades_complementares.nomeAtividadeComplementar',
                 'certificados.idAtividadeComplementar',
                 'certificados.dataEnvio',
                 'certificados.statusCertificado',
@@ -65,16 +70,25 @@ class ProfessorController extends Controller
                 'certificados.idCertificado'
             )
             ->where('certificados.statusCertificado', 'pendente')
-            ->where('certificados.idProfessor', null) // Apenas certificados pendentes sem professor
-            ->limit(8) // Limita a 10 certificados pendentes por vez
-            ->orderBy('certificados.dataEnvio', 'desc')
+            ->whereNull('certificados.idProfessor')
+            ->orderByDesc('certificados.dataEnvio')
             ->get();
+
         // Filtro para só pegar do professor logado
 
         $aprovados = $this->alunoAprovado();
 
-        // Retorna a view com os dados do professor e os certificados
-        return view('professor.professor', compact('professor', 'certificados', 'aprovados'));
+        //buscando categorias
+        $categorias = DB::table('tipos_atividades')
+            ->select('idTipoAtividade', 'nome')
+            ->get();
+        
+        //buscando subcategorias
+        $subcategorias = DB::table('atividades_complementares')
+            ->select('idAtividadeComplementar', 'nomeAtividadeComplementar')
+            ->get();
+
+        return view('professor.professor', compact('professor', 'certificados', 'aprovados', 'categorias', 'subcategorias'));
     }
 
     public function alunoAprovado()
@@ -181,7 +195,7 @@ class ProfessorController extends Controller
             'nome' => 'nullable|string|max:255',
             'turma' => 'nullable|string|max:255',
         ]);
-        
+
         $nome = $request->input('nome'); // do aluno
         $turma = $request->input('turma'); // nome da turma
 

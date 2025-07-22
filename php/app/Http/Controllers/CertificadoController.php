@@ -118,7 +118,8 @@ class CertificadoController extends Controller
 
     public function aprovar($id)
     {
-        $cert = Certificado::with('atividadeComplementar.tipoAtividade', 'aluno')->findOrFail($id);
+        info("Aprovando certificado...");
+        $cert = Certificado::findOrFail($id);
 
         $alunoId = $cert->idAluno;
         $semestre = $cert->semestre;
@@ -126,7 +127,13 @@ class CertificadoController extends Controller
 
         // Verifica se aluno já aprovado
         if ($cert->aluno->statusDeConclusao === 'aprovado') {
+            $cert->statusCertificado = 'rejeitado';
+            $cert->idProfessor = Auth::id();
+            $cert->justificativa = 'Aluno já aprovado.';
+            $cert->save();
             return back()->with('error', 'Aluno já está aprovado.');
+        } else {
+            info("Aluno não aprovado, continuando com a aprovação do certificado...");
         }
 
         // Dados da atividade complementar e tipo atividade
@@ -235,6 +242,13 @@ class CertificadoController extends Controller
         info("Pontos Salvos: $cert->pontosGerados");
         $cert->save();
 
+        if ($pontosTotalCurso == 120) {
+            // Atualiza status do aluno para aprovado se atingir 120 pontos
+            $aluno = Aluno::findOrFail($alunoId);
+            $aluno->statusDeConclusao = 'aprovado';
+            $aluno->save();
+        }
+
         return back()->with('success', 'Certificado aprovado com ' . $cert->pontosGerados . ' pontos.');
     }
 
@@ -242,11 +256,12 @@ class CertificadoController extends Controller
 
 
 
-    public function rejeitar($id)
+    public function rejeitar(Request $request, $id)
     {
         $cert = Certificado::findOrFail($id);
         $cert->statusCertificado = 'rejeitado';
         $cert->idProfessor = Auth::user()->id; // Define o professor que rejeitou
+        $cert->justificativa = $request->input('justificativa'); // Salva a justificativa enviada
         $cert->save();
         return back()->with('success', 'Certificado rejeitado!');
     }
@@ -448,7 +463,8 @@ class CertificadoController extends Controller
     }
 
 
-    public function relatorioAprovados(Request $request) {
+    public function relatorioAprovados(Request $request)
+    {
         $dataInicio = $request->input('data_inicio'); // Ex: '2025-01-01'
         $dataFim = $request->input('data_fim');       // Ex: '2025-12-31'
 
@@ -527,5 +543,23 @@ class CertificadoController extends Controller
         $dadosTurmas = array_values($dadosTurmas);
 
         return view('relatorio.relatorioTurma', compact('dadosTurmas'));
+    }
+
+
+    public function atualizar(Request $request, $id)
+    {
+        $certificado = Certificado::findOrFail($id);
+        $certificado->update($request->only([
+            'cargaHoraria',
+            'semestre',
+            'statusCertificado',
+            'justificativa',
+            'categoria',
+            'subcategoria'
+        ]));
+
+        $this->aprovar($certificado->idCertificado); // Chama a função de aprovação para recalcular os pontos
+
+        return redirect()->back()->with('success', 'Certificado atualizado com sucesso!');
     }
 }

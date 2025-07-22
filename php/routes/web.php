@@ -51,13 +51,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/certificados/{id}/aprovar', [CertificadoController::class, 'aprovar'])->name('certificados.aprovar');
     // Rejeitar certificado
     Route::post('/certificados/{id}/rejeitar', [CertificadoController::class, 'rejeitar'])->name('certificados.rejeitar');
-    // Editar (apenas redireciona para a tela de edição)
-    Route::get('/certificados/{id}/editar', [CertificadoController::class, 'edit'])->name('certificados.editar');
-
+    Route::put('/certificados/{id}/atualizar', [CertificadoController::class, 'atualizar'])->name('certificados.atualizar');
     //gerar relatório de alunos
     Route::get('/professor/{numIdentidade}/relatorio', [ProfessorController::class, 'gerarRelatorio'])->name('professor.gerarRelatorio');
     //professor buscar alunos
-    
+
 });
 
 Route::get('/administrador', function () {
@@ -84,7 +82,6 @@ Route::middleware('auth')->group(function () {
 
     //gerar relatório de alunos
     Route::get('/administrador/{numIdentidade}/relatorio', [ProfessorController::class, 'gerarRelatorio'])->name('administrador.gerarRelatorio');
-
 });
 
 
