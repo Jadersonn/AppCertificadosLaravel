@@ -97,10 +97,9 @@ class ProfessorController extends Controller
         return DB::table('alunos')
             ->join('users', 'alunos.user_id', '=', 'users.id')
             ->join('turmas', 'alunos.idTurma', '=', 'turmas.id')
-            ->select('users.name', 'alunos.dataConclusao as dataConclusao', 'turmas.nome as turma')
+            ->select('idAluno', 'users.name', 'alunos.dataConclusao as dataConclusao', 'turmas.nome as turma')
             ->where('alunos.statusDeConclusao', 'aprovado')
             ->orderByDesc('alunos.dataConclusao')
-            ->limit(5)
             ->get();
     }
 

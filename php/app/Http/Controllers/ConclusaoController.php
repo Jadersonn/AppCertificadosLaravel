@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Aluno;
+use App\Models\Certificado;
 
 class ConclusaoController extends Controller
 {
@@ -26,5 +28,27 @@ class ConclusaoController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Informações de conclusão salvas com sucesso!');
+    }
+
+    public function relatorioSuap(Request $request, $id)
+    {
+        $aluno = Aluno::findOrFail($id);
+
+        if ($aluno->statusDeConclusao !== 'aprovado') {
+            return redirect()->back()->withErrors(['aluno' => 'Aluno não está aprovado.']);
+        }
+
+        $certificados = \App\Models\Certificado::where('idAluno', $aluno->idAluno)
+            ->where('statusCertificado', 'aprovado')
+            ->with(['atividadeComplementar.tipoAtividade', 'professor.user'])
+            ->get();
+
+        if ($certificados->isEmpty()) {
+            return redirect()->back()->withErrors(['certificados' => 'Nenhum certificado aprovado encontrado para este aluno.']);
+        }
+
+        $conclusao = \App\Models\Conclusao::where('idAluno', $aluno->idAluno)->first();
+
+        return view('relatorio.suapAluno', compact('aluno', 'certificados', 'conclusao'));
     }
 }

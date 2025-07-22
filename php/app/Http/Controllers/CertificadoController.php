@@ -569,24 +569,5 @@ class CertificadoController extends Controller
         return redirect()->back()->with('success', 'Certificado atualizado com sucesso!');
     }
 
-    public function relatorioSuap(Request $request, $id)
-    {
-        $aluno = Aluno::findOrFail($id);
-        if (!$aluno) {
-            return redirect()->back()->withErrors(['aluno' => 'Aluno não encontrado.']);
-        } elseif ($aluno->statusDeConclusao !== 'aprovado') {
-            return redirect()->back()->withErrors(['aluno' => 'Aluno não está aprovado.']);
-        }
-        $certificados = Certificado::where('idAluno', $aluno->idAluno)
-            ->where('statusCertificado', 'aprovado')
-            ->with(['atividadeComplementar', 'professor'])
-            ->get();
-        if ($certificados->isEmpty()) {
-            return redirect()->back()->withErrors(['certificados' => 'Nenhum certificado aprovado encontrado para este aluno.']);
-        }
-        // Busca o aluno concluído com os dados do usuário
-        $alunoConcluido = Aluno::with('user')->where('idAluno', $aluno->idAluno)->first();
-
-        return view('relatorio.relatorioSuap', compact('alunoConcluido', 'certificados'));
-    }
+    
 }
