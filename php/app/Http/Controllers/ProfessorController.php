@@ -177,35 +177,35 @@ class ProfessorController extends Controller
 
     public function buscarAluno(Request $request)
     {
-        $nome = $request->input('nome');
-        $turma = $request->input('turma');
+        $request->validate([
+            'nome' => 'nullable|string|max:255',
+            'turma' => 'nullable|string|max:255',
+        ]);
+        
+        $nome = $request->input('nome'); // do aluno
+        $turma = $request->input('turma'); // nome da turma
 
-        $query = DB::table('alunos')
-            ->join('users', 'alunos.user_id', '=', 'users.id')
-            ->join('turmas', 'alunos.idTurma', '=', 'turmas.id')
-            ->select(
-                'users.name',
-                'users.id as id_user',
-                'turmas.nome as nomeTurma'
-            );
+        $alunos = \App\Models\Aluno::with([
+            'user', // aluno
+            'turma',
+            'certificados.atividadeComplementar.tipoAtividade',
+            'certificados.professor.user' // nome do professor
+        ])
+            ->whereHas('user', function ($q) use ($nome) {
+                if ($nome) {
+                    $q->where('name', 'like', "%{$nome}%");
+                }
+            })
+            ->whereHas('turma', function ($q) use ($turma) {
+                if ($turma) {
+                    $q->where('nome', 'like', "%{$turma}%");
+                }
+            })
+            ->get();
 
-        if ($nome) {
-            $query->where('users.name', 'like', '%' . $nome . '%');
-        }
-
-        if ($turma) {
-            $query->where('turmas.nome', 'like', '%' . $turma . '%');
-        }
-
-        $busca = $query->get();
-        $user = Auth::user();
-        if ($user->funcao == \App\Enums\FuncaoEnum::ADMINISTRADOR) {
-            return view('professor.administrador', compact('busca'));
-        } else {
-            return view('professor.professor', compact('busca'));
-        }
-
+        return view('relatorio.relatorioBuscaAluno', compact('alunos'));
     }
+
     public function updateAdmin(Request $request, $numIdentidade)
     {
         $user = \App\Models\User::where('numIdentidade', $numIdentidade)->firstOrFail();
