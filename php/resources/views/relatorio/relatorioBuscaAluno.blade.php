@@ -37,6 +37,7 @@
                         <th>Carga Horária</th>
                         <th>Pontos</th>
                         <th>Status</th>
+                        <th>Justificativa</th>
                         <th>Data de Envio</th>
                         <th>LINK</th>
                     </tr>
@@ -49,6 +50,7 @@
                             <td>{{ $certificado->cargaHoraria }}h</td>
                             <td>{{ $certificado->pontosGerados }}</td>
                             <td>{{ $certificado->statusCertificado }}</td>
+                            <td>{{ $certificado->justificativa ?? '-' }}</td>
                             <td>{{ \Carbon\Carbon::parse($certificado->dataEnvio)->format('d/m/Y') }}</td>
                             <td>
                                 <a href="{{ url('/certificados/visualizar/' . $certificado->idCertificado) }}" target="_blank">Visualizar</a>
