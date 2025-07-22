@@ -21,7 +21,7 @@
           <ul>
             <li><a href="https://academico.ifms.edu.br" class="menu-btn" target="_blank">Sistema IFMS</a></li>
             <li><a href="https://ead.ifms.edu.br" class="menu-btn" target="_blank">EAD - Moodle</a></li>
-            <li><a href="#" class="menu-btn" target="_blank">Regulamento de Carga Horária</a></li>
+            <li><a href="https://www.ifms.edu.br/centrais-de-conteudo/documentos-institucionais/regulamentos/regulamento-da-organizacao-didatico-pedagogica-retificacao-1" class="menu-btn" target="_blank">Regulamento de Carga Horária</a></li>
 
           </ul>
         </nav>
