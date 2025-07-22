@@ -242,7 +242,7 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria'            => 5,
             'semestre'                => '2025-1',
             'idProfessor'             => null,
-            'pontosGerados'           => 10,
+            'pontosGerados'          => 10,
         ]);
 
                 Certificado::create([
@@ -255,7 +255,7 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria' => 10,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 15,
+            'pontosGerados' => 0,
         ]);
 
         Certificado::create([
@@ -268,7 +268,7 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria' => 20,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 25,
+            'pontosGerados' => 0,
         ]);
 
         Certificado::create([
@@ -281,7 +281,7 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria' => 15,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 15,
+            'pontosGerados' => 0,
         ]);
 
         Certificado::create([
@@ -294,7 +294,7 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria' => 5,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 8,
+            'pontosGerados' => 0,
         ]);
 
         Certificado::create([
@@ -307,7 +307,7 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria' => 30,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 35,
+            'pontosGerados' => 0,
         ]);
 
         Certificado::create([
@@ -320,7 +320,7 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria' => 12,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 20,
+            'pontosGerados' => 0,
         ]);
 
         Certificado::create([
@@ -346,7 +346,7 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria' => 25,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 40,
+            'pontosGerados' => 0,
         ]);
 
         Certificado::create([
@@ -359,7 +359,7 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria' => 15,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 20,
+            'pontosGerados' => 0,
         ]);
 
         Certificado::create([
@@ -372,7 +372,7 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria' => 20,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 30,
+            'pontosGerados' => 0,
         ]);
 
         Certificado::create([
@@ -385,7 +385,7 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria' => 12,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 15,
+            'pontosGerados' => 0,
         ]);
 
         Certificado::create([
@@ -398,7 +398,7 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria' => 18,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 22,
+            'pontosGerados' => 0,
         ]);
 
         Certificado::create([
@@ -411,7 +411,7 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria' => 8,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 10,
+            'pontosGerados' => 0,
         ]);
 
         Certificado::create([
@@ -424,7 +424,7 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria' => 10,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 12,
+            'pontosGerados' => 0,
         ]);
         Certificado::create([
             'idAluno' => $aluno->getKey(),
@@ -436,7 +436,7 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria' => 20,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 25,
+            'pontosGerados' => 0,
         ]);
 
     }

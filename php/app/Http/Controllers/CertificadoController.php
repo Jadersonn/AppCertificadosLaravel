@@ -199,7 +199,9 @@ class CertificadoController extends Controller
 
         // Agora verifica os limites
         if ($pontosSubcategoriaSemestre >= $maxSubcategoriaSemestral) {
-            info("Limite máximo da subcategoria para o semestre atingido.");
+            $cert->justificativa = 'Limite máximo da subcategoria para o semestre atingido.';
+            $cert->updated_at = now();
+            $cert->save();
             return back()->with('error', 'Limite máximo da subcategoria para o semestre atingido.');
         } elseif ($pontosSubcategoriaSemestre + $pontosCertificado >= $maxSubcategoriaSemestral) {
             $pontosCertificado = $maxSubcategoriaSemestral - $pontosSubcategoriaSemestre;
@@ -207,22 +209,27 @@ class CertificadoController extends Controller
 
         if ($pontosSubcategoriaCurso  >= $maxCategoriaCurso) {
 
-            info("Limite máximo da subcategoria para o curso atingido.");
+            $cert->justificativa = 'Limite máximo da subcategoria para o curso atingido.';
+            $cert->updated_at = now();
+            $cert->save();
             return back()->with('error', 'Limite máximo da subcategoria para o curso atingido.');
         } elseif ($pontosSubcategoriaCurso + $pontosCertificado >= $maxCategoriaCurso) {
             $pontosCertificado = $maxCategoriaCurso - $pontosSubcategoriaCurso;
         }
 
         if ($pontosCategoriaSemestre  >= $maxCategoriaSemestral) {
-
-            info("Limite máximo da categoria para o semestre atingido.");
+            $cert->justificativa = 'Limite máximo da categoria para o semestre atingido.';
+            $cert->updated_at = now();
+            $cert->save();
             return back()->with('error', 'Limite máximo da categoria para o semestre atingido.');
         } elseif ($pontosCategoriaSemestre + $pontosCertificado >= $maxCategoriaSemestral) {
             $pontosCertificado = $maxCategoriaSemestral - $pontosCategoriaSemestre;
         }
 
         if ($pontosCategoriaCurso  >= $maxCategoriaCurso) {
-            info("Limite máximo da categoria para o curso atingido.");
+            $cert->justificativa = 'Limite máximo da categoria para o curso atingido.';
+            $cert->updated_at = now();
+            $cert->save();
             return back()->with('error', 'Limite máximo da categoria para o curso atingido.');
         } elseif ($pontosCategoriaCurso + $pontosCertificado >= $maxCategoriaCurso) {
             $pontosCertificado = $maxCategoriaCurso - $pontosCategoriaCurso;
@@ -250,7 +257,7 @@ class CertificadoController extends Controller
         $aluno->pontosRecebidos += $cert->pontosGerados;
         $aluno->updated_at = now();
         $aluno->save();
-        
+
         if ($pontosTotalCurso == 120) {
             // Atualiza status do aluno para aprovado se atingir 120 pontos
             $aluno = Aluno::findOrFail($alunoId);
