@@ -99,4 +99,5 @@ Route::get('/buscar-aluno', [ProfessorController::class, 'buscarAluno'])->middle
 Route::get('/relatorio/aluno/{numIdentidade}', [AlunoController::class, 'relatorioAluno'])->middleware('auth')->name('aluno.relatorio');
 Route::post('/relatorio', [CertificadoController::class, 'gerarRelatorio'])->middleware('auth')->name('certificado.relatorio');
 Route::get('/relatorio/historico/{numIdentidade}', [CertificadoController::class, 'historicoProfessor'])->middleware('auth')->name('certificado.historico');
+Route::get('/relatorio/suap/{numIdentidade}', [CertificadoController::class, 'relatorioSuap'])->middleware('auth')->name('certificado.relatorioSuap');
 require __DIR__ . '/auth.php';

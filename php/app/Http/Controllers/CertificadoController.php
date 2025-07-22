@@ -130,6 +130,7 @@ class CertificadoController extends Controller
             $cert->statusCertificado = 'rejeitado';
             $cert->idProfessor = Auth::id();
             $cert->justificativa = 'Aluno já aprovado.';
+            $cert->updated_at = now();
             $cert->save();
             return back()->with('error', 'Aluno já está aprovado.');
         } else {
@@ -240,12 +241,14 @@ class CertificadoController extends Controller
         $limiteRestante = 120 - $pontosTotalCurso;
         $cert->pontosGerados = min($pontosCertificado, $limiteRestante);
         info("Pontos Salvos: $cert->pontosGerados");
+        $cert->updated_at = now();
         $cert->save();
 
         if ($pontosTotalCurso == 120) {
             // Atualiza status do aluno para aprovado se atingir 120 pontos
             $aluno = Aluno::findOrFail($alunoId);
             $aluno->statusDeConclusao = 'aprovado';
+            $aluno->updated_at = now();
             $aluno->save();
         }
 
@@ -262,6 +265,7 @@ class CertificadoController extends Controller
         $cert->statusCertificado = 'rejeitado';
         $cert->idProfessor = Auth::user()->id; // Define o professor que rejeitou
         $cert->justificativa = $request->input('justificativa'); // Salva a justificativa enviada
+        $cert->updated_at = now(); // Atualiza o timestamp
         $cert->save();
         return back()->with('success', 'Certificado rejeitado!');
     }
@@ -277,6 +281,7 @@ class CertificadoController extends Controller
 
         return view('certificados.edit', compact('cert'));
     }
+
     public function historicoProfessor($numIdentidade)
     {
         $professor = DB::table('professores')
@@ -549,17 +554,39 @@ class CertificadoController extends Controller
     public function atualizar(Request $request, $id)
     {
         $certificado = Certificado::findOrFail($id);
+        $certificado->updated_at = now();
         $certificado->update($request->only([
             'cargaHoraria',
             'semestre',
             'statusCertificado',
             'justificativa',
-            'categoria',
-            'subcategoria'
+            'idAtividadeComplementar',
+            'idTipoAtividade'
         ]));
 
         $this->aprovar($certificado->idCertificado); // Chama a função de aprovação para recalcular os pontos
 
         return redirect()->back()->with('success', 'Certificado atualizado com sucesso!');
+    }
+
+    public function relatorioSuap(Request $request, $id)
+    {
+        $aluno = Aluno::findOrFail($id);
+        if (!$aluno) {
+            return redirect()->back()->withErrors(['aluno' => 'Aluno não encontrado.']);
+        } elseif ($aluno->statusDeConclusao !== 'aprovado') {
+            return redirect()->back()->withErrors(['aluno' => 'Aluno não está aprovado.']);
+        }
+        $certificados = Certificado::where('idAluno', $aluno->idAluno)
+            ->where('statusCertificado', 'aprovado')
+            ->with(['atividadeComplementar', 'professor'])
+            ->get();
+        if ($certificados->isEmpty()) {
+            return redirect()->back()->withErrors(['certificados' => 'Nenhum certificado aprovado encontrado para este aluno.']);
+        }
+        // Busca o aluno concluído com os dados do usuário
+        $alunoConcluido = Aluno::with('user')->where('idAluno', $aluno->idAluno)->first();
+
+        return view('relatorio.relatorioSuap', compact('alunoConcluido', 'certificados'));
     }
 }

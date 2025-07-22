@@ -8,12 +8,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Fechar modal ao clicar no botão fechar
-    document.getElementById('fechar-modal').onclick = function() {
+    document.getElementById('fechar-modal').onclick = function () {
         document.getElementById('modal-solicitacao').style.display = 'none';
     };
 
     // Fechar modal ao clicar fora do conteúdo
-    document.getElementById('modal-solicitacao').onclick = function(e) {
+    document.getElementById('modal-solicitacao').onclick = function (e) {
         if (e.target === this) this.style.display = 'none';
     };
 
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const inputArquivo = document.getElementById('arquivo');
     const statusArquivo = document.getElementById('arquivo-status');
     if (inputArquivo && statusArquivo) {
-        inputArquivo.addEventListener('change', function() {
+        inputArquivo.addEventListener('change', function () {
             if (this.files && this.files.length > 0) {
                 statusArquivo.innerHTML = `<span class="arquivo-texto">${this.files[0].name}</span>`;
             } else {
@@ -48,9 +48,27 @@ document.addEventListener("DOMContentLoaded", function () {
     const select = document.getElementById('auto-width-select');
     if (select) {
         ajustarLarguraSelect(select);
-        select.addEventListener('change', function() {
+        select.addEventListener('change', function () {
             ajustarLarguraSelect(this);
         });
     }
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('.concluido-btn').forEach(btn => {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('modal-conclusao').style.display = 'flex';
+        });
+    });
+
+       // Fechar modal ao clicar no botão fechar
+    document.getElementById('fechar-modal').onclick = function () {
+        document.getElementById('modal-conclusao').style.display = 'none';
+    };
+
+    // Fechar modal ao clicar fora do conteúdo
+    document.getElementById('modal-conclusao').onclick = function (e) {
+        if (e.target === this) this.style.display = 'none';
+    };
+});

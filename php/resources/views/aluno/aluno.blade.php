@@ -22,9 +22,15 @@
     <!-- card -->
     <div class="card">
         <div class="card-body">
-            <h1 class="card-title">Status</h1><br><br>
-            @if ($aluno->statusDeConclusao == 'concluido')
-                <p class="card-text">Parabéns! Você concluiu o curso.</p>
+            <h1 class="card-title">Status</h1>
+            @if ($aluno->statusDeConclusao == 'aprovado')
+                <h6 class="card-subtitle mb-2 text-body-secondary">
+                    <p class="card-text">Parabéns! Você concluiu o curso.</p>
+                </h6>
+                <button type="button" class="concluido-btn card-link" id="concluido-btn-{{ $aluno->user->numIdentidade }}">
+
+                    Formulário de conclusão
+                </button>
             @else
                 <p class="card-text">Você ainda não concluiu o curso.</p><br><br>
                 <p class="card-text">Restam {{ 120 - $aluno->pontosRecebidos }} pontos para a conclusão.</p>
@@ -35,7 +41,10 @@
         <div class="card-body">
             <h1 class="card-title">Regulamento de cargas horárias</h1>
             <h6 class="card-subtitle mb-2 text-body-secondary">
-            <a href="https://www.ifms.edu.br/centrais-de-conteudo/documentos-institucionais/regulamentos/regulamento-da-organizacao-didatico-pedagogica-retificacao-1" class="card-link" target="_blank">Para suas dúvidas</a></h6>
+                <a href="https://www.ifms.edu.br/centrais-de-conteudo/documentos-institucionais/regulamentos/regulamento-da-organizacao-didatico-pedagogica-retificacao-1"
+                    class="card-link" target="_blank">Para suas dúvidas</a>
+            </h6>
+            </h6>
         </div>
     </div>
     <div class="card">
@@ -47,6 +56,7 @@
     </div>
     </div>
 
+    @include('aluno.modal-conclusao')
 
     @stack('scripts')
 @endsection
