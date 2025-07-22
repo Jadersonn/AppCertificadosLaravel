@@ -17,78 +17,6 @@
                         <input type="text" id="turmaAluno" class="form-control mb-3" placeholder="Turma do aluno">
 
                         <!-- Tabela de alunos -->
-                        <div class="bg-white rounded p-2 mt-2 modal-turma-table-scroll alunos">
-                            <span class="modal-turma-table-title">ALUNOS:</span>
-                            <table class="table table-bordered align-middle mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>NOME</th>
-                                        <th>CPF</th>
-                                        <th>TURMA</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($alunos as $aluno)
-                                        <tr>
-                                            <td class="fw-bold">{{ $aluno->name }}</td>
-                                            <td class="fw-bold">{{ $aluno->numIdentidade }}</td>
-                                            <td class="fw-bold">{{ $aluno->nomeTurma }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="col-md-5 d-flex flex-column gap-3">
-                        <div class="bg-white rounded p-2">
-                            <span class="fw-bold d-block mb-1 modal-turma-label">TURMAS EXISTENTES</span>
-                            <div class="modal-turma-table-scroll">
-                            <table class="table table-bordered align-middle mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>NOME</th>
-                                        <th>ALUNOS</th>
-                                        <th>LINK</th>
-                                        <th>DELETAR</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($turmas as $turma)
-                                        <tr>
-                                            <td class="fw-bold">{{ $turma->nome }}</td>
-                                            <td class="fw-bold">{{ $turma->totalAlunos }}</td>
-                                            <td>
-                                                <a href="{{ url('/register/aluno/' . $turma->id) }}" class="btn btn-sm btn-warning btn-editar"
-                                                    title="Registrar sala" target="_blank">
-                                                    LINK
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <form action="{{ route('administrador.deletarTurma', ['id' => $turma->id]) }}"
-                                                    method="POST" style="display:inline;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger btn-deletar"
-                                                        title="Deletar">
-                                                        <img src="{{ asset('imagens/professor/reject.ico') }}" alt="Deletar"
-                                                            width="20">
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            </div>
-                        </div>
-                        <div class="bg-white rounded p-2">
-                            <form action="{{ route('administrador.criarTurma') }}" method="POST">
-                                @csrf
-                                <span class="fw-bold d-block mb-1 modal-turma-label">CRIAR TURMA</span>
-                                <input type="text" id="nomeTurma" name="nome" class="form-control mb-2">
-                                <button type="submit" class="modal-turma-btn-criar">CRIAR</button>
-                            </form>
-                        </div>
                         <div class="bg-white rounded p-2 tabela-adicionar-aluno-larga">
                             <form action="{{ route('administrador.definirTurma') }}" method="POST">
                                 @csrf
@@ -109,12 +37,75 @@
                                         </tr>
                                     </thead>
                                     <tbody id="tbodyAdicionarAluno">
-                                        <!-- Linhas JS aqui -->
+                                        @foreach ($alunos as $aluno)
+                                            <tr>
+                                                <td align="center">
+                                                    <input type="checkbox" name="alunos[]"
+                                                        value="{{ $aluno->idAluno }}">
+                                                </td>
+                                                <td class="fw-bold">{{ $aluno->name }}</td>
+                                                <td class="fw-bold">{{ $aluno->numIdentidade }}</td>
+                                                <td class="fw-bold">{{ $aluno->nomeTurma }}</td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                                 <div class="d-flex justify-content-end mt-2">
                                     <button type="submit" class="modal-turma-btn-salvar">SALVAR</button>
                                 </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-5 d-flex flex-column gap-3">
+                        <div class="bg-white rounded p-2">
+                            <span class="fw-bold d-block mb-1 modal-turma-label">TURMAS EXISTENTES</span>
+                            <div class="modal-turma-table-scroll">
+                                <table class="table table-bordered align-middle mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>NOME</th>
+                                            <th>ALUNOS</th>
+                                            <th>LINK</th>
+                                            <th>DELETAR</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($turmas as $turma)
+                                            <tr>
+                                                <td class="fw-bold">{{ $turma->nome }}</td>
+                                                <td class="fw-bold">{{ $turma->totalAlunos }}</td>
+                                                <td>
+                                                    <a href="{{ url('/register/aluno/' . $turma->id) }}"
+                                                        class="btn btn-sm btn-warning btn-editar" title="Registrar sala"
+                                                        target="_blank">
+                                                        LINK
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <form
+                                                        action="{{ route('administrador.deletarTurma', ['id' => $turma->id]) }}"
+                                                        method="POST" style="display:inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-danger btn-deletar"
+                                                            title="Deletar">
+                                                            <img src="{{ asset('imagens/professor/reject.ico') }}"
+                                                                alt="Deletar" width="20">
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded p-2">
+                            <form action="{{ route('administrador.criarTurma') }}" method="POST">
+                                @csrf
+                                <span class="fw-bold d-block mb-1 modal-turma-label">CRIAR TURMA</span>
+                                <input type="text" id="nomeTurma" name="nome" class="form-control mb-2">
+                                <button type="submit" class="modal-turma-btn-criar">CRIAR</button>
                             </form>
                         </div>
                     </div>
