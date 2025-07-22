@@ -53,9 +53,14 @@ class ProfessorController extends Controller
             ->join('alunos', 'certificados.idAluno', '=', 'alunos.idAluno')
             ->join('users', 'alunos.user_id', '=', 'users.id')
             ->join('turmas', 'alunos.idTurma', '=', 'turmas.id')
+            ->join('atividades_complementares', 'certificados.idAtividadeComplementar', '=', 'atividades_complementares.idAtividadeComplementar')
+            ->join('tipos_atividades', 'atividades_complementares.idTipoAtividade', '=', 'tipos_atividades.idTipoAtividade')
             ->select(
                 'users.name',
                 'turmas.nome as turma',
+                'tipos_atividades.nome as tipo_atividade',
+                'atividades_complementares.idAtividadeComplementar',
+                'atividades_complementares.nomeAtividadeComplementar',
                 'certificados.idAtividadeComplementar',
                 'certificados.dataEnvio',
                 'certificados.statusCertificado',
@@ -65,16 +70,25 @@ class ProfessorController extends Controller
                 'certificados.idCertificado'
             )
             ->where('certificados.statusCertificado', 'pendente')
-            ->where('certificados.idProfessor', null) // Apenas certificados pendentes sem professor
-            ->limit(8) // Limita a 10 certificados pendentes por vez
-            ->orderBy('certificados.dataEnvio', 'desc')
+            ->whereNull('certificados.idProfessor')
+            ->orderByDesc('certificados.dataEnvio')
             ->get();
+
         // Filtro para só pegar do professor logado
 
         $aprovados = $this->alunoAprovado();
 
-        // Retorna a view com os dados do professor e os certificados
-        return view('professor.professor', compact('professor', 'certificados', 'aprovados'));
+        //buscando categorias
+        $categorias = DB::table('tipos_atividades')
+            ->select('idTipoAtividade', 'nome')
+            ->get();
+        
+        //buscando subcategorias
+        $subcategorias = DB::table('atividades_complementares')
+            ->select('idAtividadeComplementar', 'nomeAtividadeComplementar')
+            ->get();
+
+        return view('professor.professor', compact('professor', 'certificados', 'aprovados', 'categorias', 'subcategorias'));
     }
 
     public function alunoAprovado()
@@ -83,10 +97,9 @@ class ProfessorController extends Controller
         return DB::table('alunos')
             ->join('users', 'alunos.user_id', '=', 'users.id')
             ->join('turmas', 'alunos.idTurma', '=', 'turmas.id')
-            ->select('users.name', 'alunos.dataConclusao as dataConclusao', 'turmas.nome as turma')
+            ->select('idAluno', 'users.name', 'alunos.dataConclusao as dataConclusao', 'turmas.nome as turma')
             ->where('alunos.statusDeConclusao', 'aprovado')
             ->orderByDesc('alunos.dataConclusao')
-            ->limit(5)
             ->get();
     }
 
@@ -177,35 +190,35 @@ class ProfessorController extends Controller
 
     public function buscarAluno(Request $request)
     {
-        $nome = $request->input('nome');
-        $turma = $request->input('turma');
+        $request->validate([
+            'nome' => 'nullable|string|max:255',
+            'turma' => 'nullable|string|max:255',
+        ]);
 
-        $query = DB::table('alunos')
-            ->join('users', 'alunos.user_id', '=', 'users.id')
-            ->join('turmas', 'alunos.idTurma', '=', 'turmas.id')
-            ->select(
-                'users.name',
-                'users.id as id_user',
-                'turmas.nome as nomeTurma'
-            );
+        $nome = $request->input('nome'); // do aluno
+        $turma = $request->input('turma'); // nome da turma
 
-        if ($nome) {
-            $query->where('users.name', 'like', '%' . $nome . '%');
-        }
+        $alunos = \App\Models\Aluno::with([
+            'user', // aluno
+            'turma',
+            'certificados.atividadeComplementar.tipoAtividade',
+            'certificados.professor.user' // nome do professor
+        ])
+            ->whereHas('user', function ($q) use ($nome) {
+                if ($nome) {
+                    $q->where('name', 'like', "%{$nome}%");
+                }
+            })
+            ->whereHas('turma', function ($q) use ($turma) {
+                if ($turma) {
+                    $q->where('nome', 'like', "%{$turma}%");
+                }
+            })
+            ->get();
 
-        if ($turma) {
-            $query->where('turmas.nome', 'like', '%' . $turma . '%');
-        }
-
-        $busca = $query->get();
-        $user = Auth::user();
-        if ($user->funcao == \App\Enums\FuncaoEnum::ADMINISTRADOR) {
-            return view('professor.administrador', compact('busca'));
-        } else {
-            return view('professor.professor', compact('busca'));
-        }
-
+        return view('relatorio.relatorioBuscaAluno', compact('alunos'));
     }
+
     public function updateAdmin(Request $request, $numIdentidade)
     {
         $user = \App\Models\User::where('numIdentidade', $numIdentidade)->firstOrFail();

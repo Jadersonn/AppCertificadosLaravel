@@ -53,4 +53,5 @@ class TurmaController extends Controller
 
         return redirect()->back()->with('success', 'Alunos adicionados à turma com sucesso.');
     }
+
 }

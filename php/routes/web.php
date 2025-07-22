@@ -7,8 +7,8 @@ use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\CertificadoController;
 use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\TurmaController;
-use App\Models\Certificado;
-use App\Models\Turma;
+use App\Http\Controllers\ConclusaoController;
+use App\Models\Conclusao;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/aluno/{idnumIdentidade}/edit', [AlunoController::class, 'update'])->name('aluno.edit');
     //Route::get('/aluno/{numIdentidade}/delete', [AlunoController::class, 'destroy'])->name('aluno.delete');
     Route::post('/aluno/certificados', [CertificadoController::class, 'store'])->name('aluno.certificados');
+    Route::post('/aluno/conclusao', [ConclusaoController::class, 'store'])->name('aluno.salvarConclusao');
 });
 
 
@@ -51,13 +52,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/certificados/{id}/aprovar', [CertificadoController::class, 'aprovar'])->name('certificados.aprovar');
     // Rejeitar certificado
     Route::post('/certificados/{id}/rejeitar', [CertificadoController::class, 'rejeitar'])->name('certificados.rejeitar');
-    // Editar (apenas redireciona para a tela de edição)
-    Route::get('/certificados/{id}/editar', [CertificadoController::class, 'edit'])->name('certificados.editar');
-
+    Route::put('/certificados/{id}/atualizar', [CertificadoController::class, 'atualizar'])->name('certificados.atualizar');
     //gerar relatório de alunos
     Route::get('/professor/{numIdentidade}/relatorio', [ProfessorController::class, 'gerarRelatorio'])->name('professor.gerarRelatorio');
     //professor buscar alunos
-    Route::get('/professor/buscar-aluno', [ProfessorController::class, 'buscarAluno'])->name('professor.buscarAluno');
 
 });
 
@@ -85,9 +83,6 @@ Route::middleware('auth')->group(function () {
 
     //gerar relatório de alunos
     Route::get('/administrador/{numIdentidade}/relatorio', [ProfessorController::class, 'gerarRelatorio'])->name('administrador.gerarRelatorio');
-
-    Route::get('administrador/buscar-aluno', [ProfessorController::class, 'buscarAluno'])
-        ->name('administrador.buscarAluno');
 });
 
 
@@ -100,7 +95,10 @@ Route::middleware('auth')->group(function () {
 
 //rotas para vizualizar certificados
 Route::get('/certificados/visualizar/{id}', [CertificadoController::class, 'visualizar'])->middleware('auth');
+Route::get('/buscar-aluno', [ProfessorController::class, 'buscarAluno'])->middleware('auth')->name('aluno.buscar');
 
 Route::get('/relatorio/aluno/{numIdentidade}', [AlunoController::class, 'relatorioAluno'])->middleware('auth')->name('aluno.relatorio');
-
+Route::post('/relatorio', [CertificadoController::class, 'gerarRelatorio'])->middleware('auth')->name('certificado.relatorio');
+Route::get('/relatorio/historico/{numIdentidade}', [CertificadoController::class, 'historicoProfessor'])->middleware('auth')->name('certificado.historico');
+Route::get('/relatorio/suap/{id}', [ConclusaoController::class, 'relatorioSuap'])->name('certificado.relatorioSuap');
 require __DIR__ . '/auth.php';

@@ -378,7 +378,7 @@ body {
     padding: 0 0 0.3em 0;
     margin-top: 0.2em;
     padding-bottom: 0.2em;
-    width: 90%;           /* largura maior */
+    width: 100%;           /* largura maior */
     margin-left: auto;
     margin-right: auto;
 }
@@ -434,6 +434,7 @@ body {
 .certificados-tabela-scroll {
     max-height: 300px;
     overflow-y: auto;
+    overflow-x: hidden;
     width: 100%;
 }
 
@@ -468,4 +469,18 @@ body {
         max-width: 98vw;
         min-width: 0;
     }
+}
+
+.input-pequeno {
+    width: 60px;
+    font-size: 12px;
+    border-radius: 8px;
+    border: 1px solid #bbb;
+    display: inline-block;
+    text-align: center;
+}
+
+.input-arredondado {
+    border: none;
+    border-radius: 8px;
 }

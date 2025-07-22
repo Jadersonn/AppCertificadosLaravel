@@ -33,6 +33,24 @@ function abrirModalCategoria(elemento) {
     });
 }
 
+function abrirModalConclusao(elemento) {
+  const alunoId = elemento.getAttribute('data-id');
+  const url = `/aluno/modal-conclusao/${alunoId}`; // Rota que retorna o HTML do modal
+
+  // Exibe mensagem de carregando
+  document.getElementById('modal-conclusao-content').innerHTML = '<div class="modal-body text-center p-5">Carregando...</div>';
+
+  fetch(url)
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById('modal-conclusao-content').innerHTML = html;
+      document.getElementById('modal-conclusao').style.display = 'block';
+    })
+    .catch(error => {
+      document.getElementById('modal-conclusao-content').innerHTML = '<div class="modal-body text-center p-5 text-danger">Erro ao carregar.</div>';
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     const circle = document.querySelector('.progress-ring-bar');
     const progressCircle = document.querySelector('.progress-circle');
