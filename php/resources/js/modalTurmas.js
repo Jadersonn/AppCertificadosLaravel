@@ -60,6 +60,33 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+
+    // Filtro da tabela de alunos
+    function filtrarTabelaAluno() {
+        const nome = nomeInput.value.toLowerCase();
+        const cpf = cpfInput.value.toLowerCase();
+        const turma = turmaInput.value.toLowerCase();
+
+        Array.from(tbody.querySelectorAll('tr')).forEach(function(row) {
+            const tdNome = row.querySelector('td:nth-child(2)')?.textContent.toLowerCase() || '';
+            const tdCpf = row.querySelector('td:nth-child(3)')?.textContent.toLowerCase() || '';
+            const tdTurma = row.querySelector('td:nth-child(4)')?.textContent.toLowerCase() || '';
+
+            const matchNome = tdNome.includes(nome);
+            const matchCpf = tdCpf.includes(cpf);
+            const matchTurma = tdTurma.includes(turma);
+
+            if ((nome === '' || matchNome) && (cpf === '' || matchCpf) && (turma === '' || matchTurma)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+    [nomeInput, cpfInput, turmaInput].forEach(input => {
+        input.addEventListener('input', filtrarTabelaAluno);
+    });
 });
 
 // Fechar modais
