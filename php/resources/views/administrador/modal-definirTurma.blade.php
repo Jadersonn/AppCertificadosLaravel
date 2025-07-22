@@ -40,8 +40,9 @@
                         </div>
                     </div>
                     <div class="col-md-5 d-flex flex-column gap-3">
-                        <div class="bg-white rounded p-2 modal-turma-table-scroll">
+                        <div class="bg-white rounded p-2">
                             <span class="fw-bold d-block mb-1 modal-turma-label">TURMAS EXISTENTES</span>
+                            <div class="modal-turma-table-scroll">
                             <table class="table table-bordered align-middle mb-0">
                                 <thead>
                                     <tr>
@@ -78,6 +79,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            </div>
                         </div>
                         <div class="bg-white rounded p-2">
                             <form action="{{ route('administrador.criarTurma') }}" method="POST">
@@ -90,7 +92,7 @@
                         <div class="bg-white rounded p-2 tabela-adicionar-aluno-larga">
                             <form action="{{ route('administrador.definirTurma') }}" method="POST">
                                 @csrf
-                                <label for="selectTurma" class="form-label">ADICIONAR ALUNO(s) PARA TURMA</label>
+                                <label for="selectTurma" class="form-label">ADICIONAR ALUNO PARA TURMA:</label>
                                 <select id="selectTurma" name="turma_id" class="form-select mb-2" required>
                                     <option value="">Selecione uma turma</option>
                                     @foreach ($turmas as $turma)

@@ -15,35 +15,37 @@
                 <input type="text" id="turma" name="turma" value="{{ request('turma') }}">
                 <button class="btn-buscar" type="submit">BUSCAR</button>
             </form>
-            <table class="busca-tabela">
-                <thead>
-                    <tr>
-                        <th>ORD</th>
-                        <th>NOME</th>
-                        <th>TURMA</th>
-                        <th>RELATÓRIO PESSOAL</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (isset($alunos) && count($alunos))
-                        @foreach ($alunos as $index => $aluno)
-                            <tr>
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ $aluno->name }}</td>
-                                <td>{{ $aluno->nomeTurma }}</td>
-                                <td>
-                                    <a href="{{ url('/relatorio/aluno/' . $aluno->numIdentidade) }}" target="_blank">VER
-                                        RELATÓRIO</a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    @else
+            <div class="busca-tabela-scroll">
+                <table class="busca-tabela">
+                    <thead>
                         <tr>
-                            <td colspan="3">Nenhum aluno encontrado.</td>
+                            <th>ORD</th>
+                            <th>NOME</th>
+                            <th>TURMA</th>
+                            <th>RELATÓRIO PESSOAL</th>
                         </tr>
-                    @endif
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @if (isset($alunos) && count($alunos))
+                            @foreach ($alunos as $index => $aluno)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $aluno->name }}</td>
+                                    <td>{{ $aluno->nomeTurma }}</td>
+                                    <td>
+                                        <a href="{{ url('/relatorio/aluno/' . $aluno->numIdentidade) }}" target="_blank">VER
+                                            RELATÓRIO</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td colspan="3">Nenhum aluno encontrado.</td>
+                            </tr>
+                        @endif
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="card-relatorio">
@@ -88,8 +90,8 @@
                  <button class="btn-voltar-aprovados" title="Voltar" style="display:none;">&#60;</button>
             </div>
             <div id="tabelaAprovadosContainer">
-                <div class="tabela-aprovados-scroll">
-                    <table class="tabela-aprovados tabela-aprovados-menor">
+                <div class="tabela-aprovados-scroll busca-tabela-scroll">
+                    <table class="tabela-aprovados tabela-pequena busca-tabela busca-tabela-scroll">
                         <thead>
                             <tr>
                                 <th>ALUNO</th>
@@ -114,7 +116,7 @@
             <div id="tabelaRelatorioTurmasContainer" style="display:none;">
                     
                 <div class="tabela-aprovados-scroll">
-                    <table class="tabela-aprovados tabela-aprovados-menor">
+                    <table class="tabela-aprovados tabela-pequena busca-tabela busca-tabela-scroll">
                         <thead>
                             <tr>
                                 <th>TURMAS</th>

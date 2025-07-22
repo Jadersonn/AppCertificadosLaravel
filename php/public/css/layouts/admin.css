@@ -282,32 +282,53 @@ body {
     align-self: center;
 }
 
+.tabela-aprovados,
+.tabela-aprovados-menor,
 .busca-tabela {
+    max-width: 120px;
     width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 10px;
-    background: transparent;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #D9D9D9;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
 }
 
+.tabela-aprovados th, .tabela-aprovados td,
+.tabela-aprovados-menor th, .tabela-aprovados-menor td,
 .busca-tabela th, .busca-tabela td {
-    border: 1px solid #222;
-    padding: 0px 1px;
+    padding: 3px 4px;
     font-size: 0.65rem;
-    text-align: left;
+    border: 1px solid #d1d1d1;
+    text-align: center;
+    background: #fff;
 }
 
+.tabela-aprovados th,
+.tabela-aprovados-menor th,
 .busca-tabela th {
-    background: transparent;
-    font-weight: 700;
-    color: #222;
-    text-align: left;
+    background: #ededed;
+    color: #00420C;
+    font-weight: bold;
+    font-size: 0.80rem;
+    letter-spacing: 0.5px;
+    position: sticky;
+    top: 0;
+    z-index: 2;
 }
 
-.busca-tabela td {
-    height: 18px;
-    background: transparent;
+.tabela-aprovados-scroll,
+.busca-tabela-scroll {
+    max-height: 100px;
+    overflow-y: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    margin-bottom: 8px;
+    background: #D9D9D9;
 }
-
 .btn-buscar {
     width: 100%;
     background: #0b4e1b;
@@ -436,7 +457,7 @@ body {
 .btn-relatorio {
     width: 100%;
     background: #0b4e1b;
-    color: #fff;
+    color: #D9D9D9;
     border: none;
     border-radius: 16px;
     padding: 2px 0;
@@ -467,7 +488,7 @@ body {
     justify-content: space-between;
     align-items: center;
     text-align: center;
-    background: #ededed;
+    background: #D9D9D9;
     border-radius: 16px 16px 0 0;
     padding: 8px 12px 4px 12px;
     font-weight: 700;
@@ -479,7 +500,7 @@ body {
 .tabela-aprovados {
     width: 100%;
     border-collapse: collapse;
-    background: transparent;
+    background: #D9D9D9;
 }
 
 .tabela-aprovados th, 
@@ -488,19 +509,19 @@ body {
     padding: 4px 8px;
     font-size: 0.85em;
     text-align: left;
-    background: #ededed;
+    background: #D9D9D9;
 }
 
 .tabela-aprovados th {
     font-weight: 700;
     color: #222;
     text-align: left;
-    background: #ededed;
+    background: #fff;
 }
 
 .tabela-aprovados td {
     height: 22px;
-    background: #ededed;
+    background: #fff;
 }
 .container-admin {
     display: flex;
@@ -973,6 +994,7 @@ td .btn-danger {
 .modal-turma-table-scroll {
     max-height: 100px;   /* ajuste a altura conforme necessário */
     overflow-y: auto;
+    overflow-x: hidden;  /* impede rolagem horizontal */
     width: 100%;
 }
 .modal-turma-table-title-scroll{
@@ -982,8 +1004,10 @@ max-height: 100px;   /* ajuste a altura conforme necessário */
 }
 
 .modal-turma-table-scroll th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
     background: #e9ecef;
-    border-bottom: 1px solid #ccc;
 }
 .modal-turma-table-title {
     background: #fff;
@@ -1009,37 +1033,14 @@ max-height: 100px;   /* ajuste a altura conforme necessário */
     margin-bottom: 10px;
     overflow-x: hidden;
 }
-.tabela-aprovados-menor {
-    max-width: 180px;
+.tabela-pequena {
+    max-width: 90px;
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 8px;
-    background: #ededed;
-    table-layout: fixed;
+    font-size: 0.65rem;
 }
 
-.tabela-aprovados-menor th,
-.tabela-aprovados-menor td {
-    padding: 1px 2px;
-    font-size: 0.60em;
-    word-break: break-word;
-    height: 14px;
-    text-align: center;
-}
-.tabela-aprovados-menor th {
-    padding: 1px 2px;
-    font-size: 0.55em;
-    height: 14px;
-}
-.tabela-aprovados-scroll th {
-    position: sticky;
-    top: 0;
-    z-index: 2;
-    background: #ededed;
-}
-#tabelaRelatorioTurmasContainer .tabela-aprovados-scroll {
-    max-height: 80px; /* altura menor para a tabela de relatórios */
-    overflow-y: auto;
+.tabela-pequena th, .tabela-pequena td {
+    padding: 2px 2px;
+    font-size: 0.65rem;
 }
 
