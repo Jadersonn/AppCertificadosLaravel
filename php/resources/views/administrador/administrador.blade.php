@@ -83,34 +83,82 @@
 
         <div class="card-tabela">
             <div class="tabela-header">
-                <span>
-                    <h6>ALUNOS APROVADOS</h6>
-                </span>
+                <span><h6 id="titulo-tabela">ALUNOS APROVADOS</h6></span>
                 <button class="btn-voltar" title="Voltar">&#60;</button>
+                 <button class="btn-voltar-aprovados" title="Voltar" style="display:none;">&#60;</button>
             </div>
-            <table class="tabela-aprovados">
-                <thead>
-                    <tr>
-                        <th>ALUNO</th>
-                        <th>TURMA</th>
-                        <th>CONCLUSÃO</th>
-                        <th>SUAP</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($aprovados as $item)
-                        <tr>
-                            <td>{{ $item->name }}</td>
-                            <td>{{ $item->turma }}</td>
-                            <td>{{ \Carbon\Carbon::parse($item->dataConclusao)->format('d/m/Y') }}</td>
-                            <td>
-
-                            </td>
-                        </tr>
-                    @endforeach
-
-                </tbody>
-            </table>
+            <div id="tabelaAprovadosContainer">
+                <div class="tabela-aprovados-scroll">
+                    <table class="tabela-aprovados tabela-aprovados-menor">
+                        <thead>
+                            <tr>
+                                <th>ALUNO</th>
+                                <th>TURMA</th>
+                                <th>CONCLUSÃO</th>
+                                <th>SUAP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($aprovados as $item)
+                                <tr>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->turma }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->dataConclusao)->format('d/m/Y') }}</td>
+                                    <td></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="tabelaRelatorioTurmasContainer" style="display:none;">
+                    
+                <div class="tabela-aprovados-scroll">
+                    <table class="tabela-aprovados tabela-aprovados-menor">
+                        <thead>
+                            <tr>
+                                <th>TURMAS</th>
+                                <th>RELATÓRIO</th>
+                                <th>CONCLUSÃO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for ($i = 0; $i < 10; $i++)
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            @endfor
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Ir para relatório de turmas
+    document.querySelector('.btn-voltar').addEventListener('click', function() {
+        document.getElementById('tabelaAprovadosContainer').style.display = 'none';
+        document.getElementById('tabelaRelatorioTurmasContainer').style.display = 'block';
+        document.getElementById('titulo-tabela').textContent = 'RELATÓRIO DE TURMAS';
+        this.style.display = 'none';
+        document.querySelector('.btn-voltar-aprovados').style.display = 'inline-block';
+    });
+
+    // Voltar para alunos aprovados
+    document.querySelector('.btn-voltar-aprovados').addEventListener('click', function() {
+        document.getElementById('tabelaRelatorioTurmasContainer').style.display = 'none';
+        document.getElementById('tabelaAprovadosContainer').style.display = 'block';
+        document.getElementById('titulo-tabela').textContent = 'ALUNOS APROVADOS';
+        this.style.display = 'none';
+        document.querySelector('.btn-voltar').style.display = 'inline-block';
+    });
+
+    // Inicialmente, o botão de voltar da tabela de turmas fica oculto
+    document.querySelector('.btn-voltar-aprovados').style.display = 'none';
+});
+</script>

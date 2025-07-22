@@ -16,6 +16,7 @@
                         <label for="turmaAluno" class="form-label">TURMA</label>
                         <input type="text" id="turmaAluno" class="form-control mb-3" placeholder="Turma do aluno">
 
+                        <!-- Tabela de alunos -->
                         <div class="bg-white rounded p-2 mt-2 modal-turma-table-scroll alunos">
                             <span class="modal-turma-table-title">ALUNOS:</span>
                             <table class="table table-bordered align-middle mb-0">
@@ -54,9 +55,7 @@
                                     @foreach ($turmas as $turma)
                                         <tr>
                                             <td class="fw-bold">{{ $turma->nome }}</td>
-                                            <td class="fw-bold">
-                                                {{ $turma->totalAlunos }}
-                                            </td>
+                                            <td class="fw-bold">{{ $turma->totalAlunos }}</td>
                                             <td>
                                                 <a href="{{ url('/register/aluno/' . $turma->id) }}" class="btn btn-sm btn-warning btn-editar"
                                                     title="Registrar sala" target="_blank">
@@ -77,7 +76,6 @@
                                             </td>
                                         </tr>
                                     @endforeach
-
                                 </tbody>
                             </table>
                         </div>
@@ -89,7 +87,7 @@
                                 <button type="submit" class="modal-turma-btn-criar">CRIAR</button>
                             </form>
                         </div>
-                        <div class="bg-white rounded p-2">
+                        <div class="bg-white rounded p-2 tabela-adicionar-aluno-larga">
                             <form action="{{ route('administrador.definirTurma') }}" method="POST">
                                 @csrf
                                 <label for="selectTurma" class="form-label">ADICIONAR ALUNO(s) PARA TURMA</label>
@@ -99,7 +97,7 @@
                                         <option value="{{ $turma->id }}">{{ $turma->nome }}</option>
                                     @endforeach
                                 </select>
-                                <table class="table table-bordered align-middle mb-0">
+                                <table class="table table-bordered align-middle mb-0" id="tabelaAdicionarAluno">
                                     <thead>
                                         <tr>
                                             <th style="width: 40px;"></th>
@@ -108,17 +106,8 @@
                                             <th>TURMA</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        @foreach ($alunos as $aluno)
-                                            <tr>
-                                                <td align="center">
-                                                    <input type="checkbox" name="alunos[]" value="{{ $aluno->idAluno }}">
-                                                </td>
-                                                <td class="fw-bold">{{ $aluno->name }}</td>
-                                                <td class="fw-bold">{{ $aluno->numIdentidade }}</td>
-                                                <td class="fw-bold">{{ $aluno->nomeTurma }}</td>
-                                            </tr>
-                                        @endforeach
+                                    <tbody id="tbodyAdicionarAluno">
+                                        <!-- Linhas JS aqui -->
                                     </tbody>
                                 </table>
                                 <div class="d-flex justify-content-end mt-2">
@@ -128,9 +117,8 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
 </div>
+<script src="{{ asset('js/modalTurmas.js') }}"></script>

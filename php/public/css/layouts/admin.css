@@ -32,7 +32,7 @@ body {
       align-items: center;
       display: flex;
       flex-direction: column;
-      height: 100%;
+      height: 100vh;
       align-items: stretch;
     }
 
@@ -139,7 +139,6 @@ body {
     .menu-btn {
     display: block;
     width: 100%;
-    background-color:00350A;
     color: #fff;
     border: none;
     font-weight: bold;
@@ -154,12 +153,11 @@ body {
     }
 
     .menu-btn:hover {
-    background-color: #007c00;
     color: #00420C;
     }
     .logout {
     margin-top: auto;
-    padding-bottom: 0px;
+    padding-bottom: 57px;
     }
 
     .logout a {
@@ -484,19 +482,20 @@ body {
     background: transparent;
 }
 
-.tabela-aprovados th, .tabela-aprovados td {
+.tabela-aprovados th, 
+.tabela-aprovados td {
     border: 1px solid #222;
-    padding: 4px 6px;
-    font-size: 0.98rem;
+    padding: 4px 8px;
+    font-size: 0.85em;
     text-align: left;
     background: #ededed;
 }
 
 .tabela-aprovados th {
     font-weight: 700;
-    background: #ededed;
     color: #222;
     text-align: left;
+    background: #ededed;
 }
 
 .tabela-aprovados td {
@@ -603,6 +602,37 @@ body {
   background-color:#6BA539;
   border: none;
 }
+.tabela-relatorio-modal-professor {
+    margin-top: 40px !important; /* aumenta o espaçamento acima da tabela */
+}
+.tabela-adicionar-aluno-larga {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    background: #fff;
+    border-radius: 10px;
+    padding: 12px 0 18px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.tabela-adicionar-aluno-larga .table {
+    width: 100%;
+}
+
+.tabela-adicionar-aluno-larga th, 
+.tabela-adicionar-aluno-larga td {
+    padding: 8px 7px;
+    font-size: 0.95em;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.tabela-adicionar-aluno-larga th {
+    background: #ededed;
+    color: #00420C;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
 
 /* Cabeçalho do modal */
 .modal-header {
@@ -619,6 +649,10 @@ body {
   display: block;
   margin: 0 auto; ;
 }
+.titulo-prof {
+  margin-top: 42px !important; /* aumenta o espaçamento acima do título */
+}
+
 .titulo-prof {
   margin-bottom: 4px;
   display: block;
@@ -965,8 +999,47 @@ max-height: 100px;   /* ajuste a altura conforme necessário */
     width: 100%;
     min-height: 50px;
 }
-.col-md-7 {
-    min-height: 0 !important;
+.tabela-aprovados-scroll {
+    max-height: 160px; /* altura maior para mais linhas visíveis */
+    overflow-y: auto;
+    width: 100%;
+    background: #ededed;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    margin-bottom: 10px;
+    overflow-x: hidden;
+}
+.tabela-aprovados-menor {
+    max-width: 180px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 8px;
+    background: #ededed;
+    table-layout: fixed;
 }
 
+.tabela-aprovados-menor th,
+.tabela-aprovados-menor td {
+    padding: 1px 2px;
+    font-size: 0.60em;
+    word-break: break-word;
+    height: 14px;
+    text-align: center;
+}
+.tabela-aprovados-menor th {
+    padding: 1px 2px;
+    font-size: 0.55em;
+    height: 14px;
+}
+.tabela-aprovados-scroll th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: #ededed;
+}
+#tabelaRelatorioTurmasContainer .tabela-aprovados-scroll {
+    max-height: 80px; /* altura menor para a tabela de relatórios */
+    overflow-y: auto;
+}
 

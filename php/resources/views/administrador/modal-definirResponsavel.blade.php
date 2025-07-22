@@ -12,19 +12,19 @@
                     <!-- Seu conteúdo aqui -->
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="nomeProfessor" class="form-label">NOME</label>
+                            <label for="nomeProfessor" class="form-label">NOME:</label>
                             <input type="text" class="form-control" id="nomeProfessor"
                                 placeholder="Nome do professor">
                         </div>
                         <div class="col-md-6">
-                            <label for="suap" class="form-label">SUAP</label>
+                            <label for="suap" class="form-label">SUAP:</label>
                             <input type="text" class="form-control" id="suap" placeholder="SUAP">
                         </div>
                     </div>
 
                     <!-- Tabela Professores Ativos -->
-                    <h6 class="titulo-prof mt-4"><strong>PROFESSORES ATIVOS</strong></h6>
-                    <div class="table-responsive">
+                    <h6 class="titulo-prof mt-4"><strong>PROFESSORES ATIVOS:</strong></h6>
+                    <div class="table-responsive tabela-relatorio-modal-professor">
                         <table class="table table-bordered bg-white text-center">
                             <thead class="table-light">
                                 <tr>

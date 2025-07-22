@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll('[data-modal="turma"]').forEach(btn => {
         btn.addEventListener('click', function (e) {
             e.preventDefault();
-            const modalTurma = document.getElementById('modal-turma');
+            const modalTurma = document.getElementById('turmaModal');
             if (modalTurma) {
                 modalTurma.style.display = 'flex';
             }
@@ -13,44 +13,85 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll('[data-modal="responsavel"]').forEach(btn => {
         btn.addEventListener('click', function (e) {
             e.preventDefault();
-            const modalResp = document.getElementById('modal-responsavel');
+            const modalResp = document.getElementById('responsavelModal');
             if (modalResp) {
                 modalResp.style.display = 'flex';
             }
         });
     });
 
-    // Fechar modais
-    const fecharTurma = document.getElementById('fechar-modal-turma');
-    if (fecharTurma) {
-        fecharTurma.onclick = function () {
-            const modalTurma = document.getElementById('modal-turma');
-            if (modalTurma) modalTurma.style.display = 'none';
-        };
+    // Adicionar aluno na tabela
+    const nomeInput = document.getElementById('nomeAluno');
+    const cpfInput = document.getElementById('cpfAluno');
+    const turmaInput = document.getElementById('turmaAluno');
+    const tbody = document.getElementById('tbodyAdicionarAluno');
+
+    function adicionarAlunoNaTabela() {
+        const nome = nomeInput.value.trim();
+        const cpf = cpfInput.value.trim();
+        const turma = turmaInput.value.trim();
+
+        if (nome && cpf && turma) {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td align="center">
+                    <input type="checkbox" name="alunos[]" checked>
+                </td>
+                <td class="fw-bold">${nome}</td>
+                <td class="fw-bold">${cpf}</td>
+                <td class="fw-bold">${turma}</td>
+            `;
+            tbody.appendChild(tr);
+
+            // Limpa os campos
+            nomeInput.value = '';
+            cpfInput.value = '';
+            turmaInput.value = '';
+        }
     }
 
-    const fecharResponsavel = document.getElementById('fechar-modal-responsavel');
-    if (fecharResponsavel) {
-        fecharResponsavel.onclick = function () {
-            const modalResp = document.getElementById('modal-responsavel');
-            if (modalResp) modalResp.style.display = 'none';
-        };
-    }
+    turmaInput.addEventListener('blur', adicionarAlunoNaTabela);
 
-    // Fechar ao clicar fora
-    const modalTurma = document.getElementById('modal-turma');
-    if (modalTurma) {
-        modalTurma.onclick = function (e) {
-            if (e.target === this) this.style.display = 'none';
-        };
-    }
-
-    const modalResp = document.getElementById('modal-responsavel');
-    if (modalResp) {
-        modalResp.onclick = function (e) {
-            if (e.target === this) this.style.display = 'none';
-        };
-    }
+    [nomeInput, cpfInput, turmaInput].forEach(input => {
+        input.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                adicionarAlunoNaTabela();
+            }
+        });
+    });
 });
 
- 
+// Fechar modais
+const fecharTurma = document.getElementById('fechar-modal-turma');
+if (fecharTurma) {
+    fecharTurma.onclick = function () {
+        const modalTurma = document.getElementById('turmaModal');
+        if (modalTurma) modalTurma.style.display = 'none';
+    };
+}
+
+const fecharResponsavel = document.getElementById('fechar-modal-responsavel');
+if (fecharResponsavel) {
+    fecharResponsavel.onclick = function () {
+        const modalResp = document.getElementById('responsavelModal');
+        if (modalResp) modalResp.style.display = 'none';
+    };
+}
+
+// Fechar ao clicar fora
+const modalTurma = document.getElementById('turmaModal');
+if (modalTurma) {
+    modalTurma.onclick = function (e) {
+        if (e.target === this) this.style.display = 'none';
+    };
+}
+
+const modalResp = document.getElementById('responsavelModal');
+if (modalResp) {
+    modalResp.onclick = function (e) {
+        if (e.target === this) this.style.display = 'none';
+    };
+}
+
+
