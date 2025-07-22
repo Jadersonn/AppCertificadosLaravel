@@ -7,8 +7,7 @@ use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\CertificadoController;
 use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\TurmaController;
-use App\Models\Certificado;
-use App\Models\Turma;
+use App\Http\Controllers\ConclusaoController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -31,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/aluno/{idnumIdentidade}/edit', [AlunoController::class, 'update'])->name('aluno.edit');
     //Route::get('/aluno/{numIdentidade}/delete', [AlunoController::class, 'destroy'])->name('aluno.delete');
     Route::post('/aluno/certificados', [CertificadoController::class, 'store'])->name('aluno.certificados');
+    Route::post('/aluno/conclusao', [ConclusaoController::class, 'store'])->name('aluno.salvarConclusao');
 });
 
 
