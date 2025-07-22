@@ -162,7 +162,6 @@ input[type="password"] {
 }
 
 .menu-btn:hover {
-  background-color: #007c00;
   color: #00420C;
 }
 
@@ -501,19 +500,28 @@ input[type="password"] {
 
 .progress-bar {
   position: absolute;
-  left: 2px;
-  /* ajuste conforme o layout */
-  width: 815px;
-  /* largura da barra */
-  height: 16px;
-  /* altura da barra */
-  background: #e0e0e0;
-  border-radius: 8px;
+  left: 0;
+  width: 104%;
+  height: 13px;
+  background: #908f8f;
+  border-radius: 7px;
+  box-shadow: 0 1px 4px #0001;
+  margin-top: 4px;
   overflow: hidden;
+}
+
+.progress-inner {
+  height: 100%;
+  background: linear-gradient(90deg, #53812c 60%, #b6e36b 100%);
+  border-radius: 9px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.53em;
   display: flex;
   align-items: center;
-  font-size: 12px;
-  line-height: 16px;
+  transition: width 0.6s cubic-bezier(.4,0,.2,1);
+  padding-left: 7px;
+  box-shadow: 0 1px 4px #0001 inset;
 }
 
 /* Modal overlay */

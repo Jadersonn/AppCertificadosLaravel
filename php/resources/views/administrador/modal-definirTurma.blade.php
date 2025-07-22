@@ -17,6 +17,7 @@
                         <input type="text" id="turmaAluno" class="form-control mb-3" placeholder="Turma do aluno">
 
                         <!-- Tabela de alunos -->
+                    <div class="col-md-7 d-flex flex-column align-items-center justify-content-start">
                         <div class="bg-white rounded p-2 tabela-adicionar-aluno-larga">
                             <form action="{{ route('administrador.definirTurma') }}" method="POST">
                                 @csrf
@@ -56,8 +57,9 @@
                             </form>
                         </div>
                     </div>
+                    </div>
                     <div class="col-md-5 d-flex flex-column gap-3">
-                        <div class="bg-white rounded p-2">
+                        <div class="bg-white rounded p-2 modal-turma-table">
                             <span class="fw-bold d-block mb-1 modal-turma-label">TURMAS EXISTENTES</span>
                             <div class="modal-turma-table-scroll">
                                 <table class="table table-bordered align-middle mb-0">
@@ -100,7 +102,7 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="bg-white rounded p-2">
+                        <div class="bg-white rounded p-2  modal-turma-criar-container">
                             <form action="{{ route('administrador.criarTurma') }}" method="POST">
                                 @csrf
                                 <span class="fw-bold d-block mb-1 modal-turma-label">CRIAR TURMA</span>

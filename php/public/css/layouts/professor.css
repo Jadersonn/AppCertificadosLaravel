@@ -384,27 +384,29 @@ body {
 }
 
 .certificados-tabela {
-    width: 100%;
+    width: 60%;
+    margin: 0 auto;       /* centraliza a tabela */
     border-collapse: collapse;
     background: #fff;
-    font-size: 0.95rem;
+    font-size: 0.80rem;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     margin-bottom: 1.5em;
 }
 
 .certificados-tabela th, .certificados-tabela td {
-    padding: 8px 10px;
+    padding: 3px 4px;
     text-align: center;
     border-bottom: 1px solid #e0e0e0;
     vertical-align: middle;
+    font-size: 0.85em;
 }
 
 .certificados-tabela th {
     background: #e9ecef;
     color: #00420C;
     font-weight: bold;
-    font-size: 1em;
+    font-size: 0.90em;
     letter-spacing: 0.5px;
 }
 
@@ -419,7 +421,7 @@ body {
 
 /* Novas regras para a tabela */
 .certificados-table, .table {
-    width: 90%;           /* diminui a largura da tabela */
+    width: 100%;           /* diminui a largura da tabela */
     margin: 0 auto;       /* centraliza */
     font-size: 0.75rem;   /* fonte menor */
 }
@@ -484,3 +486,4 @@ body {
     border: none;
     border-radius: 8px;
 }
+
