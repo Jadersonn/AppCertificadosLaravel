@@ -46,16 +46,20 @@
                             $percentual = $ponto ? $ponto->totalCargaHoraria : 0;
                         @endphp
 
-                        <div class="categoria-box" style="top: {{ 83 + $index * 110 }}px;" data-bs-toggle="modal"
-                            data-bs-target="#categoriaModal" data-id="{{ $tipo->id }}"
-                            ondblclick="abrirModalCategoria(this)">
+                        <div class="categoria-box"
+                            style="top: {{ 83 + $index * 110 }}px;"
+                            data-bs-toggle="modal"
+                            data-bs-target="#categoriaModal"
+                            data-tipo-id="{{ $tipo->idTipoAtividade }}"
+                            data-user-id="{{ Auth::user()->id }}">
                             {{ $tipo->nome }}
                         </div>
                         <!-- barra de progresso -->
                         <div class="progress-bar" style="top: {{ 140 + $index * 110 }}px;">
                             <div class="progress-inner" id="progressBar-{{ $index }}" role="progressbar"
-                                style="width: {{ $percentual }}%; padding-left: 10px;" aria-valuenow="{{ $percentual }}"
-                                aria-valuemin="0" aria-valuemax="{{$aluno->pontosRecebidos}}">
+                                style="width: {{ $percentual }}%; padding-left: 10px;"
+                                aria-valuenow="{{ $percentual }}" aria-valuemin="0"
+                                aria-valuemax="{{ $aluno->pontosRecebidos }}">
                                 {{ $percentual }} Pontos
                             </div>
                         </div>
@@ -78,21 +82,16 @@
         </div>
     </div>
     @include('aluno.modal-solicitacao')
-    @include('aluno.modal-relatorio')
 
-    <script>
-        // filepath: c:\Users\Lara\OneDrive - Belago Technologies\Documentos\AppCertificadosLaravel-1\php\resources\views\aluno\basealuno.blade.php
-        document.getElementById('select-categorias').addEventListener('change', function() {
-            if (this.value === 'geral') {
-                document.getElementById('modal-relatorio').style.display = 'block';
-            }
-        });
-
-        // Fecha o modal ao clicar no botão de fechar
-        document.getElementById('fechar-modal').addEventListener('click', function() {
-            document.getElementById('modal-relatorio').style.display = 'none';
-        });
-    </script>
+    <div id="modal-relatorio" class="modal-relatorio" style="display: none;">
+        <div class="modal-conteudo">
+            <button class="modal-fechar" id="fechar-modal-relatorio">×</button>
+            <h2 style="margin-bottom: 1.2em;" >Relatorio de Categoria</h2>
+            <div class="painel-categoria">
+                <!-- Aqui o JS vai inserir o conteúdo AJAX -->
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

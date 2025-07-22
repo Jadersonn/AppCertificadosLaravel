@@ -122,4 +122,42 @@ class AlunoController extends Controller
 
         return view('relatorio.relatorioAluno', compact('aluno', 'certificados'));
     }
+
+    public function relatorioCategoria($categoriaId, $userId)
+    {
+        $aluno = \App\Models\Aluno::with('user')->where('user_id', $userId)->first();
+        if (!$aluno) {
+            abort(404, 'Aluno não encontrado');
+        }
+
+        $certificados = DB::table('certificados as C')
+            ->join('atividades_complementares as AC', 'AC.idAtividadeComplementar', '=', 'C.idAtividadeComplementar')
+            ->join('tipos_atividades as TA', 'TA.idTipoAtividade', '=', 'AC.idTipoAtividade')
+            ->leftJoin('professores as P', 'C.idProfessor', '=', 'P.idProfessor')
+            ->leftJoin('users as U', 'P.user_id', '=', 'U.id')
+            ->select([
+                'TA.nome as categoria',
+                'AC.nomeAtividadeComplementar as atividade',
+                'C.cargaHoraria',
+                'C.pontosGerados',
+                'C.dataEnvio',
+                'C.statusCertificado',
+                'C.justificativa',
+                'U.name as nomeProfessor',
+                'C.semestre',
+                'C.idCertificado'
+            ])
+            ->where('C.idAluno', $aluno->idAluno)                    // variável do aluno
+            ->where('TA.idTipoAtividade', $categoriaId)   // variável da categoria
+            ->orderBy('C.semestre')                           // ordena por semestre
+            ->get();
+        if ($certificados->isEmpty()) {
+            info("Nenhum certificado encontrado para a categoria: $categoriaId");
+            abort(404, 'Nenhum certificado encontrado para esta categoria.');
+        }
+
+
+        $categoriaNome = TipoAtividade::find($categoriaId)->nome ?? 'Categoria Desconhecida';
+        return view('aluno.modal-relatorio', compact('aluno', 'certificados', 'categoriaNome'));
+    }
 }

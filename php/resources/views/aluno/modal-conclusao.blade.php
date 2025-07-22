@@ -1,7 +1,7 @@
 <!-- filepath: c:\Users\jader\OneDrive\Documents\tcc\AppCertificadosLaravel\php\resources\views\aluno\modal-conclusao.blade.php -->
 <div id="modal-conclusao" class="modal-solicitacao" style="display: none;">
     <div class="modal-conteudo" id="modal-conclusao-content">
-        <button class="modal-fechar" id="fechar-modal">&times;</button>
+        <button class="modal-fechar" id="fechar-modal-conclusao">&times;</button>
         <h2 style="margin-bottom: 1.2em;">Informações de Conclusão</h2>
         <form method="POST" action="{{ route('aluno.salvarConclusao') }}">
             @csrf

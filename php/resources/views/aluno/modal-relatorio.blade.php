@@ -1,42 +1,49 @@
-<div id="modal-relatorio" class="modal-relatorio" style="display: none;">
-    <div class="modal-conteudo">
-        <button class="modal-fechar" id="fechar-modal">&times;</button>
-        <h2 style="margin-bottom: 1.2em;">Nova Solicitação de Horas</h2>
-        <div class="painel-categoria">
-  <div class="painel-categoria-header">
-    <span class="painel-categoria-titulo">NOME DA CATEGORIA</span>
-    <span class="painel-categoria-semestre">SEMESTRE:</span>
-  </div>
-  <table class="painel-categoria-tabela">
+<link rel="stylesheet" href="/css/layouts/modal-relatorio.css">
+
+<div class="painel-categoria-header">
+    <span class="painel-categoria-titulo">{{ $categoriaNome ?? 'Categoria' }}</span>
+</div>
+<table class="painel-categoria-tabela" >
     <thead>
-      <tr>
-        <th>SUBCATEGORIAS</th>
-        <th>HORAS TOTAIS</th>
-        <th>DATA DE ENVIO</th>
-        <th>NOME</th>
-        <th>PONTOS</th>
-        <th>SUBCATEGORIA</th>
-        <th>STATUS</th>
-        <th>JUSTIFICATIVA</th>
-        <th>BAIXAR</th>
-      </tr>
+        <tr>
+            <th>CATEGORIAS</th>
+            <th>ATIVIDADES</th>
+            <th>CARGA HORÁRIA</th>
+            <th>PONTOS</th>
+            <th>DATA ENVIO</th>
+            <th>STATUS</th>
+            <th>JUSTIFICATIVA</th>
+            <th>PROFESSOR</th>
+            <th>SEMESTRE</th>
+            <th>BAIXAR</th>
+        </tr>
     </thead>
     <tbody>
-      
-      <tr>
-        <td>Exemplo 1</td>
-        <td>10</td>
-        <td>01/01/2024</td>
-        <td>João</td>
-        <td>5</td>
-        <td>Subcat 1</td>
-        <td>Aprovado</td>
-        <td>---</td>
-        <td><button>Baixar</button></td>
-      </tr>
-      
+        @forelse($certificados as $certificado)
+            <tr>
+                <td>{{ $certificado->categoria ?? '-' }}</td>
+                <td>{{ $certificado->atividade ?? '-' }}</td>
+                <td>{{ $certificado->cargaHoraria ?? '-' }}</td>
+                <td>{{ $certificado->pontosGerados ?? '-' }}</td>
+                <td>{{ \Carbon\Carbon::parse($certificado->dataEnvio)->format('d/m/Y') }}</td>
+                <td>{{ $certificado->statusCertificado ?? '-' }}</td>
+                <td>{{ $certificado->justificativa ?? '-' }}</td>
+                <td>{{ $certificado->nomeProfessor ?? '-' }}</td>
+                <td>{{ $certificado->semestre ?? '-' }}</td>
+                <td>
+                    @if (!empty($certificado->idCertificado))
+                        <a class="link" href="{{  url('/certificados/visualizar/' . $certificado->idCertificado) }}" target="_blank">
+                            <button>Baixar</button>
+                        </a>
+                    @else
+                        -
+                    @endif
+                </td>
+            </tr>
+        @empty
+            <tr>
+                <td colspan="9" style="text-align:center;">Nenhuma solicitação encontrada.</td>
+            </tr>
+        @endforelse
     </tbody>
-  </table>
-</div>
-    </div>
-</div>
+</table>

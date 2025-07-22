@@ -1,0 +1,136 @@
+/* Overlay escuro para modal */
+#modal-relatorio {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.35);
+    display: flex; /* Isso é importante! */
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+/* Caixa do modal centralizada */
+#modal-relatorio .modal-conteudo {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    width: 80vw;      /* Aumenta para 80% da largura da tela */
+    max-width: 1200px; /* Permite ficar maior em telas grandes */
+    min-width: 320px;
+    min-height: 60vh;  /* Opcional: aumenta altura mínima */
+    padding: 32px 40px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch ;
+    justify-content: center;
+}
+
+/* Botão fechar */
+#modal-relatorio .modal-fechar {
+    position: absolute;
+    top: 18px;
+    right: 28px;
+    background: transparent;
+    border: none;
+    font-size: 2.2em;
+    color: #333;
+    cursor: pointer;
+    z-index: 2;
+    align-self: flex-start;
+}
+
+/* Título */
+#modal-relatorio h2 {
+    margin-top: 0;
+    margin-bottom: 1.2em;
+    font-size: 1.6em;
+    font-weight: 700;
+    color: #222;
+    text-align: left;
+    justify-content: center;
+}
+
+/* Painel da categoria */
+.painel-categoria {
+    width: 98%;           /* Ocupa quase toda a largura do modal */
+    min-height: 200px;
+    margin: 0 auto;
+    background: #f8f8f8;
+    border-radius: 8px;
+    padding: 8px 4px;     /* Menos padding lateral */
+    box-shadow: 0 2px 8px #0001;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.painel-categoria-header {
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.painel-categoria-titulo {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #2172ED;
+}
+
+.painel-categoria-semestre {
+    font-size: 1em;
+    color: #555;
+    font-weight: 500;
+}
+
+/* Tabela */
+.painel-categoria-tabela {
+    width: 100%;          /* Tabela ocupa toda a largura do painel */
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px #0001;
+}
+
+.painel-categoria-tabela th,
+.painel-categoria-tabela td {
+    padding: 10px 8px;
+    text-align: center;
+    border-bottom: 1px solid #eaeaea;
+    font-size: 0.98em;
+}
+
+.painel-categoria-tabela th {
+    background: #e9f5e2;
+    color: #2172ED;
+    font-weight: bold;
+}
+
+.painel-categoria-tabela tr:last-child td {
+    border-bottom: none;
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+    #modal-relatorio .modal-conteudo {
+        width: 95vw;
+        padding: 18px 8px;
+    }
+    .painel-categoria {
+        padding: 8px 2px;
+    }
+    .painel-categoria-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    .painel-categoria-tabela th,
+    .painel-categoria-tabela td {
+        padding: 6px 2px;
+        font-size: 0.92em;
+    }
+}

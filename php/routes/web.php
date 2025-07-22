@@ -11,6 +11,23 @@ use App\Http\Controllers\ConclusaoController;
 use App\Models\Conclusao;
 
 Route::get('/', function () {
+    //verifica se existe um usuário autenticado
+    if (Auth::check()) {
+        $user = Auth::user();
+        //verifica se o usuário é um aluno
+        if ($user->funcao === \App\Enums\FuncaoEnum::ALUNO) {
+            return redirect()->route('aluno.show', ['numIdentidade' => $user->numIdentidade]);
+        }
+        //verifica se o usuário é um professor
+        elseif ($user->funcao === \App\Enums\FuncaoEnum::PROFESSOR) {
+            return redirect()->route('professor.show', ['numIdentidade' => $user->numIdentidade]);
+        }
+        //verifica se o usuário é um administrador
+        elseif ($user->funcao === \App\Enums\FuncaoEnum::ADMINISTRADOR) {
+            return redirect()->route('professor.showAdmin', ['numIdentidade' => $user->numIdentidade]);
+        }
+    }
+    //se não houver usuário autenticado, redireciona para a página de login
     return redirect()->route('login');
 });
 
@@ -32,6 +49,7 @@ Route::middleware('auth')->group(function () {
     //Route::get('/aluno/{numIdentidade}/delete', [AlunoController::class, 'destroy'])->name('aluno.delete');
     Route::post('/aluno/certificados', [CertificadoController::class, 'store'])->name('aluno.certificados');
     Route::post('/aluno/conclusao', [ConclusaoController::class, 'store'])->name('aluno.salvarConclusao');
+    Route::get('/aluno/relatorio-categoria/{categoriaId}/{userId}', [AlunoController::class, 'relatorioCategoria'])->name('aluno.relatorioCategoria');
 });
 
 

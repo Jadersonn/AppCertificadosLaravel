@@ -62,8 +62,8 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-       // Fechar modal ao clicar no botão fechar
-    document.getElementById('fechar-modal').onclick = function () {
+    // Fechar modal ao clicar no botão fechar
+    document.getElementById('fechar-modal-conclusao').onclick = function () {
         document.getElementById('modal-conclusao').style.display = 'none';
     };
 
@@ -71,4 +71,61 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('modal-conclusao').onclick = function (e) {
         if (e.target === this) this.style.display = 'none';
     };
+
+    const cardContainer = document.getElementById('aluno-card-container');
+    if (cardContainer) {
+        cardContainer.addEventListener('click', function () {
+            const modal = document.getElementById('modal-conclusao');
+            if (modal) {
+                modal.style.display = 'flex';
+            }
+        });
+    }
+
+    // Botão de fechar do modal
+    const fecharModal = document.getElementById('fechar-modal');
+    if (fecharModal) {
+        fecharModal.addEventListener('click', function () {
+            const modal = document.getElementById('modal-conclusao');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        });
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('.categoria-box').forEach(function(cardContainer) {
+        cardContainer.addEventListener('click', function () {
+            const categoriaId = this.getAttribute('data-tipo-id');
+            const userId = this.getAttribute('data-user-id');
+            const modal = document.getElementById('modal-relatorio');
+            if (modal) {
+                // Exibe o modal
+                modal.style.display = 'flex';
+                // Mostra carregando
+                modal.querySelector('.painel-categoria').innerHTML = '<div style="padding:40px;text-align:center;">Carregando...</div>';
+                // Faz a busca dos dados via AJAX
+                fetch(`/aluno/relatorio-categoria/${categoriaId}/${userId}`)
+                    .then(response => response.text())
+                    .then(html => {
+                        modal.querySelector('.painel-categoria').innerHTML = html;
+                    })
+                    .catch(() => {
+                        modal.querySelector('.painel-categoria').innerHTML = '<div style="padding:40px;text-align:center;color:red;">Erro ao carregar dados.</div>';
+                    });
+            }
+        });
+    });
+
+    // Botão de fechar do modal
+    const fecharModal = document.getElementById('fechar-modal-relatorio');
+    if (fecharModal) {
+        fecharModal.addEventListener('click', function () {
+            const modal = document.getElementById('modal-relatorio');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        });
+    }
 });
