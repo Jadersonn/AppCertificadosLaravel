@@ -8,13 +8,16 @@
     <div class="cards-coluna-direita">
         <div class="card-busca">
             <h6>BUSCAR ALUNO</h6>
-            <form class="busca-form" method="GET" action="{{ route('administrador.buscarAluno') }}">
+            <form class="busca-form" method="GET" action="{{ route('aluno.buscar') }}" target="_blank">
                 <label for="nome">Nome:</label>
                 <input type="text" id="nome" name="nome" value="{{ request('nome') }}">
+
                 <label for="turma">Turma:</label>
                 <input type="text" id="turma" name="turma" value="{{ request('turma') }}">
+
                 <button class="btn-buscar" type="submit">BUSCAR</button>
             </form>
+
             <table class="busca-tabela">
                 <thead>
                     <tr>
@@ -57,7 +60,7 @@
                         <input type="date" id="data_inicio" name="data_inicio" required>
                     </div>
                     <div>
-                       <label for="data_fim">Data Fim</label>
+                        <label for="data_fim">Data Fim</label>
                         <input type="date" id="data_fim" name="data_fim" required>
                     </div>
                 </div>
@@ -75,8 +78,8 @@
                                 <input type="radio" name="ordem" value="aprovados"> Aprovados
                             </label>
                         </div>
-                        </div>
-                        <div class="relatorio-opcoes2">
+                    </div>
+                    <div class="relatorio-opcoes2">
                         <div>
                             <br>
                             <label><input type="radio" name="ordem" value="pontos"> Pontos recebidos</label>
@@ -122,4 +125,3 @@
         </div>
     </div>
 @endsection
-
