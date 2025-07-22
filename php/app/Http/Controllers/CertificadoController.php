@@ -244,6 +244,13 @@ class CertificadoController extends Controller
         $cert->updated_at = now();
         $cert->save();
 
+
+        // Atualiza status do aluno para aprovado se atingir 120 pontos
+        $aluno = Aluno::findOrFail($alunoId);
+        $aluno->pontosRecebidos += $cert->pontosGerados;
+        $aluno->updated_at = now();
+        $aluno->save();
+        
         if ($pontosTotalCurso == 120) {
             // Atualiza status do aluno para aprovado se atingir 120 pontos
             $aluno = Aluno::findOrFail($alunoId);
@@ -568,6 +575,4 @@ class CertificadoController extends Controller
 
         return redirect()->back()->with('success', 'Certificado atualizado com sucesso!');
     }
-
-    
 }

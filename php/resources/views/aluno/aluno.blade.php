@@ -32,6 +32,7 @@
                     Formulário de conclusão
                 </button>
             @else
+            <br><br>
                 <p class="card-text">Você ainda não concluiu o curso.</p><br><br>
                 <p class="card-text">Restam {{ 120 - $aluno->pontosRecebidos }} pontos para a conclusão.</p>
             @endif
