@@ -9,6 +9,17 @@
 </head>
 
 <body>
+    @if (session('success'))
+        <script>
+            alert(@json(session('success')));
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            alert(@json(session('error')));
+        </script>
+    @endif
     <div class="container">
         <div class="login-box">
             <div class="left-panel">

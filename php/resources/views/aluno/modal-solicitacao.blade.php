@@ -30,11 +30,7 @@
             <div class="modal-row">
                 <div class="modal-col">
                     <label for="semestre">Semestre</label>
-                    <select id="semestre" name="semestre" required aria-placeholder="Semestre">
-                        <option value="2024-1">2024/1</option>
-                        <option value="2024-2">2024/2</option>
-                        <option value="2025-1">2025/1</option>
-                    </select>
+                    <input type="text" id="semestre" name="semestre" placeholder="Ex: 2025-1" required>
                 </div>
                 <div class="modal-col" style="position:relative;">
                     <label for="horas">Horas</label>
