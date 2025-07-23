@@ -43,7 +43,7 @@
                         @php
                             // Busca o ponto da categoria, se existir
                             $ponto = $pontos->firstWhere('idTipoAtividade', $tipo->idTipoAtividade);
-                            $percentual = $ponto ? $ponto->totalCargaHoraria : 0;
+                            $percentual = $ponto ? $ponto->totalPontos : 0; // Usa o totalPontos retornado pelo select
                         @endphp
 
                         <div class="categoria-box"

@@ -70,11 +70,11 @@ class AlunoController extends Controller
             ->join('atividades_complementares as AC', 'AC.idAtividadeComplementar', '=', 'certificados.idAtividadeComplementar')
             ->where('alunos.idAluno', $aluno->getKey())
             ->where('statusCertificado', 'aprovado')
-            ->select('AC.idTipoAtividade', DB::raw('SUM(cargaHoraria) as totalCargaHoraria'))
+            ->select('AC.idTipoAtividade', DB::raw('SUM(cargaHoraria) as totalCargaHoraria'), 
+                DB::raw('SUM(pontosGerados) as totalPontos')
+            )->where('statusCertificado', 'aprovado')
             ->groupBy('AC.idTipoAtividade')
             ->get();
-
-
 
 
         return view('aluno.aluno', compact('aluno', 'tiposAtividades', 'subCategorias', 'pontos', 'certificados'));
