@@ -135,7 +135,7 @@ class CertificadoController extends Controller
             $cert->justificativa = 'Aluno já aprovado.';
             $cert->updated_at = now();
             $cert->save();
-            return back()->with('error', 'Aluno já está aprovado.');
+            return back()->with('success', 'Aluno já está aprovado.');
         } else {
             //info("Aluno não aprovado, continuando com a aprovação do certificado...");
         }
@@ -203,7 +203,9 @@ class CertificadoController extends Controller
         // Agora verifica os limites
         if ($pontosSubcategoriaSemestre >= $maxSubcategoriaSemestral) {
             //info("Limite máximo da subcategoria para o semestre atingido.");
-            return back()->with('error', 'Limite máximo da subcategoria para o semestre atingido.');
+            $cert->updated_at = now();
+            $cert->save();
+            return back()->with('error', 'Limite máximo da subcategoria para o semestre atingido. Caso valido realoque para outro semestre.');
         } elseif ($pontosSubcategoriaSemestre + $pontosCertificado >= $maxSubcategoriaSemestral) {
             $pontosCertificado = $maxSubcategoriaSemestral - $pontosSubcategoriaSemestre;
         }
@@ -211,7 +213,9 @@ class CertificadoController extends Controller
         if ($pontosSubcategoriaCurso  >= $maxCategoriaCurso) {
 
             //info("Limite máximo da subcategoria para o curso atingido.");
-            return back()->with('error', 'Limite máximo da subcategoria para o curso atingido.');
+            $cert->updated_at = now();
+            $cert->save();
+            return back()->with('error', 'Limite máximo da subcategoria para o curso atingido. Caso valido realoque para outra subcategoria.');
         } elseif ($pontosSubcategoriaCurso + $pontosCertificado >= $maxCategoriaCurso) {
             $pontosCertificado = $maxCategoriaCurso - $pontosSubcategoriaCurso;
         }
@@ -219,14 +223,18 @@ class CertificadoController extends Controller
         if ($pontosCategoriaSemestre  >= $maxCategoriaSemestral) {
 
             //info("Limite máximo da categoria para o semestre atingido.");
-            return back()->with('error', 'Limite máximo da categoria para o semestre atingido.');
+            $cert->updated_at = now();
+            $cert->save();
+            return back()->with('error', 'Limite máximo da categoria para o semestre atingido. Caso válido, realoque o semestre.');
         } elseif ($pontosCategoriaSemestre + $pontosCertificado >= $maxCategoriaSemestral) {
             $pontosCertificado = $maxCategoriaSemestral - $pontosCategoriaSemestre;
         }
 
         if ($pontosCategoriaCurso  >= $maxCategoriaCurso) {
             //info("Limite máximo da categoria para o curso atingido.");
-            return back()->with('error', 'Limite máximo da categoria para o curso atingido.');
+            $cert->updated_at = now();
+            $cert->save();
+            return back()->with('error', 'Limite máximo da categoria para o curso atingido. Caso válido, realoque a categoria e sua subcategoria.');
         } elseif ($pontosCategoriaCurso + $pontosCertificado >= $maxCategoriaCurso) {
             $pontosCertificado = $maxCategoriaCurso - $pontosCategoriaCurso;
         }
@@ -237,6 +245,14 @@ class CertificadoController extends Controller
 
         // Ajusta pontos gerados para não ultrapassar 120 (se necessário)
         $limiteRestante = 120 - $pontosTotalCurso;
+        if ($pontosCertificado == 0) {
+            //se os pontos do certificado forem 0, reprova o certificado
+            $cert->statusCertificado = 'pendente';
+            $cert->justificativa = 'Certificado não atendeu aos critérios para pontuação.';
+            $cert->updated_at = now();
+            $cert->save();
+            return back()->with('error', 'Certificado não atendeu aos critérios para pontuação nessa subcategoria, caso válido, realoque.');
+        }
         $cert->pontosGerados = min($pontosCertificado, $limiteRestante);
         //info("Pontos Salvos: $cert->pontosGerados");
         //info("");
@@ -257,6 +273,7 @@ class CertificadoController extends Controller
             $aluno->statusDeConclusao = 'aprovado';
             $aluno->updated_at = now();
             $aluno->save();
+            return back()->with('success', 'Aluno aprovado: ' . $cert->pontosGerados . ' pontos.');
         }
 
         return back()->with('success', 'Certificado aprovado com ' . $cert->pontosGerados . ' pontos.');

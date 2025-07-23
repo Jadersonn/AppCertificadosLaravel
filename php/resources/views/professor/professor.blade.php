@@ -5,6 +5,19 @@
 @endpush
 
 @section('main')
+    {{-- ALERTAS DE SUCESSO E ERRO --}}
+    @if (session('success'))
+        <script>
+            alert(@json(session('success')));
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            alert(@json(session('error')));
+        </script>
+    @endif
+
     {{-- CERTIFICADOS RECEBIDOS --}}
     @include('professor.certificadosRecebidos')
     

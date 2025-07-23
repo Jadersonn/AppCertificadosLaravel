@@ -35,7 +35,7 @@
                 @forelse($certificados as $certificado)
                     <tr>
                         <td>{{ $certificado->atividadeComplementar->nomeAtividadeComplementar ?? '-' }}</td>
-                        <td>{{ $certificado->atividadeComplementar->tipoAtividade->idTipoAtividade  }}.{{ $certificado->atividadeComplementar->idAtividadeComplementar}}</td>
+                        <td>{{ $certificado->atividadeComplementar->indice }}</td>
                         <td>{{ \Carbon\Carbon::parse($certificado->dataEnvio)->format('d/m/Y') }}</td>
                         <td>{{ $certificado->semestre ?? '-' }}</td>
                         <td>{{ $certificado->pontosGerados }}</td>

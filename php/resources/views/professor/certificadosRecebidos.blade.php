@@ -6,7 +6,7 @@
 <div class="certificados-recebidos-box">
     <h2>CERTIFICADOS RECEBIDOS</h2>
     <div class="certificados-tabela-container">
-        <div  class="certificados-tabela-scroll">
+        <div class="certificados-tabela-scroll">
             <table class="certificados-tabela">
                 <thead>
                     <tr>
