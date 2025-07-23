@@ -11,4 +11,3 @@ import mask from '@alpinejs/mask'
  
 Alpine.plugin(mask)
 
-import './modalTurmas.js';
