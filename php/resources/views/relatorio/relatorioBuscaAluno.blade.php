@@ -26,6 +26,8 @@
                 @else
                     <span style="color:gray;">Indefinido</span>
                 @endif
+                <br>
+                <strong>Pontos:</strong> {{ $aluno->pontosRecebidos }}
             </div>
             <div class="info"><strong>Turma:</strong> {{ $aluno->turma->nome ?? '-' }}</div>
 
@@ -53,7 +55,8 @@
                             <td>{{ $certificado->justificativa ?? '-' }}</td>
                             <td>{{ \Carbon\Carbon::parse($certificado->dataEnvio)->format('d/m/Y') }}</td>
                             <td>
-                                <a href="{{ url('/certificados/visualizar/' . $certificado->idCertificado) }}" target="_blank">Visualizar</a>
+                                <a href="{{ url('/certificados/visualizar/' . $certificado->idCertificado) }}"
+                                    target="_blank">Visualizar</a>
                             </td>
                         </tr>
                     @empty

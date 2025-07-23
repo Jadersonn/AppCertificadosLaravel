@@ -22,8 +22,15 @@ class DatabaseSeeder extends Seeder
     {
         // Cria Turma(s)
         $turmaA = Turma::create([
-            'nome' => 'Turma A',
+            'nome' => '32215',
         ]);
+        $turmaB = Turma::create([
+            'nome' => '32216',
+        ]);
+        $turmaC = Turma::create([
+            'nome' => '1229',
+        ]);
+
 
         // Cria usuários com diversas funções
         $adminUser = User::create([
@@ -35,7 +42,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $professorUser = User::create([
-            'name'          => 'Professor',
+            'name'          => 'Professor Exemplo',
             'email'         => 'professor@example.com',
             'password'      => Hash::make('senha123'),
             'numIdentidade' => '1111111111',
@@ -47,6 +54,22 @@ class DatabaseSeeder extends Seeder
             'email'         => 'aluno@example.com',
             'password'      => Hash::make('senha123'),
             'numIdentidade' => '2222222222',
+            'funcao'        => 'aluno',
+        ]);
+
+        $alunoUser2 = User::create([
+            'name'          => 'Aluno Da Silva 2',
+            'email'         => 'aluno2@example.com',
+            'password'      => Hash::make('senha123'),
+            'numIdentidade' => '3333333333',
+            'funcao'        => 'aluno',
+        ]);
+
+        $alunoUser3 = User::create([
+            'name'          => 'Aluno Da Silva 3',
+            'email'         => 'aluno3@example.com',
+            'password'      => Hash::make('senha123'),
+            'numIdentidade' => '4444444444',
             'funcao'        => 'aluno',
         ]);
 
@@ -62,6 +85,23 @@ class DatabaseSeeder extends Seeder
         $aluno = Aluno::create([
             'user_id'           => $alunoUser->getKey(),
             'idTurma'           => $turmaA->getKey(),
+            'dataIngresso'      => Carbon::now(),
+            'dataConclusao'     => null,
+            'statusDeConclusao' => 'em andamento',
+            'pontosRecebidos'   => 0,
+        ]);
+
+        $aluno2 = Aluno::create([
+            'user_id'           => $alunoUser2->getKey(),
+            'idTurma'           => $turmaB->getKey(),
+            'dataIngresso'      => Carbon::now(),
+            'dataConclusao'     => null,
+            'statusDeConclusao' => 'em andamento',
+            'pontosRecebidos'   => 0,
+        ]);
+        $aluno3 = Aluno::create([
+            'user_id'           => $alunoUser3->getKey(),
+            'idTurma'           => $turmaC->getKey(),
             'dataIngresso'      => Carbon::now(),
             'dataConclusao'     => null,
             'statusDeConclusao' => 'em andamento',
@@ -233,7 +273,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Certificado::create([
-            'idAluno'                 => $aluno->getKey(),
+            'idAluno'                 => $aluno2->getKey(),
             'idAtividadeComplementar' => $enriquecimento_atividade1->getKey(),
             'dataEnvio'               => Carbon::now()->toDateString(),
             'statusCertificado'       => 'pendente',
@@ -242,11 +282,11 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria'            => 5,
             'semestre'                => '2025-1',
             'idProfessor'             => null,
-            'pontosGerados'           => 10,
+            'pontosGerados' => 0,
         ]);
 
-                Certificado::create([
-            'idAluno' => $aluno->getKey(),
+        Certificado::create([
+            'idAluno' => $aluno2->getKey(),
             'idAtividadeComplementar' => $enriquecimento_atividade2->getKey(),
             'dataEnvio' => Carbon::now()->toDateString(),
             'statusCertificado' => 'pendente',
@@ -255,7 +295,7 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria' => 10,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 15,
+            'pontosGerados' => 0,
         ]);
 
         Certificado::create([
@@ -268,20 +308,20 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria' => 20,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 25,
+            'pontosGerados' => 0,
         ]);
 
         Certificado::create([
             'idAluno' => $aluno->getKey(),
             'idAtividadeComplementar' => $vivencia_atividade1->getKey(),
             'dataEnvio' => Carbon::now()->toDateString(),
-            'statusCertificado' => 'aprovado',
+            'statusCertificado' => 'pendente',
             'justificativa' => null,
             'caminhoArquivo' => 'certificados/evento.pdf',
             'cargaHoraria' => 15,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 15,
+            'pontosGerados' => 0,
         ]);
 
         Certificado::create([
@@ -294,24 +334,24 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria' => 5,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 8,
+            'pontosGerados' => 0,
         ]);
 
         Certificado::create([
-            'idAluno' => $aluno->getKey(),
+            'idAluno' => $aluno3->getKey(),
             'idAtividadeComplementar' => $pesquisa_atividade1->getKey(),
             'dataEnvio' => Carbon::now()->subDays(10)->toDateString(),
-            'statusCertificado' => 'aprovado',
+            'statusCertificado' => 'pendente',
             'justificativa' => null,
             'caminhoArquivo' => 'certificados/pesquisa.pdf',
             'cargaHoraria' => 30,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 35,
+            'pontosGerados' => 0,
         ]);
 
         Certificado::create([
-            'idAluno' => $aluno->getKey(),
+            'idAluno' => $aluno3->getKey(),
             'idAtividadeComplementar' => $docencia_atividade2->getKey(),
             'dataEnvio' => Carbon::now()->toDateString(),
             'statusCertificado' => 'pendente',
@@ -320,11 +360,11 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria' => 12,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 20,
+            'pontosGerados' => 0,
         ]);
 
         Certificado::create([
-            'idAluno' => $aluno->getKey(),
+            'idAluno' => $aluno3->getKey(),
             'idAtividadeComplementar' => $vivencia_atividade3->getKey(),
             'dataEnvio' => Carbon::now()->toDateString(),
             'statusCertificado' => 'rejeitado',
@@ -337,7 +377,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Certificado::create([
-            'idAluno' => $aluno->getKey(),
+            'idAluno' => $aluno3->getKey(),
             'idAtividadeComplementar' => $pesquisa_atividade3->getKey(),
             'dataEnvio' => Carbon::now()->toDateString(),
             'statusCertificado' => 'pendente',
@@ -346,11 +386,11 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria' => 25,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 40,
+            'pontosGerados' => 0,
         ]);
 
         Certificado::create([
-            'idAluno' => $aluno->getKey(),
+            'idAluno' => $aluno3->getKey(),
             'idAtividadeComplementar' => $vivencia_atividade4->getKey(),
             'dataEnvio' => Carbon::now()->toDateString(),
             'statusCertificado' => 'pendente',
@@ -359,24 +399,24 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria' => 15,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 20,
+            'pontosGerados' => 0,
         ]);
 
         Certificado::create([
-            'idAluno' => $aluno->getKey(),
+            'idAluno' => $aluno2->getKey(),
             'idAtividadeComplementar' => $pesquisa_atividade4->getKey(),
             'dataEnvio' => Carbon::now()->toDateString(),
-            'statusCertificado' => 'aprovado',
+            'statusCertificado' => 'pendente',
             'justificativa' => null,
             'caminhoArquivo' => 'certificados/resumo_artigo.pdf',
             'cargaHoraria' => 20,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 30,
+            'pontosGerados' => 0,
         ]);
 
         Certificado::create([
-            'idAluno' => $aluno->getKey(),
+            'idAluno' => $aluno2->getKey(),
             'idAtividadeComplementar' => $vivencia_atividade5->getKey(),
             'dataEnvio' => Carbon::now()->toDateString(),
             'statusCertificado' => 'pendente',
@@ -385,11 +425,11 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria' => 12,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 15,
+            'pontosGerados' => 0,
         ]);
 
         Certificado::create([
-            'idAluno' => $aluno->getKey(),
+            'idAluno' => $aluno2->getKey(),
             'idAtividadeComplementar' => $vivencia_atividade6->getKey(),
             'dataEnvio' => Carbon::now()->toDateString(),
             'statusCertificado' => 'pendente',
@@ -398,11 +438,11 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria' => 18,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 22,
+            'pontosGerados' => 0,
         ]);
 
         Certificado::create([
-            'idAluno' => $aluno->getKey(),
+            'idAluno' => $aluno2->getKey(),
             'idAtividadeComplementar' => $pesquisa_atividade5->getKey(),
             'dataEnvio' => Carbon::now()->toDateString(),
             'statusCertificado' => 'pendente',
@@ -411,11 +451,11 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria' => 8,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 10,
+            'pontosGerados' => 0,
         ]);
 
         Certificado::create([
-            'idAluno' => $aluno->getKey(),
+            'idAluno' => $aluno2->getKey(),
             'idAtividadeComplementar' => $docencia_atividade3->getKey(),
             'dataEnvio' => Carbon::now()->toDateString(),
             'statusCertificado' => 'pendente',
@@ -424,7 +464,7 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria' => 10,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 12,
+            'pontosGerados' => 0,
         ]);
         Certificado::create([
             'idAluno' => $aluno->getKey(),
@@ -436,8 +476,216 @@ class DatabaseSeeder extends Seeder
             'cargaHoraria' => 20,
             'semestre' => '2025-1',
             'idProfessor' => null,
-            'pontosGerados' => 25,
+            'pontosGerados' => 0,
         ]);
+
+        Certificado::create([
+            'idAluno'                 => $aluno2->getKey(),
+            'idAtividadeComplementar' => $enriquecimento_atividade1->getKey(),
+            'dataEnvio'               => Carbon::now()->toDateString(),
+            'statusCertificado'       => 'pendente',
+            'justificativa'           => null,
+            'caminhoArquivo'          => 'certificados/palestra.pdf',
+            'cargaHoraria'            => 5,
+            'semestre'                => '2025-1',
+            'idProfessor'             => null,
+            'pontosGerados' => 0,
+        ]);
+
+        Certificado::create([
+            'idAluno' => $aluno2->getKey(),
+            'idAtividadeComplementar' => $enriquecimento_atividade2->getKey(),
+            'dataEnvio' => Carbon::now()->toDateString(),
+            'statusCertificado' => 'pendente',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/visita_tecnica.pdf',
+            'cargaHoraria' => 10,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 0,
+        ]);
+
+        Certificado::create([
+            'idAluno' => $aluno->getKey(),
+            'idAtividadeComplementar' => $docencia_atividade1->getKey(),
+            'dataEnvio' => Carbon::now()->toDateString(),
+            'statusCertificado' => 'pendente',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/monitoria.pdf',
+            'cargaHoraria' => 20,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 0,
+        ]);
+
+        Certificado::create([
+            'idAluno' => $aluno->getKey(),
+            'idAtividadeComplementar' => $vivencia_atividade1->getKey(),
+            'dataEnvio' => Carbon::now()->toDateString(),
+            'statusCertificado' => 'pendente',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/evento.pdf',
+            'cargaHoraria' => 15,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 0,
+        ]);
+
+        Certificado::create([
+            'idAluno' => $aluno->getKey(),
+            'idAtividadeComplementar' => $vivencia_atividade2->getKey(),
+            'dataEnvio' => Carbon::now()->subDays(5)->toDateString(),
+            'statusCertificado' => 'pendente',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/lideranca.pdf',
+            'cargaHoraria' => 5,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 0,
+        ]);
+
+        Certificado::create([
+            'idAluno' => $aluno3->getKey(),
+            'idAtividadeComplementar' => $pesquisa_atividade1->getKey(),
+            'dataEnvio' => Carbon::now()->subDays(10)->toDateString(),
+            'statusCertificado' => 'pendente',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/pesquisa.pdf',
+            'cargaHoraria' => 30,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 0,
+        ]);
+
+        Certificado::create([
+            'idAluno' => $aluno3->getKey(),
+            'idAtividadeComplementar' => $docencia_atividade2->getKey(),
+            'dataEnvio' => Carbon::now()->toDateString(),
+            'statusCertificado' => 'pendente',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/palestra.pdf',
+            'cargaHoraria' => 12,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 0,
+        ]);
+
+        Certificado::create([
+            'idAluno' => $aluno3->getKey(),
+            'idAtividadeComplementar' => $vivencia_atividade3->getKey(),
+            'dataEnvio' => Carbon::now()->toDateString(),
+            'statusCertificado' => 'rejeitado',
+            'justificativa' => 'Carga horária incompatível com o evento.',
+            'caminhoArquivo' => 'certificados/banca_tcc.pdf',
+            'cargaHoraria' => 8,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 0,
+        ]);
+
+        Certificado::create([
+            'idAluno' => $aluno3->getKey(),
+            'idAtividadeComplementar' => $pesquisa_atividade3->getKey(),
+            'dataEnvio' => Carbon::now()->toDateString(),
+            'statusCertificado' => 'pendente',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/artigo.pdf',
+            'cargaHoraria' => 25,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 0,
+        ]);
+
+        Certificado::create([
+            'idAluno' => $aluno3->getKey(),
+            'idAtividadeComplementar' => $vivencia_atividade4->getKey(),
+            'dataEnvio' => Carbon::now()->toDateString(),
+            'statusCertificado' => 'pendente',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/congresso.pdf',
+            'cargaHoraria' => 15,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 0,
+        ]);
+
+        Certificado::create([
+            'idAluno' => $aluno2->getKey(),
+            'idAtividadeComplementar' => $pesquisa_atividade4->getKey(),
+            'dataEnvio' => Carbon::now()->toDateString(),
+            'statusCertificado' => 'pendente',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/resumo_artigo.pdf',
+            'cargaHoraria' => 20,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 0,
+        ]);
+
+        Certificado::create([
+            'idAluno' => $aluno2->getKey(),
+            'idAtividadeComplementar' => $vivencia_atividade5->getKey(),
+            'dataEnvio' => Carbon::now()->toDateString(),
+            'statusCertificado' => 'pendente',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/visita_area.pdf',
+            'cargaHoraria' => 12,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 0,
+        ]);
+
+        Certificado::create([
+            'idAluno' => $aluno2->getKey(),
+            'idAtividadeComplementar' => $vivencia_atividade6->getKey(),
+            'dataEnvio' => Carbon::now()->toDateString(),
+            'statusCertificado' => 'pendente',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/incubacao.pdf',
+            'cargaHoraria' => 18,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 0,
+        ]);
+
+        Certificado::create([
+            'idAluno' => $aluno2->getKey(),
+            'idAtividadeComplementar' => $pesquisa_atividade5->getKey(),
+            'dataEnvio' => Carbon::now()->toDateString(),
+            'statusCertificado' => 'pendente',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/materia_jornal.pdf',
+            'cargaHoraria' => 8,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 0,
+        ]);
+
+        Certificado::create([
+            'idAluno' => $aluno2->getKey(),
+            'idAtividadeComplementar' => $docencia_atividade3->getKey(),
+            'dataEnvio' => Carbon::now()->toDateString(),
+            'statusCertificado' => 'pendente',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/pedagogica.pdf',
+            'cargaHoraria' => 10,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 0,
+        ]);
+        Certificado::create([
+            'idAluno' => $aluno->getKey(),
+            'idAtividadeComplementar' => $enriquecimento_atividade3->getKey(),
+            'dataEnvio' => Carbon::now()->toDateString(),
+            'statusCertificado' => 'pendente',
+            'justificativa' => null,
+            'caminhoArquivo' => 'certificados/curso_lingua.pdf',
+            'cargaHoraria' => 20,
+            'semestre' => '2025-1',
+            'idProfessor' => null,
+            'pontosGerados' => 0,
+        ]);
+
 
     }
 }

@@ -228,25 +228,30 @@ class CertificadoController extends Controller
             $pontosCertificado = $maxCategoriaCurso - $pontosCategoriaCurso;
         }
 
-        if ($pontosTotalCurso >= 120) {
-            info("Limite total do curso (120 pontos) atingido.");
-            return back()->with('error', 'Limite total do curso (120 pontos) atingido.');
-        }
 
         // Se passou em todas as verificações, aprova e salva
         $cert->statusCertificado = 'aprovado';
-        $cert->idProfessor = Auth::id();
+        $cert->idProfessor = Professor::getIdByUserId(Auth::user()->id);
 
         // Ajusta pontos gerados para não ultrapassar 120 (se necessário)
         $limiteRestante = 120 - $pontosTotalCurso;
         $cert->pontosGerados = min($pontosCertificado, $limiteRestante);
         info("Pontos Salvos: $cert->pontosGerados");
+        info("");
+        $cert->justificativa = 'Aprovado pelo professor ' . Auth::user()->name;
         $cert->updated_at = now();
         $cert->save();
+
+        // Atualiza os pontos do aluno
+        $aluno = Aluno::findOrFail($alunoId);
+        $aluno->pontosRecebidos += $cert->pontosGerados;
+        $aluno->updated_at = now();
+        $aluno->save();
 
         if ($pontosTotalCurso == 120) {
             // Atualiza status do aluno para aprovado se atingir 120 pontos
             $aluno = Aluno::findOrFail($alunoId);
+            $aluno->dataConclusao = now();
             $aluno->statusDeConclusao = 'aprovado';
             $aluno->updated_at = now();
             $aluno->save();
@@ -492,7 +497,7 @@ class CertificadoController extends Controller
                 'c.dataEnvio',
                 'c.pontosGerados'
             )
-            ->orderBy('c.dataEnvio', 'desc')
+            ->orderBy('c.dataEnvio', 'desc')    
             ->get();
         return view('relatorio.relatorioCertificados', compact('certificados'));
     }
@@ -560,6 +565,7 @@ class CertificadoController extends Controller
             'semestre',
             'statusCertificado',
             'justificativa',
+            'idProfessor',
             'idAtividadeComplementar',
             'idTipoAtividade'
         ]));

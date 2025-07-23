@@ -23,6 +23,11 @@ class Professor extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public static function getIdByUserId($userId)
+    {
+        $professor = self::where('user_id', $userId)->first();
+        return $professor ? $professor->idProfessor : null;
+    }
     
 }
 

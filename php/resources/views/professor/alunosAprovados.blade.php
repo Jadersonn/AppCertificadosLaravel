@@ -16,7 +16,7 @@
                     <tr>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->turma }}</td>
-                        <td>{{ $item->dataConclusao }}</td>
+                        <td>{{ \Carbon\Carbon::parse($item->dataConclusao)->format('d/m/Y') }}</td>
                         <td><a href="{{ route('certificado.relatorioSuap', ['id' => $item->idAluno]) }}" target="_blank">Visualizar</a></td>
                     </tr>
                 @endforeach
