@@ -228,13 +228,17 @@ class CertificadoController extends Controller
             $pontosCertificado = $maxCategoriaCurso - $pontosCategoriaCurso;
         }
 
-
         // Se passou em todas as verificações, aprova e salva
         $cert->statusCertificado = 'aprovado';
         $cert->idProfessor = Professor::getIdByUserId(Auth::user()->id);
 
         // Ajusta pontos gerados para não ultrapassar 120 (se necessário)
         $limiteRestante = 120 - $pontosTotalCurso;
+        //busca indice da atividade complementar
+        $indiceAtividade = AtividadeComplementar::findOrFail($cert->idAtividadeComplementar)->indice;
+        info("Índice da Atividade: $indiceAtividade");
+        // Calcula os pontos de acordo com a lógica definida
+        $pontosCertificado = $this->logicaPonto($indiceAtividade, $pontosCertificado);
         $cert->pontosGerados = min($pontosCertificado, $limiteRestante);
         info("Pontos Salvos: $cert->pontosGerados");
         info("");
@@ -258,6 +262,50 @@ class CertificadoController extends Controller
         }
 
         return back()->with('success', 'Certificado aprovado com ' . $cert->pontosGerados . ' pontos.');
+    }
+
+    function logicaPonto($indice, $pontos)
+    {
+        switch ($indice) {
+            case 1.1:
+                return 5; // 5 pontos por atividade
+            case 1.2:
+                return 5; // 5 pontos por visita
+            case 1.3:
+                return $pontos; // 1 ponto por hora
+            case 1.4:
+                return 10; // 10 pontos por documento
+            case 2.1:
+                return 15; // 15 pontos por participação
+            case 2.2:
+                return 10; // 10 pontos por participação
+            case 2.3:
+                return 5; // 5 pontos por participação
+            case 3.1:
+                return $pontos; // 1 ponto por hora
+            case 3.2:
+                return 5; // 5 pontos por participação
+            case 3.3:
+                return 3; // 3 pontos por participação
+            case 3.4:
+                return $pontos; // 1 ponto por hora
+            case 3.5:
+                return $pontos; // 1 ponto por hora
+            case 3.6:
+                return $pontos * 7.5; // 7,5 pontos por mês
+            case 4.1:
+                return $pontos * 7.5; // 7,5 pontos por mês
+            case 4.2:
+                return $pontos * 7.5; // 7,5 pontos por mês
+            case 4.3:
+                return 25; // 25 pontos por publicação
+            case 4.4:
+                return 15; // 15 pontos por publicação
+            case 4.5:
+                return 5; // 5 pontos por publicação
+            default:
+                return $pontos; // Caso não tenha correspondência, retorna o próprio valor
+        }
     }
 
 
@@ -497,7 +545,7 @@ class CertificadoController extends Controller
                 'c.dataEnvio',
                 'c.pontosGerados'
             )
-            ->orderBy('c.dataEnvio', 'desc')    
+            ->orderBy('c.dataEnvio', 'desc')
             ->get();
         return view('relatorio.relatorioCertificados', compact('certificados'));
     }
@@ -574,6 +622,4 @@ class CertificadoController extends Controller
 
         return redirect()->back()->with('success', 'Certificado atualizado com sucesso!');
     }
-
-    
 }
