@@ -751,3 +751,21 @@ textarea {
   min-height: 80px;
   outline: none;
 }
+.baixar-btn {
+  left: 90%;
+  /* ajuste conforme a largura da barra */
+  width: 70px;
+  height: 28px;
+  background: #00722d;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.baixar-btn:hover {
+  background: #005f2d;
+}

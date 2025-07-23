@@ -32,8 +32,8 @@
                 <td>{{ $certificado->semestre ?? '-' }}</td>
                 <td>
                     @if (!empty($certificado->idCertificado))
-                        <a class="link" href="{{  url('/certificados/visualizar/' . $certificado->idCertificado) }}" target="_blank">
-                            <button>Baixar</button>
+                        <a  href="{{  url('/certificados/visualizar/' . $certificado->idCertificado) }}" target="_blank">
+                            <button class="baixar-btn">Baixar</button>
                         </a>
                     @else
                         -
