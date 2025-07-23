@@ -119,4 +119,5 @@ Route::get('/relatorio/aluno/{numIdentidade}', [AlunoController::class, 'relator
 Route::post('/relatorio', [CertificadoController::class, 'gerarRelatorio'])->middleware('auth')->name('certificado.relatorio');
 Route::get('/relatorio/historico/{numIdentidade}', [CertificadoController::class, 'historicoProfessor'])->middleware('auth')->name('certificado.historico');
 Route::get('/relatorio/suap/{id}', [ConclusaoController::class, 'relatorioSuap'])->name('certificado.relatorioSuap');
+Route::get('/relatorio/turma/{id}', [TurmaController::class, 'relatorioTurma'])->name('relatorio.turma');
 require __DIR__ . '/auth.php';

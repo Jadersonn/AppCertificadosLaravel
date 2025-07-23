@@ -18,14 +18,29 @@ class ConclusaoController extends Controller
             'ano_conclusao' => 'required|string|max:10',
         ]);
 
-        $conclusao = \App\Models\Conclusao::create([
-            'curso' => $request->curso,
-            'turno' => $request->turno,
-            'ano_ingresso' => $request->ano_ingresso,
-            'ano_conclusao' => $request->ano_conclusao,
-            'idAluno' => Auth::user()->aluno->idAluno,
-            'preenchido' => true
-        ]);
+        //procura o conclusao existente para o aluno pelo idAluno
+        $conclusao = \App\Models\Conclusao::where('idAluno', Auth::user()->aluno->idAluno)->first();
+
+        if ($conclusao) {
+            // Se a conclusão já existir, atualiza os campos
+            $conclusao->update([
+                'curso' => $request->curso,
+                'turno' => $request->turno,
+                'ano_ingresso' => $request->ano_ingresso,
+                'ano_conclusao' => $request->ano_conclusao,
+                'idAluno' => Auth::user()->aluno->idAluno,
+                'preenchido' => true
+            ]);
+        } else {
+            $conclusao = \App\Models\Conclusao::create([
+                'curso' => $request->curso,
+                'turno' => $request->turno,
+                'ano_ingresso' => $request->ano_ingresso,
+                'ano_conclusao' => $request->ano_conclusao,
+                'idAluno' => Auth::user()->aluno->idAluno,
+                'preenchido' => true
+            ]);
+        }
 
         return redirect()->back()->with('success', 'Informações de conclusão salvas com sucesso!');
     }
@@ -37,6 +52,12 @@ class ConclusaoController extends Controller
         if ($aluno->statusDeConclusao !== 'aprovado') {
             return redirect()->back()->withErrors(['aluno' => 'Aluno não está aprovado.']);
         }
+        //procura o conclusao existente para o aluno pelo idAluno
+        $conclusao = \App\Models\Conclusao::where('idAluno', $aluno->idAluno)->first();
+        if (!$conclusao || !$conclusao->preenchido) {
+            return redirect()->back()->withErrors(['conclusao' => 'Aluno ainda não preencheu o certificado de conclusão.']);
+        }
+
 
         $certificados = \App\Models\Certificado::where('idAluno', $aluno->idAluno)
             ->where('statusCertificado', 'aprovado')

@@ -82,7 +82,7 @@ class ProfessorController extends Controller
         $categorias = DB::table('tipos_atividades')
             ->select('idTipoAtividade', 'nome')
             ->get();
-        
+
         //buscando subcategorias
         $subcategorias = DB::table('atividades_complementares')
             ->select('idAtividadeComplementar', 'nomeAtividadeComplementar')
@@ -130,6 +130,16 @@ class ProfessorController extends Controller
             ->orderBy('turmas.nome')
             ->get();
 
+        $turmasAprovados = DB::table('turmas')
+            ->leftJoin('alunos', 'alunos.idTurma', '=', 'turmas.id')
+            ->select(
+                'turmas.id',
+                'turmas.nome',
+                DB::raw("COUNT(CASE WHEN alunos.statusDeConclusao = 'aprovado' THEN 1 END) as totalAlunosAprovados")
+            )
+            ->groupBy('turmas.id', 'turmas.nome')
+            ->orderBy('turmas.nome')
+            ->get();
 
         //SELECT idAluno, name, numIdentidade, idTurma FROM users join alunos on alunos.user_id = users.id;
         $alunos = DB::table('users')
@@ -173,7 +183,7 @@ class ProfessorController extends Controller
             ->orderBy('certificados.dataEnvio', 'desc')
             ->get();
 
-        return view('administrador.administrador', compact('administrador', 'turmas', 'alunos', 'professores', 'aprovados', 'certificados'));
+        return view('administrador.administrador', compact('administrador', 'turmas', 'turmasAprovados', 'alunos', 'professores', 'aprovados', 'certificados'));
     }
 
     public function update(Request $request, $id)

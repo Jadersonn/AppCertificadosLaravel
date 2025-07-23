@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Turma;
 use Illuminate\Http\Request;
 use App\Models\Aluno;
+use Illuminate\Support\Facades\DB;
 
 class TurmaController extends Controller
 {
@@ -54,4 +55,21 @@ class TurmaController extends Controller
         return redirect()->back()->with('success', 'Alunos adicionados à turma com sucesso.');
     }
 
+    public function relatorioTurma(Request $request, $id)
+    {
+        $turma = Turma::findOrFail($id);
+        $alunos = DB::table('alunos')
+            ->join('users', 'alunos.user_id', '=', 'users.id')
+            ->select([
+                'users.name',
+                'users.email',
+                'users.numIdentidade',
+                'alunos.statusDeConclusao',
+                'alunos.idAluno'
+            ])
+            ->where('alunos.idTurma', $turma->id)
+            ->get();
+
+        return view('relatorio.relatorioBuscaTurma', compact('turma', 'alunos'));
+    }
 }

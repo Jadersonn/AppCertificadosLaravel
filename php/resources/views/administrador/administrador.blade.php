@@ -129,19 +129,19 @@
                     <table class="tabela-aprovados tabela-pequena busca-tabela busca-tabela-scroll">
                         <thead>
                             <tr>
-                                <th>TURMAS</th>
+                                <th>TURMA</th>
                                 <th>RELATÓRIO</th>
                                 <th>CONCLUSÃO</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @for ($i = 0; $i < 10; $i++)
+                            @foreach ($turmasAprovados as $turma)
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ $turma->nome }}</td>
+                                    <td><a href="{{ route('relatorio.turma', ['id' => $turma->id]) }}" target="_blank">Visualizar</a></td>
+                                    <td>{{ $turma->totalAlunosAprovados }}</td>
                                 </tr>
-                            @endfor
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
