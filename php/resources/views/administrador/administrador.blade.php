@@ -174,3 +174,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.btn-voltar-aprovados').style.display = 'none';
 });
 </script>
+
+@if ($errors->has('conclusao'))
+    <script>
+        alert("{{ $errors->first('conclusao') }}");
+    </script>
+@endif

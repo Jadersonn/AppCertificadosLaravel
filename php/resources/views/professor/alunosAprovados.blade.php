@@ -24,3 +24,8 @@
         </table>
     </div>
 </div>
+@if ($errors->has('conclusao'))
+    <script>
+        alert("{{ $errors->first('conclusao') }}");
+    </script>
+@endif
