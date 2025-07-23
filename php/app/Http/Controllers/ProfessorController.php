@@ -88,7 +88,19 @@ class ProfessorController extends Controller
             ->select('idAtividadeComplementar', 'nomeAtividadeComplementar')
             ->get();
 
-        return view('professor.professor', compact('professor', 'certificados', 'aprovados', 'categorias', 'subcategorias'));
+        $alunos = DB::table('users')
+            ->join('alunos', 'alunos.user_id', '=', 'users.id')
+            ->leftJoin('turmas', 'turmas.id', '=', 'alunos.idTurma')
+            ->select(
+                'alunos.idAluno',
+                'users.name',
+                'users.numIdentidade',
+                'alunos.idTurma',
+                'turmas.nome as nomeTurma'
+            )
+            ->get();
+
+        return view('professor.professor', compact('professor', 'certificados', 'aprovados', 'categorias', 'subcategorias', 'alunos'));
     }
 
     public function alunoAprovado()

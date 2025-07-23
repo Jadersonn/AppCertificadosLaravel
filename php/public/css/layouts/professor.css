@@ -1,147 +1,151 @@
 body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #00722d;
-    }
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #00722d;
+}
 
-    .container {
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; 
+    height: 100vh;
     width: 100vw;
-    }
+}
 
-    .login-box {
+.login-box {
     background-color: white;
-    border-radius: 10px; 
+    border-radius: 10px;
     display: flex;
-    width: 90vw;    
-    height: 86vh;   
+    width: 90vw;
+    height: 86vh;
     max-width: 1700px;
-    max-height: 1000px  ;
+    max-height: 1000px;
     overflow: hidden;
-    }
+}
 
-    .left-panel {
-      background-color: #00420C;
-      color: white;
-      padding: 30px 0 0 0;
-      text-align: center;
-      width: 200px;
-      min-width: 140px;
-      align-items: center;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      align-items: stretch;
-    }
+.left-panel {
+    background-color: #00420C;
+    color: white;
+    padding: 30px 0 0 0;
+    text-align: center;
+    width: 200px;
+    min-width: 140px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: stretch;
+}
 
-    .left-panel .logo {
-      width: 80px;
-      height: auto;
-      display: block;
-      font-size: 40px;
-      margin: 0 auto;
-    }
+.left-panel .logo {
+    width: 80px;
+    height: auto;
+    display: block;
+    font-size: 40px;
+    margin: 0 auto;
+}
 
-    .left-panel .title {
-      font-weight: bold;
-      margin-top: 35%;
-      font-size: 20px;
-    }
+.left-panel .title {
+    font-weight: bold;
+    margin-top: 35%;
+    font-size: 20px;
+}
 
-    .main-panel {
-      flex: 1;
-      padding: 0 50px 50px 50px;
+.main-panel {
+    flex: 1;
+    padding: 0 50px 50px 50px;
 
-    }
+}
 
-    h2 {
-      text-align: center;
-      color: #00420C;
-      margin-top: 0.5em;
-    }
+h2 {
+    text-align: center;
+    color: #00420C;
+    margin-top: 0.5em;
+}
 
-    p {
-      text-align: center;
-      color: #555;
-    }
+p {
+    text-align: center;
+    color: #555;
+}
 
-    div.title {
-      margin-top: 50%;
-    }
+div.title {
+    margin-top: 50%;
+}
 
-    .form-group {
-      margin: 20px 0;
-    }
+.form-group {
+    margin: 20px 0;
+}
 
-    input[type="text"],
-    input[type="password"] {
-      width: 100%;
-      padding: 12px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
 
-    .forgot-password {
-      text-align: right;
-      font-size: 12px;
-      margin-top: 8px;
-    }
+.forgot-password {
+    text-align: right;
+    font-size: 12px;
+    margin-top: 8px;
+}
 
-    .login-button {
-      width: 200%;
-      background-color: #00420C;
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 5px;
-      font-weight: bold;
-      cursor: pointer;
+.login-button {
+    width: 200%;
+    background-color: #00420C;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
 
-      display: block;
-      margin: 20px auto 0 auto;
-    }
+    display: block;
+    margin: 20px auto 0 auto;
+}
 
-    .footer {
-      text-align: center;
-      font-size: 11px;
-      color: #666;
-      margin-top: 40px;
-    }
-    .mt-4 {
-    margin-top: 50px; 
-    }
-    .menu {
-        flex: 1 0 auto;
-    }
-    .menu ul {
+.footer {
+    text-align: center;
+    font-size: 11px;
+    color: #666;
+    margin-top: 40px;
+}
+
+.mt-4 {
+    margin-top: 50px;
+}
+
+.menu {
+    flex: 1 0 auto;
+}
+
+.menu ul {
     list-style: none;
     padding: 0;
     margin-top: 30px;
-    }
+}
 
-    .menu li {
+.menu li {
     margin: 15px 0;
-    }
+}
 
-    .menu a {
+.menu a {
     color: #fff;
     text-decoration: none;
     font-weight: bold;
     font-size: 16px;
     transition: color 0.2s;
-    }
+}
 
-    .menu a:hover {
-    color:#0b611b;
-    }
-    .menu-btn {
+.menu a:hover {
+    color: #0b611b;
+}
+
+.menu-btn {
     display: block;
     width: 100%;
-    background-color:00350A;
+    background-color: 00350A;
     color: #fff;
     border: none;
     font-weight: bold;
@@ -153,17 +157,18 @@ body {
     cursor: pointer;
     transition: background 0.2s, color 0.2s;
     box-sizing: border-box;
-    }
+}
 
-    .menu-btn:hover {
+.menu-btn:hover {
     color: #0b611b;
-    }
-    .logout {
+}
+
+.logout {
     margin-top: auto;
     padding-bottom: 30px;
-    }
+}
 
-    .logout a {
+.logout a {
     color: #fff;
     text-decoration: none;
     font-weight: bold;
@@ -171,12 +176,13 @@ body {
     transition: color 0.2s;
     display: block;
     padding: 10px 0;
-    }
+}
 
-    .logout a:hover {
+.logout a:hover {
     color: #007c00;
-    }
-    .logout-btn {
+}
+
+.logout-btn {
     width: 100%;
     background-color: #002507;
     color: #fff;
@@ -190,14 +196,14 @@ body {
     box-sizing: border-box;
     margin: 0;
     display: block;
-    }
+}
 
-    .logout-btn:hover {
+.logout-btn:hover {
     background-color: #007c00;
     color: #00420C;
-    }
-    
-    .saudacao {
+}
+
+.saudacao {
     font-size: 1.7rem;
     font-weight: bold;
     color: #00420C;
@@ -206,29 +212,71 @@ body {
     text-align: left;
     padding-left: 24px;
     width: 100%;
-  }
-    .conteudo-centralizado {
+}
+
+.conteudo-centralizado {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center; 
+    align-items: center;
     margin-top: 30px;
-    }
+}
 
-  /* Cards Row */
+/* Cards Row */
 .professor-cards-row {
     display: flex;
     gap: 2vw;
     justify-content: center;
-    margin-top: 0.5em; /* cards mais para cima */
+    margin-top: 0.5em;
+    /* cards mais para cima */
     flex-wrap: wrap;
 }
+
+.busca-tabela {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.busca-tabela thead {
+    display: block;
+    width: 100%;
+    background: #e9ecef;
+    /* cor do fundo do cabeçalho */
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #ccc;
+    
+    /*diminuir tamanho da letra*/
+    font-size: 0.9em;
+}
+
+.busca-tabela tbody {
+    display: block;
+    max-height: 100px;
+    /* altura do scroll */
+    overflow-y: auto;
+    /*diminuir tamanho da letra*/
+    font-size: 0.8em;
+}
+
+.busca-tabela th,
+.busca-tabela td {
+    padding: 8px;
+    text-align: left;
+    width: 200px;
+    /* defina larguras fixas para alinhar certinho */
+    box-sizing: border-box;
+}
+
+
 
 /* Card */
 .professor-card {
     background: #D9D9D9;
     border-radius: 12px;
-    padding: 0.5em 1.2em 0.5em 1.2em; /* padding vertical menor, largura igual */
+    padding: 0.5em 1.2em 0.5em 1.2em;
+    /* padding vertical menor, largura igual */
     flex: 1 1 280px;
     max-width: 350px;
     min-width: 220px;
@@ -236,8 +284,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 0.7em; /* menos espaço entre os cards */
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    margin-bottom: 0.7em;
+    /* menos espaço entre os cards */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 /* Título */
@@ -353,8 +402,10 @@ body {
 .professor-card-table a:hover {
     color: #00420C;
 }
+
 .professor-card-table-scroll {
-    max-height: 220px;   /* ajuste a altura conforme necessário */
+    max-height: 220px;
+    /* ajuste a altura conforme necessário */
     overflow-y: auto;
     width: 100%;
 }
@@ -378,23 +429,26 @@ body {
     padding: 0 0 0.3em 0;
     margin-top: 0.2em;
     padding-bottom: 0.2em;
-    width: 100%;           /* largura maior */
+    width: 100%;
+    /* largura maior */
     margin-left: auto;
     margin-right: auto;
 }
 
 .certificados-tabela {
     width: 60%;
-    margin: 0 auto;       /* centraliza a tabela */
+    margin: 0 auto;
+    /* centraliza a tabela */
     border-collapse: collapse;
     background: #fff;
     font-size: 0.80rem;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     margin-bottom: 1.5em;
 }
 
-.certificados-tabela th, .certificados-tabela td {
+.certificados-tabela th,
+.certificados-tabela td {
     padding: 3px 4px;
     text-align: center;
     border-bottom: 1px solid #e0e0e0;
@@ -420,16 +474,24 @@ body {
 }
 
 /* Novas regras para a tabela */
-.certificados-table, .table {
-    width: 100%;           /* diminui a largura da tabela */
-    margin: 0 auto;       /* centraliza */
-    font-size: 0.75rem;   /* fonte menor */
+.certificados-table,
+.table {
+    width: 100%;
+    /* diminui a largura da tabela */
+    margin: 0 auto;
+    /* centraliza */
+    font-size: 0.75rem;
+    /* fonte menor */
 }
 
-.certificados-table th, .certificados-table td,
-.table th, .table td {
-    padding: 4px 0;    /* menos espaço interno */
-    text-align: center; /* centraliza o texto */
+.certificados-table th,
+.certificados-table td,
+.table th,
+.table td {
+    padding: 4px 0;
+    /* menos espaço interno */
+    text-align: center;
+    /* centraliza o texto */
     margin-top: -20px;
 }
 
@@ -444,7 +506,8 @@ body {
     position: sticky;
     top: 0;
     z-index: 10;
-    background: #e9ecef; /* mantém a cor do cabeçalho ao rolar */
+    background: #e9ecef;
+    /* mantém a cor do cabeçalho ao rolar */
 }
 
 /* Responsivo */
@@ -454,6 +517,7 @@ body {
         align-items: center;
         gap: 20px;
     }
+
     .professor-card {
         width: 98vw;
         max-width: 350px;
@@ -466,6 +530,7 @@ body {
         align-items: center;
         gap: 1.2em;
     }
+
     .professor-card {
         width: 90vw;
         max-width: 98vw;
@@ -486,4 +551,3 @@ body {
     border: none;
     border-radius: 8px;
 }
-

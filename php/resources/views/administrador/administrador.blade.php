@@ -15,7 +15,7 @@
                 <label for="turma">Turma:</label>
                 <input type="text" id="turma" name="turma" value="{{ request('turma') }}">
 
-                <button class="btn-buscar" type="submit">BUSCAR</button>
+                <button class="btn-buscar" type="submit">GERAR RELATÓRIO</button>
             </form>
             <div class="busca-tabela-scroll">
                 <table class="busca-tabela">
@@ -27,7 +27,7 @@
                             <th>RELATÓRIO PESSOAL</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tbodyBuscaAluno">
                         @if (isset($alunos) && count($alunos))
                             @foreach ($alunos as $index => $aluno)
                                 <tr>
@@ -180,3 +180,31 @@ document.addEventListener('DOMContentLoaded', function() {
         alert("{{ $errors->first('conclusao') }}");
     </script>
 @endif
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const nomeInput = document.getElementById('nome');
+    const turmaInput = document.getElementById('turma');
+    const tbody = document.getElementById('tbodyBuscaAluno');
+
+    function filtrarTabela() {
+        const nome = nomeInput.value.toLowerCase();
+        const turma = turmaInput.value.toLowerCase();
+
+        Array.from(tbody.querySelectorAll('tr')).forEach(function(row) {
+            const tdNome = row.children[1]?.textContent.toLowerCase() || '';
+            const tdTurma = row.children[2]?.textContent.toLowerCase() || '';
+
+            if ((nome === '' || tdNome.includes(nome)) &&
+                (turma === '' || tdTurma.includes(turma))) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+    nomeInput.addEventListener('input', filtrarTabela);
+    turmaInput.addEventListener('input', filtrarTabela);
+});
+</script>
