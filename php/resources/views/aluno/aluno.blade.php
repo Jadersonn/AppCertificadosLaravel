@@ -10,7 +10,7 @@
 @endpush
 <!-- circulo de progresso -->
 @section('right-panel')
-    <div class="card-container" >
+    <div class="card-container">
         <div class="progress-circle" data-percentage="{{ $aluno->pontosRecebidos }}" data-radius="60">
             <svg class="progress-ring" viewBox="0 0 130 130" preserveAspectRatio="xMidYMid meet">
                 <circle class="progress-ring-bg" cx="65" cy="65" r="60" />
@@ -32,6 +32,7 @@
                     Formulário de conclusão
                 </button>
             @else
+                <br><br>
                 <p class="card-text">Você ainda não concluiu o curso.</p><br><br>
                 <p class="card-text">Restam {{ 120 - $aluno->pontosRecebidos }} pontos para a conclusão.</p>
             @endif
