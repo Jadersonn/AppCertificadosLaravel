@@ -245,6 +245,7 @@ class CertificadoController extends Controller
 
         // Ajusta pontos gerados para não ultrapassar 120 (se necessário)
         $limiteRestante = 120 - $pontosTotalCurso;
+
         if ($pontosCertificado == 0) {
             //se os pontos do certificado forem 0, reprova o certificado
             $cert->statusCertificado = 'pendente';
@@ -253,6 +254,16 @@ class CertificadoController extends Controller
             $cert->save();
             return back()->with('error', 'Certificado não atendeu aos critérios para pontuação nessa subcategoria, caso válido, realoque.');
         }
+        if ($limiteRestante == 0) {
+            // Atualiza os pontos do aluno
+            $aluno = Aluno::findOrFail($alunoId);
+            $aluno->dataConclusao = now();
+            $aluno->statusDeConclusao = 'aprovado';
+            $aluno->updated_at = now();
+            $aluno->save();
+            return back()->with('success', 'Aluno aprovado: ' . $aluno->pontosRecebidos . ' pontos.');
+        }
+
         $cert->pontosGerados = min($pontosCertificado, $limiteRestante);
         //info("Pontos Salvos: $cert->pontosGerados");
         //info("");
@@ -265,16 +276,6 @@ class CertificadoController extends Controller
         $aluno->pontosRecebidos += $cert->pontosGerados;
         $aluno->updated_at = now();
         $aluno->save();
-
-        if ($pontosTotalCurso == 120) {
-            // Atualiza status do aluno para aprovado se atingir 120 pontos
-            $aluno = Aluno::findOrFail($alunoId);
-            $aluno->dataConclusao = now();
-            $aluno->statusDeConclusao = 'aprovado';
-            $aluno->updated_at = now();
-            $aluno->save();
-            return back()->with('success', 'Aluno aprovado: ' . $cert->pontosGerados . ' pontos.');
-        }
 
         return back()->with('success', 'Certificado aprovado com ' . $cert->pontosGerados . ' pontos.');
     }
